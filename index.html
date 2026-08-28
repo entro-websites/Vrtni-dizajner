@@ -175,6 +175,7 @@
 
   /* Fiksno zaglavlje ne sme da prekrije vrh sekcije na koju vodi link. */
   section[id]{scroll-margin-top:86px;}
+  .pr-card[id]{scroll-margin-top:100px;}
 
   @media (max-width:768px){
     .section{padding-top:64px; padding-bottom:64px;}
@@ -710,43 +711,88 @@
     .ticker-track{animation:none;}
   }
 
-  /* PROBLEM */
-  .problem-grid{
+  /* PROBLEM I RESENJE */
+  .pr-head{
+    text-align:center;
+    max-width:720px;
+    margin:0 auto 48px;
+  }
+
+  .pr-head .section-title{
+    max-width:24ch;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .pr-head .section-intro{margin-left:auto; margin-right:auto;}
+
+  .pr-cards{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:48px;
-    align-items:start;
+    gap:24px;
+    align-items:stretch;
   }
 
-  .problem-grid p{max-width:52ch;}
-
-  .problem-close{
-    border-left:3px solid var(--tertiary);
-    padding-left:18px;
-    margin-top:26px;
-    margin-bottom:0;
-    color:var(--text);
-    font-size:1.05rem;
-  }
-
-  .problem-card{
+  .pr-card{
+    display:flex;
+    flex-direction:column;
     border:1px solid var(--border);
     border-top:3px solid var(--accent-line);
     border-radius:var(--radius);
     background:var(--surface);
-    padding:30px 28px;
+    padding:32px 28px;
     transition:border-color 0.2s ease, background-color 0.3s ease;
   }
 
-  .problem-card h3{
-    font-family:var(--font-body);
-    font-size:1.02rem;
-    font-weight:600;
-    color:var(--text);
-    margin-bottom:22px;
+  .pr-card.is-solution{border-top-color:var(--primary);}
+
+  .pr-card-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:24px;
   }
 
-  .problem-list{
+  .pr-card-head h3{
+    font-family:var(--font-head);
+    font-size:clamp(1.4rem, 2.2vw, 1.85rem);
+    font-weight:600;
+    line-height:1.2;
+    margin:0;
+    color:var(--text);
+  }
+
+  .pr-pill{
+    flex:none;
+    font-size:0.76rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--tag-text);
+    background:var(--tag-bg);
+    border:1px solid var(--tag-border);
+    border-radius:999px;
+    padding:8px 16px;
+  }
+
+  .pr-card.is-solution .pr-pill{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:var(--on-primary);
+  }
+
+  .pr-panel{
+    flex:1;
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+
+  .pr-panel p{font-size:0.98rem; margin-bottom:20px;}
+
+  .pr-list{
     list-style:none;
     margin:0;
     padding:0;
@@ -755,16 +801,16 @@
     gap:16px;
   }
 
-  .problem-list li{
+  .pr-list li{
     display:flex;
     align-items:flex-start;
-    gap:13px;
+    gap:12px;
     font-size:0.96rem;
     line-height:1.55;
     color:var(--text-soft);
   }
 
-  .problem-mark{
+  .pr-mark{
     flex:none;
     width:24px;
     height:24px;
@@ -778,43 +824,138 @@
     justify-content:center;
   }
 
-  .problem-mark svg{width:12px; height:12px;}
+  .pr-mark svg{width:12px; height:12px;}
 
-  @media (max-width:768px){
-    .problem-grid{grid-template-columns:1fr;}
-    .problem-card{padding:26px 22px;}
+  .is-solution .pr-mark{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:var(--on-primary);
   }
 
-  /* RESENJE */
-  .resenje-grid{
-    display:grid;
-    grid-template-columns:0.9fr 1.1fr;
-    gap:48px;
+  .pr-foot{
+    display:flex;
     align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    min-height:52px;
+    margin-top:24px;
   }
 
-  .resenje-image{height:340px;}
+  .pr-foot-note{
+    font-size:0.88rem;
+    line-height:1.5;
+    color:var(--text-soft);
+    margin:0;
+    max-width:34ch;
+  }
+
+  @media (max-width:900px){
+    .pr-cards{grid-template-columns:1fr;}
+  }
 
   @media (max-width:768px){
-    .resenje-grid{grid-template-columns:1fr;}
-    .resenje-image{height:240px; order:2;}
-    .resenje-text{order:1;}
+    .pr-head{margin-bottom:32px;}
+    .pr-card{padding:26px 22px;}
+    .pr-panel{padding:20px;}
+    .pr-foot{flex-direction:column; align-items:flex-start; min-height:0;}
+    .pr-foot .btn{width:100%; text-align:center;}
   }
 
   /* KREDIBILITET */
   .kred-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:48px;
-    align-items:center;
+    grid-template-columns:0.95fr 1.05fr;
+    gap:64px;
+    align-items:start;
   }
 
-  .kred-image{height:300px;}
+  .kred-display{
+    font-size:clamp(2rem, 3.6vw, 2.9rem);
+    line-height:1.12;
+    margin-bottom:32px;
+    max-width:14ch;
+  }
+
+  .kred-display span{display:block;}
+  .kred-display .kred-accent{color:var(--accent-text);}
+
+  .kred-sub{
+    font-family:var(--font-body);
+    font-size:1.02rem;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:16px;
+  }
+
+  .kred-text p{max-width:46ch;}
+  .kred-text .kred-lead{color:var(--text);}
+
+  .kred-image{height:220px; margin-top:32px;}
+
+  .kred-list{
+    display:flex;
+    flex-direction:column;
+    gap:32px;
+  }
+
+  .kred-item{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+
+  .kred-icon{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:var(--field-bg);
+    border:1px solid var(--border);
+    color:var(--accent-text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 16px rgba(19,43,30,0.08);
+  }
+
+  .kred-icon svg{width:24px; height:24px;}
+
+  .kred-item.is-active .kred-icon{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:var(--on-primary);
+    box-shadow:0 6px 16px rgba(19,43,30,0.30);
+  }
+
+  .kred-item h3{
+    font-family:var(--font-body);
+    font-size:1.08rem;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:8px;
+  }
+
+  .kred-item.is-active h3{color:var(--accent-text);}
+
+  .kred-item p{
+    font-size:0.96rem;
+    line-height:1.6;
+    color:var(--text-soft);
+    margin:0;
+    max-width:44ch;
+  }
+
+  @media (max-width:900px){
+    .kred-grid{grid-template-columns:1fr; gap:40px;}
+    .kred-display{max-width:none;}
+  }
 
   @media (max-width:768px){
-    .kred-grid{grid-template-columns:1fr;}
-    .kred-text{order:1;}
-    .kred-image{order:2; height:220px;}
+    .kred-item{grid-template-columns:48px 1fr; gap:16px;}
+    .kred-icon{width:48px; height:48px;}
+    .kred-icon svg{width:20px; height:20px;}
+    .kred-list{gap:24px;}
+    .kred-image{height:200px;}
   }
 
   /* BENEFITI */
@@ -1511,57 +1652,84 @@
   </div>
 </div>
 
-<section class="section" id="problem">
+<section class="section alt" id="problem">
   <div class="wrap">
-    <span class="eyebrow">Problem</span>
-    <h2 class="section-title">Dvorište koje gledaš svaki dan, a ne znaš šta s njim</h2>
-    <div class="problem-grid">
-      <div class="problem-text">
-        <p>Ujutru pogledaš kroz prozor u parče zemlje koje ništa ne govori. Trava neravnomerno raste, ćošak pun korova, terasa gleda u prazan zid.</p>
-        <p>Kupio si nekoliko biljaka iz rasadnika i posadio ih onako kako si mislio da izgleda lepo. Do proleća je pola njih uvenulo, jer im to mesto i to sunce nisu odgovarali.</p>
-        <p class="problem-close">Prolaze meseci, pa godine, a dvorište ostaje isto. Prostor koji bi mogao da koristiš za ručak napolju, decu ili opuštanje uveče stoji neiskorišćen.</p>
-      </div>
-      <div class="problem-card">
-        <h3>Šta se ponavlja svake sezone</h3>
-        <ul class="problem-list">
-          <li>
-            <span class="problem-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-            <span>Trava raste neravnomerno, a ćošak svake godine zaraste u korov.</span>
-          </li>
-          <li>
-            <span class="problem-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-            <span>Biljke birane napamet uvenu do proleća, jer im tlo i sunce ne odgovaraju.</span>
-          </li>
-          <li>
-            <span class="problem-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-            <span>Terasa gleda u prazan zid, bez zaklona, senke i zelenila oko sebe.</span>
-          </li>
-          <li>
-            <span class="problem-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-            <span>Dvorište koje izbegavaš da pokažeš gostima, iako ga gledaš svaki dan.</span>
-          </li>
-          <li>
-            <span class="problem-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-            <span>Svaki plan stane na pitanju odakle početi: koje biljke, gde staza, kako celina.</span>
-          </li>
-        </ul>
-      </div>
+    <div class="pr-head">
+      <span class="eyebrow">Problem i rešenje</span>
+      <h2 class="section-title">Dvorište koje gledaš svaki dan, a ne znaš šta s njim</h2>
+      <p class="section-intro">Prolaze meseci, pa godine, a dvorište ostaje isto. Prostor koji bi mogao da koristiš za ručak napolju, decu ili opuštanje uveče stoji neiskorišćen.</p>
     </div>
-  </div>
-</section>
 
-<section class="section alt" id="resenje">
-  <div class="wrap">
-    <span class="eyebrow">Rešenje</span>
-    <div class="resenje-grid">
-      <div class="media-frame resenje-image">
-        <img class="media" src="assets/resenje-forme.jpg" width="942" height="1213" loading="lazy" decoding="async"
-             alt="Oblikovana četinarska forma sa kuglama šimšira i žardinjerama uz zid">
+    <div class="pr-cards">
+      <div class="pr-card">
+        <div class="pr-card-head">
+          <h3>Dvorište danas</h3>
+          <span class="pr-pill">Problem</span>
+        </div>
+        <div class="pr-panel">
+          <p>Ujutru pogledaš kroz prozor u parče zemlje koje ništa ne govori. Kupio si nekoliko biljaka iz rasadnika i posadio ih onako kako si mislio da izgleda lepo, a do proleća je pola njih uvenulo.</p>
+          <ul class="pr-list">
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <span>Trava raste neravnomerno, a ćošak svake godine zaraste u korov.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <span>Biljke birane napamet uvenu do proleća, jer im tlo i sunce ne odgovaraju.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <span>Terasa gleda u prazan zid, bez zaklona, senke i zelenila oko sebe.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <span>Dvorište koje izbegavaš da pokažeš gostima, iako ga gledaš svaki dan.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <span>Svaki plan stane na pitanju odakle početi: koje biljke, gde staza, kako celina.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="pr-foot">
+          <p class="pr-foot-note">Tako izgleda svaka sezona bez plana.</p>
+        </div>
       </div>
-      <div class="resenje-text">
-        <h2 class="section-title">Tu prestaje nagađanje, počinje plan</h2>
-        <p>Umesto da sam biraš biljke i nadaš se da će uspeti, radim s tobom od prve ideje do gotovog vrta. Analiziram prostor, tlo, sunce i tvoje potrebe, pa pravim dizajn koji ima smisla za tvoju kuću, tvoju klimu i tvoj način života.</p>
-        <p>Dobijaš 3D vizualizaciju pre nego što se zasadi i jedna biljka, tako da tačno znaš kako će vrt izgledati kad je gotov, ne tek kad radovi budu završeni.</p>
+
+      <div class="pr-card is-solution" id="resenje">
+        <div class="pr-card-head">
+          <h3>Dvorište sa planom</h3>
+          <span class="pr-pill">Rešenje</span>
+        </div>
+        <div class="pr-panel">
+          <p>Umesto da sam biraš biljke i nadaš se da će uspeti, radim s tobom od prve ideje do gotovog vrta. Tačno znaš kako će vrt izgledati pre nego što radovi počnu, ne tek kad se završe.</p>
+          <ul class="pr-list">
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+              <span>Analiza prostora, tla, sunca i tvojih potreba pre prve skice.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+              <span>Dizajn skrojen za tvoju kuću, tvoju klimu i tvoj način života.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+              <span>3D vizualizacija pre nego što se zasadi i jedna biljka.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+              <span>Izbor biljaka koje odgovaraju baš tom mestu i toj svetlosti.</span>
+            </li>
+            <li>
+              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+              <span>Vođenje posla od prve ideje do gotovog, zasađenog vrta.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="pr-foot">
+          <p class="pr-foot-note">Tu prestaje nagađanje, počinje plan.</p>
+          <a href="#kontakt" class="btn">Zakaži konsultaciju</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1569,16 +1737,48 @@
 
 <section class="section" id="kredibilitet">
   <div class="wrap">
-    <span class="eyebrow">Zašto ja</span>
     <div class="kred-grid">
       <div class="kred-text">
-        <h2 class="section-title">Zašto da mi poveriš svoj vrt</h2>
-        <p>Radim u oblasti pejzažne arhitekture i hortikulture i dizajnirala sam vrtove za privatne kuće, vile, vikendice i poslovne objekte različitih veličina i namena.</p>
+        <span class="eyebrow">Zašto ja</span>
+        <h2 class="kred-display"><span class="kred-accent">Zašto da mi</span><span>poveriš svoj vrt</span></h2>
+        <p class="kred-sub">Iza svakog vrta stoji struka, ne pogađanje</p>
+        <p class="kred-lead">Radim u oblasti pejzažne arhitekture i hortikulture i dizajnirala sam vrtove za privatne kuće, vile, vikendice i poslovne objekte različitih veličina i namena.</p>
         <p>Svaki predlog biljaka i materijala biram prema tlu, klimi i osvetljenju konkretnog prostora, ne po trenutnom trendu, tako da vrt izgleda dobro i za pet godina, ne samo prvog proleća.</p>
+        <div class="media-frame kred-image">
+          <img class="media" src="assets/kredibilitet-spirale.jpg" width="921" height="1577" loading="lazy" decoding="async"
+               alt="Dve tuje oblikovane u spiralu, zasađene uz zid ulazne zone">
+        </div>
       </div>
-      <div class="media-frame kred-image">
-        <img class="media" src="assets/kredibilitet-spirale.jpg" width="921" height="1577" loading="lazy" decoding="async"
-             alt="Dve tuje oblikovane u spiralu, zasađene uz zid ulazne zone">
+
+      <div class="kred-list">
+      <div class="kred-item is-active">
+        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+        <div>
+          <h3>Struka, a ne trend</h3>
+          <p>Pejzažna arhitektura i hortikultura kao osnova svake odluke, od rasporeda do izbora vrste.</p>
+        </div>
+      </div>
+      <div class="kred-item">
+        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+        <div>
+          <h3>Iskustvo na različitim prostorima</h3>
+          <p>Vrtovi za privatne kuće, vile, vikendice i poslovne objekte različitih veličina i namena.</p>
+        </div>
+      </div>
+      <div class="kred-item">
+        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+        <div>
+          <h3>Biljke prema tvom prostoru</h3>
+          <p>Svaki predlog biljaka i materijala biram prema tlu, klimi i osvetljenju konkretnog prostora.</p>
+        </div>
+      </div>
+      <div class="kred-item">
+        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+        <div>
+          <h3>Vrt koji izgleda dobro i za pet godina</h3>
+          <p>Rešenja koja rastu kako treba, ne samo prvog proleća posle sadnje.</p>
+        </div>
+      </div>
       </div>
     </div>
   </div>
