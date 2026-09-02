@@ -1526,6 +1526,175 @@
     .cta-row .btn{width:100%;}
   }
 
+  /* KVIZ - procena za minut */
+  .quiz-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    align-items:start;
+  }
+
+  .quiz-card{
+    border:1px solid var(--border);
+    border-top:3px solid var(--accent-line);
+    border-radius:var(--radius);
+    background:var(--surface);
+    padding:32px;
+  }
+
+  .quiz-progress{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:24px;
+  }
+
+  .quiz-progress > span{
+    font-size:0.76rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--text-soft);
+    white-space:nowrap;
+  }
+
+  .quiz-bar{
+    flex:1;
+    height:4px;
+    background:var(--border);
+    border-radius:999px;
+    overflow:hidden;
+  }
+
+  .quiz-bar i{
+    display:block;
+    height:100%;
+    width:33%;
+    background:var(--primary);
+    transition:width 0.4s ease;
+  }
+
+  .quiz-step h3{font-size:1.3rem; margin-bottom:8px;}
+
+  .quiz-hint{font-size:0.9rem; margin-bottom:20px;}
+
+  .quiz-sub{
+    font-size:0.9rem;
+    font-weight:600;
+    color:var(--text);
+    margin:24px 0 12px 0;
+  }
+
+  .quiz-opts{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+
+  .quiz-opt{
+    text-align:left;
+    background:var(--field-bg);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px;
+    cursor:pointer;
+    font-family:var(--font-body);
+    color:var(--text);
+    transition:border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .quiz-opt:hover{border-color:var(--accent-text);}
+
+  .quiz-opt.is-on{border-color:var(--primary); background:var(--tag-bg);}
+
+  .quiz-opt strong{display:block; font-size:0.95rem; font-weight:600;}
+
+  .quiz-opt small{color:var(--text-soft); font-size:0.82rem; line-height:1.4;}
+
+  .quiz-fields{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+
+  .quiz-fields .full{grid-column:1 / -1;}
+
+  .quiz-nav{display:flex; gap:12px; margin-top:28px;}
+
+  .quiz-nav .quiz-next{margin-left:auto;}
+
+  /* .btn i trake su flex/inline-block, pa im atribut hidden treba pomoc. */
+  .quiz-progress[hidden], .quiz-nav[hidden], .quiz-nav .btn[hidden]{display:none;}
+
+  .quiz-err{
+    display:none;
+    font-size:0.88rem;
+    margin-top:16px;
+    color:#A6402E;
+  }
+
+  .quiz-err.is-on{display:block;}
+
+  html[data-theme="dark"] .quiz-err{color:#E9A497;}
+
+  .quiz-result{text-align:center;}
+
+  .quiz-result h3{font-size:1.4rem; margin:16px 0 8px 0;}
+
+  .quiz-result > p{margin-left:auto; margin-right:auto;}
+
+  .quiz-box{
+    text-align:left;
+    background:var(--field-bg);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    margin-top:24px;
+  }
+
+  .quiz-box > span{
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-soft);
+  }
+
+  .quiz-box strong{
+    display:block;
+    font-family:var(--font-head);
+    color:var(--primary);
+    font-size:1.2rem;
+    margin:8px 0 4px 0;
+  }
+
+  .quiz-space{font-size:0.88rem; margin:0;}
+
+  .quiz-list{
+    list-style:none;
+    margin:16px 0 0 0;
+    padding:0;
+    display:grid;
+    gap:8px;
+  }
+
+  .quiz-list li{
+    display:flex;
+    gap:12px;
+    font-size:0.92rem;
+    color:var(--text-soft);
+    line-height:1.5;
+  }
+
+  .quiz-list li::before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--tertiary);
+    flex:none;
+    margin-top:8px;
+  }
+
+  .btn-wide{width:100%; margin-top:24px;}
+
+  @media (max-width:768px){
+    .quiz-grid{grid-template-columns:1fr; gap:36px;}
+    .quiz-card{padding:24px 20px;}
+    .quiz-opts{grid-template-columns:1fr;}
+    .quiz-fields{grid-template-columns:1fr;}
+  }
+
   /* KONTAKT */
   .contact-grid{
     display:grid;
@@ -2036,6 +2205,99 @@
   </div>
 </section>
 
+<section class="section alt" id="kviz">
+  <div class="wrap">
+    <div class="quiz-grid">
+      <div>
+        <span class="eyebrow">Procena za minut</span>
+        <h2 class="section-title">Odgovori na tri koraka, javljam se sa predlogom</h2>
+        <p>Nekoliko pitanja o dvorištu i o tome šta ti u njemu danas smeta. Na osnovu odgovora ti kažem kakav tip projekta je u pitanju i šta u njega ulazi, pa se dogovaramo za obilazak prostora.</p>
+        <p>Traje kraće od minuta i ne obavezuje te ni na šta. Ako ti predlog ne odgovara, tu se priča završava.</p>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-progress" id="quizProgress">
+          <span id="quizStepLabel">Korak 1 od 3</span>
+          <div class="quiz-bar"><i id="quizBar"></i></div>
+        </div>
+
+        <div class="quiz-step" id="quizStep1">
+          <h3>Šta bi voleo da rešiš u dvorištu?</h3>
+          <p class="quiz-hint">Izaberi jednu ili više stavki.</p>
+          <div class="quiz-opts">
+            <button type="button" class="quiz-opt" data-zelja="prazno"><strong>Prazan prostor</strong><small>Sama trava, ništa zasađeno</small></button>
+            <button type="button" class="quiz-opt" data-zelja="zapusteno"><strong>Zapušteno dvorište</strong><small>Zaraslo i staro rastinje</small></button>
+            <button type="button" class="quiz-opt" data-zelja="sedenje"><strong>Mesto za sedenje</strong><small>Terasa, senka, roštilj</small></button>
+            <button type="button" class="quiz-opt" data-zelja="privatnost"><strong>Zaklon od pogleda</strong><small>Komšije i buka sa ulice</small></button>
+            <button type="button" class="quiz-opt" data-zelja="staze"><strong>Staze i osvetljenje</strong><small>Blato po kiši, mrak uveče</small></button>
+            <button type="button" class="quiz-opt" data-zelja="odrzavanje"><strong>Manje održavanja</strong><small>Nemam vremena za zalivanje</small></button>
+          </div>
+        </div>
+
+        <div class="quiz-step" id="quizStep2" hidden>
+          <h3>Nešto o prostoru</h3>
+          <p class="quiz-hint">Da znam o kolikom projektu pričamo.</p>
+          <div class="quiz-fields">
+            <div>
+              <label for="qPovrsina">Približna površina</label>
+              <input type="text" id="qPovrsina" inputmode="numeric" placeholder="npr. 300 m2">
+            </div>
+            <div>
+              <label for="qMesto">Mesto</label>
+              <input type="text" id="qMesto" placeholder="npr. Kragujevac">
+            </div>
+          </div>
+          <p class="quiz-sub">U kakvom je stanju prostor danas?</p>
+          <div class="quiz-opts">
+            <button type="button" class="quiz-opt" data-stanje="golo"><strong>Gola zemlja</strong><small>Novogradnja, još ništa nije rađeno</small></button>
+            <button type="button" class="quiz-opt" data-stanje="delimicno"><strong>Ponešto je zasađeno</strong><small>Ima trave i po koje sadnice</small></button>
+            <button type="button" class="quiz-opt" data-stanje="star"><strong>Star vrt</strong><small>Zasađen davno, treba mu obnova</small></button>
+          </div>
+        </div>
+
+        <div class="quiz-step" id="quizStep3" hidden>
+          <h3>Gde da te dobijem?</h3>
+          <p class="quiz-hint">Javljam se u toku dana i dogovaramo obilazak.</p>
+          <div class="quiz-fields">
+            <div>
+              <label for="qIme">Ime</label>
+              <input type="text" id="qIme" placeholder="Tvoje ime">
+            </div>
+            <div>
+              <label for="qTelefon">Telefon</label>
+              <input type="tel" id="qTelefon" placeholder="06x xxx xxxx">
+            </div>
+            <div class="full">
+              <label for="qNapomena">Napomena (opciono)</label>
+              <input type="text" id="qNapomena" placeholder="npr. dvorište je na nagibu, ceo dan je na suncu">
+            </div>
+          </div>
+        </div>
+
+        <div class="quiz-result" id="quizResult" hidden>
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12 L11 15 L16 9"></path></svg>
+          <h3 id="quizResultTitle">Hvala</h3>
+          <p id="quizResultText">Javljam se na broj koji si ostavio.</p>
+          <div class="quiz-box">
+            <span>Predlog za tvoj prostor</span>
+            <strong id="quizResultPkg">Idejni projekat vrta</strong>
+            <p class="quiz-space" id="quizResultSpace"></p>
+            <ul class="quiz-list" id="quizResultList"></ul>
+          </div>
+          <button type="button" class="btn btn-outline btn-wide" id="quizReset">Pošalji još jedan prostor</button>
+        </div>
+
+        <p class="quiz-err" id="quizErr">Izaberi bar jednu stavku da bismo nastavili.</p>
+
+        <div class="quiz-nav" id="quizNav">
+          <button type="button" class="btn btn-outline" id="quizBack" hidden>Nazad</button>
+          <button type="button" class="btn quiz-next" id="quizNext">Dalje</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="kontakt">
   <div class="wrap">
     <span class="eyebrow">Sledeći korak</span>
@@ -2414,6 +2676,178 @@
       navbar.classList.remove('menu-open');
     });
   });
+
+  /* KVIZ - procena za minut */
+  (function(){
+    const card = document.getElementById('quizCard');
+    if(!card){ return; }
+
+    const steps = [null, document.getElementById('quizStep1'), document.getElementById('quizStep2'), document.getElementById('quizStep3')];
+    const bar = document.getElementById('quizBar');
+    const stepLabel = document.getElementById('quizStepLabel');
+    const backBtn = document.getElementById('quizBack');
+    const nextBtn = document.getElementById('quizNext');
+    const err = document.getElementById('quizErr');
+    const nav = document.getElementById('quizNav');
+    const progress = document.getElementById('quizProgress');
+    const result = document.getElementById('quizResult');
+
+    const fieldIds = ['qPovrsina', 'qMesto', 'qIme', 'qTelefon', 'qNapomena'];
+
+    let state = {zelje: [], stanje: null};
+    let step = 1;
+
+    function val(id){
+      return document.getElementById(id).value.trim();
+    }
+
+    /* Prvi korak je višestruki izbor, drugi je jedan od tri stanja. */
+    document.querySelectorAll('[data-zelja]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const key = btn.getAttribute('data-zelja');
+        const i = state.zelje.indexOf(key);
+        if(i > -1){
+          state.zelje.splice(i, 1);
+          btn.classList.remove('is-on');
+        }else{
+          state.zelje.push(key);
+          btn.classList.add('is-on');
+        }
+        err.classList.remove('is-on');
+      });
+    });
+
+    document.querySelectorAll('[data-stanje]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('[data-stanje]').forEach(function(b){ b.classList.remove('is-on'); });
+        btn.classList.add('is-on');
+        state.stanje = btn.getAttribute('data-stanje');
+        err.classList.remove('is-on');
+      });
+    });
+
+    function show(n){
+      step = n;
+      for(let i = 1; i <= 3; i++){ steps[i].hidden = (i !== n); }
+      stepLabel.textContent = 'Korak ' + n + ' od 3';
+      bar.style.width = Math.round(n / 3 * 100) + '%';
+      backBtn.hidden = (n === 1);
+      nextBtn.textContent = (n === 3) ? 'Pošalji zahtev' : 'Dalje';
+      err.classList.remove('is-on');
+    }
+
+    function fail(msg){
+      err.textContent = msg;
+      err.classList.add('is-on');
+    }
+
+    function predlog(){
+      const has = function(k){ return state.zelje.indexOf(k) > -1; };
+      if(has('zapusteno') || state.stanje === 'star'){
+        return {
+          naziv: 'Obnova postojećeg vrta',
+          stavke: [
+            'Procena šta ostaje, a šta ide napolje',
+            'Prekrajanje i orezivanje zatečenog rastinja',
+            'Nova sadnja na mestima koja ostanu prazna',
+            'Plan održavanja da prostor ponovo ne zaraste'
+          ]
+        };
+      }
+      if(has('prazno') || has('privatnost') || state.stanje === 'golo'){
+        return {
+          naziv: 'Kompletan projekat vrta',
+          stavke: [
+            'Idejno rešenje i 3D vizualizacija prostora',
+            'Raspored po zonama, od zaklona do travnjaka',
+            'Izbor biljaka prema osunčanosti i zemljištu',
+            'Realizacija sa ekipom, od pripreme zemlje do sadnje'
+          ]
+        };
+      }
+      if(has('sedenje') || has('staze')){
+        return {
+          naziv: 'Uređenje prostora za boravak',
+          stavke: [
+            'Raspored terase, staza i mesta za sedenje',
+            'Materijali koji se ne kližu i ne blate posle kiše',
+            'Osvetljenje staza i krošnji za veče',
+            'Sadnja koja pravi senku i zaklon oko sedenja'
+          ]
+        };
+      }
+      return {
+        naziv: 'Vrt koji traži malo održavanja',
+        stavke: [
+          'Biljke koje podnose tvoju zemlju i osunčanost',
+          'Malčiranje i podloge koje drže korov',
+          'Sistem za zalivanje sa tajmerom',
+          'Raspored koji smanjuje košenje i orezivanje'
+        ]
+      };
+    }
+
+    nextBtn.addEventListener('click', function(){
+      if(step === 1){
+        if(state.zelje.length === 0){ fail('Izaberi bar jednu stavku da bismo nastavili.'); return; }
+        show(2);
+        return;
+      }
+
+      if(step === 2){
+        if(!val('qPovrsina')){ fail('Upiši približnu površinu prostora.'); return; }
+        if(!state.stanje){ fail('Izaberi u kakvom je stanju prostor danas.'); return; }
+        show(3);
+        return;
+      }
+
+      const ime = val('qIme');
+      const telefon = val('qTelefon');
+      if(!ime){ fail('Upiši ime da znam kako da ti se obratim.'); return; }
+      if(telefon.replace(/\D/g, '').length < 8){ fail('Upiši telefon na koji mogu da te dobijem.'); return; }
+
+      const rec = predlog();
+      const mesto = val('qMesto');
+      document.getElementById('quizResultTitle').textContent = 'Hvala, ' + ime + '.';
+      document.getElementById('quizResultText').textContent = 'Javljam se na ' + telefon + ' u toku dana, da se dogovorimo za obilazak.';
+      document.getElementById('quizResultPkg').textContent = rec.naziv;
+      document.getElementById('quizResultSpace').textContent = val('qPovrsina') + (mesto ? ', ' + mesto : '');
+
+      const list = document.getElementById('quizResultList');
+      list.innerHTML = '';
+      rec.stavke.forEach(function(t){
+        const li = document.createElement('li');
+        li.textContent = t;
+        list.appendChild(li);
+      });
+
+      steps[1].hidden = true;
+      steps[2].hidden = true;
+      steps[3].hidden = true;
+      nav.hidden = true;
+      progress.hidden = true;
+      err.classList.remove('is-on');
+      result.hidden = false;
+      card.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+
+    backBtn.addEventListener('click', function(){
+      if(step > 1){ show(step - 1); }
+    });
+
+    document.getElementById('quizReset').addEventListener('click', function(){
+      state = {zelje: [], stanje: null};
+      document.querySelectorAll('.quiz-opt').forEach(function(b){ b.classList.remove('is-on'); });
+      fieldIds.forEach(function(id){ document.getElementById(id).value = ''; });
+      result.hidden = true;
+      nav.hidden = false;
+      progress.hidden = false;
+      show(1);
+    });
+
+    show(1);
+  })();
+
 </script>
 
 </body>
