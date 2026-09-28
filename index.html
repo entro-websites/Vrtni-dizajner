@@ -1,2854 +1,1212 @@
-<!DOCTYPE html>
-<html lang="sr">
+<!doctype html>
+<html lang="sr-Latn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vrtni dizajner - Dizajn i uređenje vrtova i zelenih površina</title>
-<meta name="description" content="Projektovanje vrtova, izbor biljaka, 3D vizualizacije i kompletno uređenje privatnih i poslovnih zelenih površina.">
-<meta name="theme-color" id="themeColorMeta" content="#394b40">
-<script>
-  /* Sajt je uvek svetao; tamna tema samo ako je posetilac sam uključi. */
-  (function(){
-    try{
-      if(localStorage.getItem('vd-theme') === 'dark'){
-        document.documentElement.setAttribute('data-theme','dark');
-      }
-    }catch(e){}
-  })();
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vrtni dizajner – projektovanje, uređenje i održavanje vrtova</title>
+<meta name="description" content="Projektujemo, uređujemo i održavamo vrtove za kuće, vile, vikendice i poslovne objekte. 3D vizualizacija pre prve sadnje, biljke birane za vaše tlo i sunce. Konsultacija bez obaveze: 064 977 3544.">
+<meta name="theme-color" content="#132B1E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vrtni dizajner – vrtovi koji pričaju priče">
+<meta property="og:description" content="Projektovanje, uređenje i održavanje vrtova. Od prve skice i 3D vizualizacije do poslednje zasađene biljke.">
+<meta property="og:image" content="assets/hero-imanje.jpg">
+<meta property="og:locale" content="sr_RS">
+<link rel="icon" href="assets/logo.png">
+<link rel="preload" as="image" href="assets/hero-imanje.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Vrtni dizajner",
+  "description": "Projektovanje, uređenje i održavanje vrtova i zelenih površina za privatne i poslovne prostore.",
+  "telephone": "+381649773544",
+  "image": "assets/hero-imanje.jpg",
+  "logo": "assets/logo.png",
+  "sameAs": ["https://www.instagram.com/vrtni_dizajner/"],
+  "makesOffer": [
+    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Projektovanje vrta i 3D vizualizacija"}},
+    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Uređenje dvorišta i zelenih površina"}},
+    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Održavanje vrta"}}
+  ]
+}
+</script>
 <style>
-  :root{
-    color-scheme:light;
-
-    /* brend boje */
-    --primary:#132B1E;
-    --primary-light:#24493a;
-    --on-primary:#ffffff;
-    --secondary:#394b40;
-    --tertiary:#9cb0a4;
-
-    /* površine i tekst */
-    --bg:#FAF8F3;
-    --bg-alt:#E9EDE7;
-    --surface:#FAF8F3;
-    --field-bg:#ffffff;
-    --text:#22251f;
-    --text-soft:#4b4e46;
-    --border:#CDD8CF;
-
-    /* akcenti (secondary/tertiary u ulogama) */
-    --accent-text:#394b40;
-    --accent-line:#9cb0a4;
-    --tag-bg:#E2E9E2;
-    --tag-text:#2E3F35;
-    --tag-border:#9cb0a4;
-
-    /* placeholder blokovi */
-    --ph-bg:#DEE5DD;
-    --ph-bg-pre:#D9D5CB;
-    --ph-border:#9cb0a4;
-    --ph-text:#5C6B60;
-
-    /* zaglavlje (glava) */
-    --header-bg:#394b40;
-    --header-text:#F4F7F3;
-    --header-muted:#C9D6CC;
-    --header-border:#9cb0a4;
-    --header-btn-bg:#9cb0a4;
-    --header-btn-text:#132B1E;
-    --toggle-track:rgba(255,255,255,0.18);
-    --toggle-border:rgba(255,255,255,0.32);
-
-    /* zaglavlje kad se odlepi od heroja - matirano staklo */
-    --header-glass:rgba(50,68,57,0.72);
-    --header-glass-border:rgba(255,255,255,0.16);
-
-    /* galerija - tamna traka */
-    --gal-bg:#101A14;
-    --gal-border:#26362C;
-
-    --radius:8px;
-    --font-head:'Playfair Display', serif;
-    --font-body:'Jost', sans-serif;
-  }
-
-  html[data-theme="dark"]{
-    color-scheme:dark;
-
-    --primary:#9CB0A4;
-    --primary-light:#B4C6BA;
-    --on-primary:#10231A;
-    --secondary:#394b40;
-    --tertiary:#9cb0a4;
-
-    --bg:#111512;
-    --bg-alt:#171E19;
-    --surface:#1C231E;
-    --field-bg:#1B211C;
-    --text:#E9EAE4;
-    --text-soft:#B0B5AC;
-    --border:#2E3A32;
-
-    --accent-text:#9cb0a4;
-    --accent-line:#4E6455;
-    --tag-bg:#222C26;
-    --tag-text:#B3C6B9;
-    --tag-border:#4E6455;
-
-    --ph-bg:#1B221D;
-    --ph-bg-pre:#231F1A;
-    --ph-border:#3C4E43;
-    --ph-text:#8C9A90;
-
-    --header-bg:#1E2A23;
-    --header-text:#E9EFE9;
-    --header-muted:#A9BBAE;
-    --header-border:#3C4E43;
-    --header-btn-bg:#9cb0a4;
-    --header-btn-text:#12241A;
-    --toggle-track:rgba(255,255,255,0.10);
-    --toggle-border:rgba(255,255,255,0.20);
-
-    --header-glass:rgba(22,33,27,0.74);
-    --header-glass-border:rgba(255,255,255,0.12);
-
-    --gal-bg:#0B0F0C;
-    --gal-border:#232C26;
-  }
-
-  body, .navbar, .mobile-menu, .section, .hero, footer, .eyebrow,
-  .benefit-card, .step-card, .garancija-box,
-  .placeholder, input, textarea{
-    transition:background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    body, .navbar, .mobile-menu, .section, .hero, footer, .eyebrow,
-    .benefit-card, .step-card, .garancija-box,
-    .placeholder, input, textarea, .theme-toggle, .theme-toggle .knob{
-      transition:none;
-    }
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  /* Bez razmaka na vrhu - hero ide ispod providnog zaglavlja. */
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--font-body);
-    font-size:16px;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  h1,h2,h3{
-    font-family:var(--font-head);
-    color:var(--primary);
-    margin:0;
-    line-height:1.2;
-    font-weight:600;
-  }
-
-  p{margin:0 0 16px 0; max-width:65ch; color:var(--text-soft);}
-
-  a{color:inherit; text-decoration:none;}
-
-  img{max-width:100%; display:block;}
-
-  .wrap{
-    max-width:1280px;
-    margin:0 auto;
-    padding-left:24px;
-    padding-right:24px;
-  }
-
-  @media (max-width:768px){
-    .wrap{padding-left:20px; padding-right:20px;}
-  }
-
-  .section{
-    padding-top:96px;
-    padding-bottom:96px;
-    border-bottom:1px solid var(--border);
-  }
-
-  .section.alt{background:var(--bg-alt);}
-
-  /* Fiksno zaglavlje ne sme da prekrije vrh sekcije na koju vodi link. */
-  section[id]{scroll-margin-top:86px;}
-  .pr-card[id]{scroll-margin-top:100px;}
-
-  @media (max-width:768px){
-    .section{padding-top:64px; padding-bottom:64px;}
-  }
-
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:0.76rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--tag-text);
-    background:var(--tag-bg);
-    border:1px solid var(--tag-border);
-    border-radius:999px;
-    padding:6px 14px;
-    font-weight:600;
-    margin-bottom:18px;
-  }
-
-  .eyebrow::before{
-    content:"";
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:var(--tertiary);
-    flex:none;
-  }
-
-  .section-title{
-    font-size:clamp(1.8rem, 3vw, 2.4rem);
-    margin-bottom:20px;
-    max-width:20ch;
-  }
-
-  .section-intro{
-    max-width:640px;
-  }
-
-  .btn{
-    display:inline-block;
-    background:var(--primary);
-    color:var(--on-primary);
-    padding:14px 28px;
-    border-radius:var(--radius);
-    font-weight:500;
-    font-size:0.98rem;
-    border:1px solid var(--primary);
-    cursor:pointer;
-    font-family:var(--font-body);
-    transition:background 0.15s ease, color 0.15s ease;
-  }
-
-  .btn:hover{background:var(--primary-light); border-color:var(--primary-light);}
-
-  .btn-outline{
-    background:transparent;
-    color:var(--primary);
-    border:1px solid var(--primary);
-  }
-
-  .btn-outline:hover{background:var(--primary); color:var(--on-primary);}
-
-  /* NAVBAR */
-  /* Preko heroja je providno, a čim se skroluje postaje matirano staklo. */
-  .navbar{
-    position:fixed;
-    top:0; left:0; right:0;
-    height:78px;
-    background:transparent;
-    border-bottom:1px solid transparent;
-    z-index:1000;
-    transition:background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
-  }
-
-  .navbar.scrolled, .navbar.menu-open{
-    background:var(--header-bg);
-    border-bottom-color:var(--header-border);
-  }
-
-  .nav-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    height:78px;
-  }
-
-  .logo{
-    display:inline-flex;
-    align-items:center;
-    gap:11px;
-    font-family:var(--font-head);
-    font-size:1.35rem;
-    font-weight:700;
-    color:var(--header-text);
-    white-space:nowrap;
-  }
-
-  .logo-mark{
-    width:44px;
-    height:44px;
-    flex:none;
-    border-radius:50%;
-    object-fit:contain;
-    /* Znak je tamnozelen, pa uvek stoji na svetlom krugu - i u tamnoj temi. */
-    background:#F4F7F3;
-    padding:2px;
-  }
-
-  .nav-links{
-    display:flex;
-    gap:32px;
-    list-style:none;
-    margin:0;
-    padding:0;
-  }
-
-  .nav-links a{
-    position:relative;
-    font-size:0.96rem;
-    color:var(--header-muted);
-    padding-bottom:4px;
-    transition:color 0.2s ease;
-  }
-
-  .nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0; right:0; bottom:0;
-    height:2px;
-    background:var(--tertiary);
-    border-radius:2px;
-    transform:scaleX(0);
-    transform-origin:left center;
-    transition:transform 0.25s ease;
-  }
-
-  .nav-links a:hover{color:var(--header-text);}
-  .nav-links a:hover::after{transform:scaleX(1);}
-
-  /* CTA u zaglavlju koristi tertiary */
-  .navbar .btn, .mobile-menu .btn{
-    background:var(--header-btn-bg);
-    border-color:var(--header-btn-bg);
-    color:var(--header-btn-text);
-  }
-
-  .navbar .btn:hover, .mobile-menu .btn:hover{
-    background:transparent;
-    border-color:var(--header-btn-bg);
-    color:var(--header-btn-bg);
-  }
-
-  .nav-right{display:flex; align-items:center; gap:20px;}
-
-  /* PREKIDAČ TEME */
-  .theme-toggle{
-    position:relative;
-    flex:none;
-    width:46px;
-    height:26px;
-    padding:0;
-    border:1px solid var(--toggle-border);
-    border-radius:999px;
-    background:var(--toggle-track);
-    cursor:pointer;
-    transition:background 0.25s ease, border-color 0.25s ease;
-  }
-
-  .theme-toggle:focus-visible{
-    outline:2px solid var(--tertiary);
-    outline-offset:3px;
-  }
-
-  .theme-toggle .knob{
-    position:absolute;
-    top:2px;
-    left:2px;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    background:#F5A623;
-    box-shadow:0 1px 3px rgba(0,0,0,0.3);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:left 0.25s ease, background 0.25s ease;
-  }
-
-  html[data-theme="dark"] .theme-toggle .knob{
-    left:22px;
-    background:#CFD8E6;
-  }
-
-  .theme-toggle svg{width:13px; height:13px; display:block;}
-  .theme-toggle .icon-moon{display:none;}
-  html[data-theme="dark"] .theme-toggle .icon-sun{display:none;}
-  html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
-
-  @media (max-width:991px){
-    .nav-right{gap:14px;}
-  }
-
-  .hamburger{
-    display:none;
-    flex-direction:column;
-    justify-content:center;
-    gap:5px;
-    width:32px;
-    height:32px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:0;
-  }
-
-  .hamburger span{
-    display:block;
-    height:2px;
-    width:100%;
-    background:var(--header-text);
-    transition:transform 0.2s ease, opacity 0.2s ease;
-  }
-
-  .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .hamburger.active span:nth-child(2){opacity:0;}
-  .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-  .mobile-menu{
-    position:fixed;
-    top:78px;
-    left:0; right:0;
-    background:var(--header-bg);
-    border-bottom:2px solid var(--header-border);
-    max-height:0;
-    overflow:hidden;
-    transition:max-height 0.25s ease;
-    z-index:999;
-  }
-
-  /* Dovoljno visoko za sve stavke; na niskim ekranima meni se skroluje. */
-  .mobile-menu.open{max-height:min(540px, calc(100vh - 78px)); overflow-y:auto;}
-
-  .mobile-menu-inner{
-    padding:20px 24px 28px;
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-  }
-
-  .mobile-menu a.mnav{
-    font-size:1rem;
-    color:var(--header-muted);
-    padding:8px 0;
-    border-bottom:1px solid rgba(255,255,255,0.10);
-  }
-
-  .mobile-menu a.mnav:hover{color:var(--header-text);}
-
-  .mobile-menu .btn{text-align:center;}
-
-  @media (max-width:991px){
-    .nav-links{display:none;}
-    .nav-right .btn{display:none;}
-    .hamburger{display:flex;}
-  }
-
-  @media (max-width:480px){
-    .logo{font-size:1.18rem; gap:9px;}
-    .logo-mark{width:38px; height:38px;}
-  }
-
-  @media (min-width:992px){
-    .mobile-menu{display:none;}
-  }
-
-  /* HERO - fotografija preko cele širine, sav tekst centriran preko nje. */
-  .hero{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    min-height:clamp(620px, 92vh, 900px);
-    /* Isti razmak gore i dole, da sadržaj stoji tačno u sredini heroja. */
-    padding-top:120px;
-    padding-bottom:120px;
-    overflow:hidden;
-    background:#0F1A13;
-    border-bottom:1px solid var(--border);
-  }
-
-  .hero-bg{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    /* Isečak pomeren naniže, da u kadar uđu i dvorište i travnjak. */
-    object-position:center 80%;
-    z-index:0;
-  }
-
-  /* Preliv preko fotografije, da tekst ostane čitljiv. */
-  .hero-veil{
-    position:absolute;
-    inset:0;
-    z-index:1;
-    background:
-      radial-gradient(110% 80% at 50% 48%, rgba(9,22,15,0.34) 0%, rgba(9,22,15,0.58) 58%, rgba(7,17,11,0.74) 100%),
-      linear-gradient(180deg, rgba(9,20,14,0.46) 0%, rgba(9,20,14,0.22) 45%, rgba(9,20,14,0.66) 100%);
-  }
-
-  .hero-content{
-    position:relative;
-    z-index:3;
-    width:100%;
-  }
-
-  .hero-copy{
-    max-width:860px;
-    margin:0 auto;
-  }
-
-  .hero-eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    font-size:0.78rem;
-    letter-spacing:0.20em;
-    text-transform:uppercase;
-    color:#9CB0A4;
-    margin-bottom:22px;
-  }
-
-  .hero-eyebrow::before,
-  .hero-eyebrow::after{
-    content:"";
-    width:34px;
-    height:1px;
-    background:#9CB0A4;
-    flex:none;
-  }
-
-  /* Kratak naslov; max-width u "ch" ga drži u dva reda. */
-  .hero-title{
-    max-width:15ch;
-    margin:0 auto 26px;
-    font-size:clamp(2.6rem, 6.2vw, 5rem);
-    line-height:1.05;
-    letter-spacing:-0.01em;
-    text-transform:uppercase;
-    color:#FFFFFF;
-    text-shadow:0 2px 30px rgba(0,0,0,0.45);
-  }
-
-  .hero-sub{
-    color:rgba(255,255,255,0.86);
-    font-size:1.06rem;
-    max-width:56ch;
-    text-shadow:0 1px 16px rgba(0,0,0,0.45);
-    margin:0 auto 32px;
-  }
-
-  .hero-actions{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-
-  .hero .btn{
-    background:#9CB0A4;
-    border-color:#9CB0A4;
-    color:#12241A;
-    padding:16px 34px;
-    font-size:1.02rem;
-  }
-
-  .hero .btn:hover{
-    background:#FFFFFF;
-    border-color:#FFFFFF;
-    color:#12241A;
-  }
-
-  /* Sporedno dugme - providno sa svetlim obrisom, bez zamućenja. */
-  .hero .btn-outline-light{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:transparent;
-    border:1px solid rgba(255,255,255,0.55);
-    color:#FFFFFF;
-    padding:16px 26px;
-  }
-
-  .hero .btn-outline-light:hover{
-    background:rgba(255,255,255,0.14);
-    border-color:#FFFFFF;
-    color:#FFFFFF;
-  }
-
-  .hero .btn-outline-light svg{width:15px; height:15px; flex:none;}
-
-  .placeholder{
-    background:var(--ph-bg);
-    border:1px dashed var(--ph-border);
-    color:var(--ph-text);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    font-size:0.85rem;
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    padding:20px;
-    border-radius:var(--radius);
-  }
-
-  .media-frame{
-    position:relative;
-    overflow:hidden;
-    border-radius:var(--radius);
-    border:1px solid var(--border);
-    background:var(--ph-bg);
-  }
-
-  .media{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-  }
-
-  @media (max-width:900px){
-    .hero{
-      min-height:clamp(480px, 78vh, 660px);
-      padding-top:140px;
-      padding-bottom:72px;
-    }
-    .hero-title{font-size:clamp(2.2rem, 9.5vw, 3.4rem);}
-    .hero-sub{font-size:1rem;}
-  }
-
-  /* TRAKA U POKRETU (ispod heroja) */
-  .ticker{
-    background:var(--primary);
-    color:var(--on-primary);
-    border-bottom:1px solid var(--primary);
-    overflow:hidden;
-    position:relative;
-  }
-
-  /* Blago stapanje sadržaja na ivicama trake. */
-  .ticker::before,
-  .ticker::after{
-    content:"";
-    position:absolute;
-    top:0;
-    bottom:0;
-    width:72px;
-    z-index:2;
-    pointer-events:none;
-  }
-
-  .ticker::before{left:0; background:linear-gradient(90deg, var(--primary), transparent);}
-  .ticker::after{right:0; background:linear-gradient(270deg, var(--primary), transparent);}
-
-  .ticker-track{
-    display:flex;
-    width:max-content;
-    /* Neprekidno kruženje - dva ista seta i pomeraj za tačno pola staze. */
-    animation:ticker-slide 46s linear infinite;
-  }
-
-  @keyframes ticker-slide{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-
-  .ticker-set{
-    display:flex;
-    align-items:center;
-    padding:22px 0;
-  }
-
-  .ticker-item{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:0 60px;
-  }
-
-  /* Cela traka je u jednom fontu, broj se izdvaja samo veličinom i debljinom. */
-  .ticker-num{
-    font-family:var(--font-body);
-    font-size:1.45rem;
-    line-height:1;
-    font-weight:600;
-    letter-spacing:0.01em;
-    white-space:nowrap;
-  }
-
-  .ticker-label{
-    font-family:var(--font-body);
-    font-size:0.76rem;
-    font-weight:400;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    line-height:1.3;
-    opacity:0.82;
-  }
-
-  .ticker-dot{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:currentColor;
-    opacity:0.4;
-    flex:none;
-  }
-
-  @media (max-width:768px){
-    .ticker-item{padding:0 34px; gap:12px;}
-    .ticker-num{font-size:1.25rem;}
-    .ticker-label{font-size:0.7rem;}
-    .ticker::before, .ticker::after{width:44px;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .ticker-track{animation:none;}
-    .kred-icon, .kred-icon svg{transition:none;}
-    .kred-item:hover .kred-icon,
-    .kred-item:hover .kred-icon svg{transform:none;}
-  }
-
-  /* PROBLEM I RESENJE */
-  .pr-head{
-    text-align:center;
-    max-width:560px;
-    margin:0 auto 56px;
-  }
-
-  .pr-head .section-title{
-    max-width:none;
-    margin:0 auto 16px;
-  }
-
-  .pr-head .section-intro{
-    margin:0 auto;
-    max-width:44ch;
-  }
-
-  .pr-cards{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:32px;
-    align-items:stretch;
-  }
-
-  .pr-card{
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    border:1px solid var(--border);
-    border-radius:24px;
-    background:var(--surface);
-    padding:32px;
-  }
-
-  /* Meki preliv u uglu, kao diskretna šara na karticama sa predloška. */
-  .pr-card::before{
-    content:"";
-    position:absolute;
-    top:-80px;
-    right:-60px;
-    width:280px;
-    height:280px;
-    border-radius:50%;
-    background:radial-gradient(circle, var(--tag-bg) 0%, transparent 70%);
-    opacity:0.9;
-    pointer-events:none;
-  }
-
-  .pr-card > *{position:relative;}
-
-  .pr-card-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    margin-bottom:24px;
-  }
-
-  .pr-card-head h3{
-    font-family:var(--font-head);
-    font-size:clamp(1.5rem, 2.6vw, 2.1rem);
-    font-weight:500;
-    line-height:1.15;
-    margin:0;
-    color:var(--text);
-  }
-
-  .pr-pill{
-    flex:none;
-    font-size:0.92rem;
-    font-weight:500;
-    color:var(--accent-text);
-    background:transparent;
-    border:1px solid var(--tag-border);
-    border-radius:999px;
-    padding:8px 20px;
-  }
-
-  .pr-panel{
-    flex:1;
-    background:var(--bg-alt);
-    border-radius:16px;
-    padding:24px;
-  }
-
-  .pr-panel-intro{
-    font-size:0.92rem;
-    font-weight:600;
-    line-height:1.55;
-    color:var(--text);
-    margin-bottom:20px;
-  }
-
-  .pr-list{
-    list-style:none;
-    margin:0;
-    padding:0;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
-
-  .pr-list li{
-    display:flex;
-    align-items:flex-start;
-    gap:12px;
-    font-size:0.94rem;
-    line-height:1.5;
-    color:var(--text-soft);
-  }
-
-  .pr-mark{
-    flex:none;
-    width:16px;
-    height:16px;
-    margin-top:3px;
-    color:var(--accent-text);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-
-  .pr-mark svg{width:16px; height:16px;}
-
-  .pr-note{
-    font-size:0.8rem;
-    line-height:1.5;
-    color:var(--text-soft);
-    opacity:0.85;
-    margin:20px 0 0;
-  }
-
-  .pr-foot{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:16px;
-    margin-top:24px;
-  }
-
-  .pr-price{
-    font-family:var(--font-head);
-    font-size:1.5rem;
-    font-weight:500;
-    line-height:1.2;
-    color:var(--text);
-    margin:0;
-  }
-
-  .pr-price small{
-    display:block;
-    font-family:var(--font-body);
-    font-size:0.82rem;
-    font-weight:400;
-    color:var(--text-soft);
-    margin-top:4px;
-  }
-
-  .pr-btn{
-    flex:none;
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    border-radius:999px;
-    padding:8px 8px 8px 20px;
-    font-size:0.94rem;
-    font-weight:500;
-    font-family:var(--font-body);
-    background:var(--primary);
-    color:var(--on-primary);
-    border:1px solid var(--primary);
-    transition:background 0.15s ease, color 0.15s ease;
-  }
-
-  .pr-btn:hover{background:var(--primary-light); border-color:var(--primary-light);}
-
-  .pr-btn-ico{
-    width:32px;
-    height:32px;
-    flex:none;
-    border-radius:50%;
-    background:rgba(255,255,255,0.18);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-
-  .pr-btn-ico svg{width:14px; height:14px;}
-
-  .pr-btn-ghost{
-    background:transparent;
-    color:var(--primary);
-    border-color:var(--primary);
-  }
-
-  .pr-btn-ghost .pr-btn-ico{background:var(--tag-bg);}
-  .pr-btn-ghost:hover{background:var(--primary); color:var(--on-primary);}
-  .pr-btn-ghost:hover .pr-btn-ico{background:rgba(255,255,255,0.18);}
-
-  @media (max-width:900px){
-    .pr-cards{grid-template-columns:1fr;}
-  }
-
-  @media (max-width:768px){
-    .pr-head{margin-bottom:32px;}
-    .pr-card{padding:24px 20px; border-radius:20px;}
-    .pr-panel{padding:20px;}
-    .pr-foot{flex-direction:column; align-items:flex-start;}
-    .pr-btn{width:100%; justify-content:space-between;}
-  }
-
-  /* KREDIBILITET */
-  .kred-grid{
-    display:grid;
-    grid-template-columns:0.85fr 1.15fr;
-    gap:80px;
-    align-items:start;
-  }
-
-  .kred-display{
-    font-family:var(--font-body);
-    font-size:clamp(2.2rem, 4vw, 3.2rem);
-    font-weight:600;
-    line-height:1.08;
-    letter-spacing:-0.02em;
-    margin:0 0 32px;
-  }
-
-  .kred-display span{display:block;}
-  .kred-display .kred-accent{color:var(--accent-text);}
-
-  .kred-text p{max-width:42ch; font-size:0.94rem; line-height:1.65;}
-  .kred-text p strong{color:var(--text); font-weight:600;}
-
-  .kred-list{
-    display:flex;
-    flex-direction:column;
-    gap:32px;
-  }
-
-  .kred-item{
-    display:grid;
-    grid-template-columns:64px 1fr;
-    gap:32px;
-    align-items:start;
-  }
-
-  .kred-icon{
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    background:var(--field-bg);
-    border:1px solid var(--border);
-    color:var(--accent-text);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 6px 16px rgba(19,43,30,0.08);
-    transition:transform 0.35s cubic-bezier(.2,.7,.2,1), background-color 0.25s ease,
-               border-color 0.25s ease, color 0.25s ease, box-shadow 0.35s ease;
-  }
-
-  .kred-icon svg{
-    width:24px;
-    height:24px;
-    transition:transform 0.35s cubic-bezier(.2,.7,.2,1);
-  }
-
-  .kred-item.is-active .kred-icon{
-    background:var(--primary);
-    border-color:var(--primary);
-    color:var(--on-primary);
-    box-shadow:0 8px 20px rgba(19,43,30,0.30);
-  }
-
-  /* Ceo red je hover zona, a krug reaguje kao aktivna stavka. */
-  .kred-item:hover .kred-icon{
-    background:var(--primary);
-    border-color:var(--primary);
-    color:var(--on-primary);
-    transform:translateY(-4px) scale(1.05);
-    box-shadow:0 12px 24px rgba(19,43,30,0.24);
-  }
-
-  .kred-item:hover .kred-icon svg{transform:scale(1.12);}
-
-  .kred-item.is-active:hover .kred-icon{box-shadow:0 12px 24px rgba(19,43,30,0.36);}
-
-  .kred-item h3{
-    font-family:var(--font-body);
-    font-size:1.08rem;
-    font-weight:600;
-    color:var(--text);
-    margin-bottom:8px;
-  }
-
-  .kred-item.is-active h3{color:var(--accent-text);}
-
-  .kred-item p{
-    font-size:0.92rem;
-    line-height:1.6;
-    color:var(--text-soft);
-    margin:0;
-    max-width:46ch;
-  }
-
-  .kred-item p strong{color:var(--text); font-weight:600;}
-
-  @media (max-width:900px){
-    .kred-grid{grid-template-columns:1fr; gap:48px;}
-  }
-
-  @media (max-width:768px){
-    .kred-item{grid-template-columns:48px 1fr; gap:20px;}
-    .kred-icon{width:48px; height:48px;}
-    .kred-icon svg{width:20px; height:20px;}
-    .kred-list{gap:24px;}
-  }
-
-  /* BENEFITI */
-  .benefit-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:28px;
-    margin-top:16px;
-  }
-
-  .benefit-card{
-    border:1px solid var(--border);
-    border-top:3px solid var(--accent-line);
-    border-radius:var(--radius);
-    padding:28px 24px;
-    background:var(--surface);
-    transition:border-color 0.2s ease, background-color 0.3s ease;
-  }
-
-  .benefit-card:hover{border-color:var(--tertiary);}
-
-  .benefit-card svg{
-    width:30px; height:30px;
-    color:var(--accent-text);
-    margin-bottom:16px;
-  }
-
-  .benefit-card h3{
-    font-size:1.05rem;
-    font-family:var(--font-body);
-    font-weight:600;
-    color:var(--text);
-    margin-bottom:8px;
-  }
-
-  .benefit-card p{margin-bottom:0; font-size:0.95rem;}
-
-  @media (max-width:991px){
-    .benefit-grid{grid-template-columns:1fr 1fr;}
-  }
-
-  @media (max-width:768px){
-    .benefit-grid{grid-template-columns:1fr;}
-  }
-
-  /* GALERIJA */
-  .gallery{
-    background:var(--gal-bg);
-    border-top:1px solid var(--gal-border);
-    border-bottom:1px solid var(--gal-border);
-    overflow:hidden;
-  }
-
-  .gallery .section-title{
-    color:#F4F7F3;
-    text-align:center;
-    max-width:none;
-    margin:0 auto 12px;
-  }
-
-  .gal-intro{
-    text-align:center;
-    max-width:44ch;
-    margin:0 auto 48px;
-    font-size:0.95rem;
-    color:rgba(244,247,243,0.60);
-  }
-
-  .gal-intro a{
-    color:var(--tertiary);
-    font-weight:500;
-    border-bottom:1px solid rgba(156,176,164,0.45);
-    transition:color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .gal-intro a:hover{color:#F4F7F3; border-bottom-color:#F4F7F3;}
-
-  .gal{position:relative;}
-
-  /* Bočne slike se gube u pozadini, kao na predlošku. */
-  .gal::before,
-  .gal::after{
-    content:"";
-    position:absolute;
-    top:0;
-    bottom:0;
-    width:16%;
-    z-index:15;
-    pointer-events:none;
-  }
-
-  .gal::before{left:0; background:linear-gradient(to right, var(--gal-bg), rgba(16,26,20,0));}
-  .gal::after{right:0; background:linear-gradient(to left, var(--gal-bg), rgba(16,26,20,0));}
-
-  .gal-stage{
-    position:relative;
-    height:clamp(260px, 32vw, 440px);
-  }
-
-  .gal-stage:focus-visible{outline:3px solid var(--tertiary); outline-offset:8px;}
-
-  .gal-item{
-    position:absolute;
-    top:0;
-    left:50%;
-    width:min(62%, 720px);
-    height:100%;
-    margin:0;
-    border-radius:16px;
-    overflow:hidden;
-    background:var(--gal-border);
-    transform:translateX(-50%);
-    cursor:pointer;
-    transition:transform 0.55s cubic-bezier(.2,.7,.2,1), opacity 0.55s ease,
-               filter 0.55s ease, box-shadow 0.55s ease;
-    will-change:transform;
-  }
-
-  .gal-item.is-active{box-shadow:0 24px 60px rgba(0,0,0,0.55);}
-
-  .gal-item img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-  }
-
-  .gal-item.is-active{cursor:default;}
-
-  .gal-tag{
-    position:absolute;
-    top:16px;
-    left:16px;
-    background:rgba(11,15,12,0.68);
-    border:1px solid rgba(255,255,255,0.14);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    color:#F4F7F3;
-    font-size:0.8rem;
-    line-height:1.3;
-    padding:8px 16px;
-    border-radius:999px;
-    opacity:0;
-    transform:translateY(-4px);
-    transition:opacity 0.35s ease, transform 0.35s ease;
-    pointer-events:none;
-  }
-
-  .gal-item.is-active .gal-tag{opacity:1; transform:translateY(0);}
-
-  .gal-arrow{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    border:0;
-    background:#F4F7F3;
-    color:#132B1E;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    z-index:20;
-    box-shadow:0 8px 20px rgba(0,0,0,0.35);
-    transition:transform 0.2s ease, background-color 0.2s ease;
-  }
-
-  .gal-arrow svg{width:20px; height:20px;}
-  .gal-arrow:hover{background:var(--tertiary); transform:translateY(-50%) scale(1.08);}
-  .gal-arrow:focus-visible{outline:3px solid var(--tertiary); outline-offset:3px;}
-
-  .gal-prev{left:13%;}
-  .gal-next{right:13%;}
-
-  @media (max-width:768px){
-    .gal-intro{margin-bottom:32px;}
-    .gal-item{width:80%; border-radius:12px;}
-    .gal-arrow{width:40px; height:40px;}
-    .gal-arrow svg{width:17px; height:17px;}
-    .gal-prev{left:4px;}
-    .gal-next{right:4px;}
-    .gal::before, .gal::after{width:10%;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .gal-item{transition:none;}
-  }
-
-  /* RECENZIJE */
-  .reviews{
-    background:var(--header-bg);
-    color:var(--header-text);
-    border-top:1px solid var(--header-border);
-    border-bottom:1px solid var(--header-border);
-  }
-
-  .reviews .eyebrow{
-    color:var(--header-text);
-    background:rgba(255,255,255,0.10);
-    border-color:var(--header-border);
-  }
-
-  .reviews .eyebrow::before{background:var(--header-muted);}
-
-  .reviews .section-title{color:var(--header-text);}
-  .reviews .section-intro{color:var(--header-muted);}
-
-  .rev-mask{
-    position:relative;
-    overflow:hidden;
-    padding:30px 0 26px;
-  }
-
-  .rev-track{
-    display:flex;
-    width:max-content;
-    gap:20px;
-    position:relative;
-    will-change:transform;
-  }
-
-  .rev-card{
-    flex:0 0 360px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid var(--header-border);
-    border-radius:var(--radius);
-    padding:26px;
-    transition:transform 0.45s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s ease, opacity 0.45s ease, border-color 0.45s ease;
-  }
-
-  .rev-stars{
-    color:var(--tertiary);
-    letter-spacing:3px;
-    font-size:0.95rem;
-    margin-bottom:12px;
-  }
-
-  .rev-card p{
-    color:var(--header-text);
-    font-size:1rem;
-    line-height:1.6;
-    margin:0 0 20px 0;
-    max-width:none;
-  }
-
-  .rev-name{
-    font-family:var(--font-head);
-    font-size:1.05rem;
-    color:var(--header-text);
-  }
-
-  .rev-city{
-    font-family:var(--font-body);
-    font-size:0.9rem;
-    color:var(--header-muted);
-  }
-
-  .rev-arrow{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%) scale(0.85);
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    border:1px solid var(--header-border);
-    background:var(--header-bg);
-    color:var(--header-text);
-    font-size:22px;
-    line-height:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    opacity:0;
-    pointer-events:none;
-    z-index:5;
-    box-shadow:0 10px 26px rgba(0,0,0,0.28);
-    transition:opacity 0.3s ease, transform 0.3s ease, background 0.15s ease, color 0.15s ease;
-  }
-
-  .rev-arrow:hover{
-    background:var(--tertiary);
-    color:var(--primary);
-    border-color:var(--tertiary);
-  }
-
-  .rev-arrow:focus-visible{
-    outline:2px solid var(--header-text);
-    outline-offset:3px;
-  }
-
-  .rev-prev{left:8px;}
-  .rev-next{right:8px;}
-
-  .rev-hint{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:var(--header-muted);
-    font-size:0.86rem;
-    margin-top:18px;
-  }
-
-  .rev-hint svg{width:16px; height:16px; flex:none;}
-
-  @media (max-width:768px){
-    .rev-mask{width:100vw; margin-left:calc(-50vw + 50%); padding-left:20px; padding-right:20px; touch-action:pan-y;}
-    .rev-card{flex:0 0 78vw;}
-    .rev-arrow{width:42px; height:42px; font-size:19px;}
-    .rev-prev{left:12px;}
-    .rev-next{right:12px;}
-    .rev-hint{padding:0 0 0 0;}
-  }
-
-  /* PONUDA */
-  #ponuda .wrap{
-    text-align:center;
-  }
-  #ponuda .section-title,
-  #ponuda .section-intro{
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .steps{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:24px;
-    margin-top:36px;
-  }
-
-  .step-card{
-    flex:0 1 calc(33.333% - 16px);
-    text-align:left;
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:26px 22px;
-    background:var(--surface);
-  }
-
-  .step-num{
-    font-family:var(--font-head);
-    font-size:1.1rem;
-    font-weight:700;
-    color:#132B1E;
-    background:var(--tertiary);
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:16px;
-  }
-
-  .step-card h3{
-    font-size:1rem;
-    font-family:var(--font-body);
-    font-weight:600;
-    color:var(--text);
-    margin-bottom:8px;
-  }
-
-  .step-card p{font-size:0.92rem; margin-bottom:0;}
-
-  @media (max-width:991px){
-    .step-card{flex-basis:calc(50% - 12px);}
-  }
-
-  @media (max-width:768px){
-    .step-card{flex-basis:100%;}
-  }
-
-  /* GARANCIJA */
-  #garancija .section-title{
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
-  }
-
-  .garancija-box{
-    border:1px solid var(--border);
-    border-left:4px solid var(--tertiary);
-    border-radius:var(--radius);
-    padding:40px;
-    background:var(--bg-alt);
-    max-width:760px;
-    margin:0 auto;
-  }
-
-  @media (max-width:768px){
-    .garancija-box{padding:28px 22px;}
-  }
-
-  /* UPOZORENJE - istaknut blok */
-  .cta-box{
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    border:1px solid var(--secondary);
-    border-radius:22px;
-    padding:clamp(44px, 6vw, 80px) clamp(26px, 5vw, 64px);
-    background:radial-gradient(120% 120% at 50% 0%, #2C4235 0%, #132B1E 68%);
-  }
-
-  html[data-theme="dark"] .cta-box{
-    border-color:#3C4E43;
-    background:radial-gradient(120% 120% at 50% 0%, #23322A 0%, #101711 70%);
-  }
-
-  .cta-box::after{
-    content:"";
-    position:absolute;
-    right:-70px;
-    bottom:-90px;
-    width:260px;
-    height:260px;
-    border-radius:50% 0 50% 50%;
-    background:var(--tertiary);
-    opacity:0.07;
-    transform:rotate(45deg);
-    pointer-events:none;
-  }
-
-  .cta-box > *{position:relative; z-index:1;}
-
-  .cta-box .eyebrow{
-    background:rgba(156,176,164,0.16);
-    border-color:rgba(156,176,164,0.45);
-    color:#D9E3DB;
-  }
-
-  .cta-box h2{
-    color:#F4F7F3;
-    font-size:clamp(1.9rem, 3.4vw, 2.6rem);
-    max-width:22ch;
-    margin-bottom:20px;
-  }
-
-  .cta-box p{
-    color:#C3D1C6;
-    max-width:58ch;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .cta-row{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:20px;
-    margin-top:22px;
-  }
-
-  .cta-row .btn{
-    background:var(--tertiary);
-    border-color:var(--tertiary);
-    color:#132B1E;
-    padding:16px 32px;
-    font-size:1.02rem;
-  }
-
-  .cta-row .btn:hover{
-    background:transparent;
-    color:var(--tertiary);
-    border-color:var(--tertiary);
-  }
-
-  .cta-note{
-    font-size:0.9rem;
-    color:#A9BCAE;
-    max-width:34ch;
-    text-align:left;
-  }
-
-  @media (max-width:640px){
-    .cta-note{text-align:center;}
-    .cta-row .btn{width:100%;}
-  }
-
-  /* KVIZ - procena za minut */
-  .quiz-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:56px;
-    align-items:start;
-  }
-
-  .quiz-card{
-    border:1px solid var(--border);
-    border-top:3px solid var(--accent-line);
-    border-radius:var(--radius);
-    background:var(--surface);
-    padding:32px;
-  }
-
-  .quiz-progress{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    margin-bottom:24px;
-  }
-
-  .quiz-progress > span{
-    font-size:0.76rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--text-soft);
-    white-space:nowrap;
-  }
-
-  .quiz-bar{
-    flex:1;
-    height:4px;
-    background:var(--border);
-    border-radius:999px;
-    overflow:hidden;
-  }
-
-  .quiz-bar i{
-    display:block;
-    height:100%;
-    width:33%;
-    background:var(--primary);
-    transition:width 0.4s ease;
-  }
-
-  .quiz-step h3{font-size:1.3rem; margin-bottom:8px;}
-
-  .quiz-hint{font-size:0.9rem; margin-bottom:20px;}
-
-  .quiz-sub{
-    font-size:0.9rem;
-    font-weight:600;
-    color:var(--text);
-    margin:24px 0 12px 0;
-  }
-
-  .quiz-opts{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-
-  .quiz-opt{
-    text-align:left;
-    background:var(--field-bg);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:16px;
-    cursor:pointer;
-    font-family:var(--font-body);
-    color:var(--text);
-    transition:border-color 0.15s ease, background-color 0.15s ease;
-  }
-
-  .quiz-opt:hover{border-color:var(--accent-text);}
-
-  .quiz-opt.is-on{border-color:var(--primary); background:var(--tag-bg);}
-
-  .quiz-opt strong{display:block; font-size:0.95rem; font-weight:600;}
-
-  .quiz-opt small{color:var(--text-soft); font-size:0.82rem; line-height:1.4;}
-
-  .quiz-fields{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-
-  .quiz-fields .full{grid-column:1 / -1;}
-
-  .quiz-nav{display:flex; gap:12px; margin-top:28px;}
-
-  .quiz-nav .quiz-next{margin-left:auto;}
-
-  /* .btn i trake su flex/inline-block, pa im atribut hidden treba pomoc. */
-  .quiz-progress[hidden], .quiz-nav[hidden], .quiz-nav .btn[hidden]{display:none;}
-
-  .quiz-err{
-    display:none;
-    font-size:0.88rem;
-    margin-top:16px;
-    color:#A6402E;
-  }
-
-  .quiz-err.is-on{display:block;}
-
-  html[data-theme="dark"] .quiz-err{color:#E9A497;}
-
-  .quiz-result{text-align:center;}
-
-  .quiz-result h3{font-size:1.4rem; margin:16px 0 8px 0;}
-
-  .quiz-result > p{margin-left:auto; margin-right:auto;}
-
-  .quiz-box{
-    text-align:left;
-    background:var(--field-bg);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:24px;
-    margin-top:24px;
-  }
-
-  .quiz-box > span{
-    font-size:0.72rem;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--text-soft);
-  }
-
-  .quiz-box strong{
-    display:block;
-    font-family:var(--font-head);
-    color:var(--primary);
-    font-size:1.2rem;
-    margin:8px 0 4px 0;
-  }
-
-  .quiz-space{font-size:0.88rem; margin:0;}
-
-  .quiz-list{
-    list-style:none;
-    margin:16px 0 0 0;
-    padding:0;
-    display:grid;
-    gap:8px;
-  }
-
-  .quiz-list li{
-    display:flex;
-    gap:12px;
-    font-size:0.92rem;
-    color:var(--text-soft);
-    line-height:1.5;
-  }
-
-  .quiz-list li::before{
-    content:"";
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:var(--tertiary);
-    flex:none;
-    margin-top:8px;
-  }
-
-  .btn-wide{width:100%; margin-top:24px;}
-
-  @media (max-width:768px){
-    .quiz-grid{grid-template-columns:1fr; gap:36px;}
-    .quiz-card{padding:24px 20px;}
-    .quiz-opts{grid-template-columns:1fr;}
-    .quiz-fields{grid-template-columns:1fr;}
-  }
-
-  /* KONTAKT */
-  .contact-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:56px;
-    align-items:start;
-  }
-
-  form{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-  }
-
-  label{
-    font-size:0.88rem;
-    color:var(--text-soft);
-    margin-bottom:6px;
-    display:block;
-  }
-
-  input, textarea{
-    width:100%;
-    padding:12px 14px;
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    font-family:var(--font-body);
-    font-size:0.98rem;
-    background:var(--field-bg);
-    color:var(--text);
-  }
-
-  input:focus, textarea:focus{
-    outline:none;
-    border-color:var(--accent-text);
-    box-shadow:0 0 0 3px var(--tag-bg);
-  }
-
-  textarea{resize:vertical; min-height:120px;}
-
-  @media (max-width:768px){
-    .contact-grid{grid-template-columns:1fr; gap:36px;}
-  }
-
-  /* FOOTER */
-  footer{
-    padding-top:56px;
-    padding-bottom:40px;
-    background:var(--bg-alt);
-    border-top:2px solid var(--accent-line);
-  }
-
-  .footer-grid{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:32px;
-    padding-bottom:28px;
-    border-bottom:1px solid var(--border);
-  }
-
-  .footer-logo{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--font-head);
-    font-size:1.3rem;
-    color:var(--primary);
-    font-weight:700;
-    margin-bottom:10px;
-  }
-
-  .footer-logo .logo-mark{
-    width:48px;
-    height:48px;
-  }
-
-  .footer-col p{font-size:0.9rem; margin-bottom:0;}
-
-  .footer-links{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-
-  .footer-links a{font-size:0.9rem; color:var(--text-soft);}
-  .footer-links a:hover{color:var(--accent-text);}
-
-  .footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:12px;
-    padding-top:24px;
-    font-size:0.82rem;
-    color:var(--text-soft);
-  }
-
-  .ps-note{
-    max-width:70ch;
-    margin:0 auto 32px;
-    text-align:center;
-    font-size:0.92rem;
-    color:var(--text-soft);
-    border-top:1px solid var(--accent-line);
-    padding-top:28px;
-  }
-
+:root{
+  --ink:#132B1E;        /* brend: tamnozelena iz logotipa */
+  --forest:#1E3D2B;
+  --moss:#4E6B45;
+  --sage:#A9B89A;
+  --sage-soft:#DCE3D2;
+  --linen:#F4F0E6;
+  --paper:#FBF9F3;
+  --stone:#E3DBCB;
+  --clay:#A4553A;       /* akcenat: crvena fotinija / japanski javor sa fotografija */
+  --text:#1B2A21;
+  --muted:#56645A;
+  --line:rgba(19,43,30,.14);
+  --serif:"Fraunces", Georgia, serif;
+  --sans:"Hanken Grotesk", system-ui, sans-serif;
+  --sec:clamp(80px, 10vw, 128px);
+  --gut:clamp(20px, 4vw, 40px);
+  --r:24px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--linen);color:var(--text);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.08;margin:0;letter-spacing:-.01em;font-variation-settings:"opsz" 96}
+h2{font-size:clamp(36px, 5vw, 64px)}
+h3{font-size:24px;line-height:1.2;font-variation-settings:"opsz" 36}
+p{margin:0}
+em{font-style:italic}
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--gut)}
+.sec{padding:var(--sec) 0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--moss)}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.lead{font-size:20px;line-height:1.5;color:var(--muted)}
+.sec-head{display:grid;gap:20px;max-width:720px;margin-bottom:56px}
+.sec-head.split{max-width:none;grid-template-columns:1fr 1fr;align-items:end;gap:40px}
+h2 em{color:var(--moss)}
+
+/* dugme: jedan stil (ispunjeno), na tamnoj podlozi obrnute boje */
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:4px 28px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-size:16px;font-weight:600;text-decoration:none;transition:background .3s var(--ease),color .3s var(--ease),transform .3s var(--ease)}
+.btn:hover{background:var(--forest);transform:translateY(-2px)}
+.btn.has-arrow{padding-right:8px}
+.btn.has-arrow .ar{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--paper);color:var(--ink);transition:transform .3s var(--ease)}
+.btn.has-arrow:hover .ar{transform:rotate(-45deg)}
+.on-dark .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.on-dark .btn:hover{background:var(--sage-soft)}
+.on-dark .btn.has-arrow .ar{background:var(--ink);color:var(--paper)}
+.tlink{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px}
+.tlink:hover{color:var(--moss)}
+:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+
+/* gornja traka */
+.topbar{background:var(--ink);color:var(--sage-soft);font-size:12px}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:40px}
+.topbar a{text-decoration:none}
+.topbar a:hover{color:#fff}
+.topbar .season{display:flex;align-items:center;gap:8px}
+.topbar .dot{width:8px;height:8px;border-radius:50%;background:#8FC27A;box-shadow:0 0 0 4px rgba(143,194,122,.2)}
+.topbar .links{display:flex;gap:24px}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:50;background:rgba(244,240,230,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.hdr.scrolled{border-color:var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:32px;min-height:80px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--serif);font-size:20px}
+.brand img{width:44px;height:44px;border-radius:50%}
+.nav{display:flex;gap:28px;margin-left:auto;font-size:16px}
+.nav a{text-decoration:none;color:var(--muted);transition:color .2s}
+.nav a:hover{color:var(--ink)}
+.hdr .btn{min-height:48px;padding:4px 24px}
+.burger{display:none;margin-left:auto;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:none;place-items:center}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:1.5px;background:var(--ink);position:relative;transition:transform .3s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.menu-open .burger span{background:transparent}
+.menu-open .burger span::before{transform:translateY(6px) rotate(45deg)}
+.menu-open .burger span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* HERO */
+.hero{padding:clamp(40px,6vw,80px) 0 var(--sec)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,5vw,80px);align-items:center}
+.hero-copy{container-type:inline-size;display:grid;gap:28px}
+.hero h1{font-size:clamp(36px, 7.6vw, 88px);font-size:clamp(36px, 15.6cqi, 88px);line-height:1.02;font-weight:350;letter-spacing:-.02em;font-variation-settings:"opsz" 144}
+.hero h1 span{display:block;white-space:nowrap}
+.hero h1 em{color:var(--moss);font-weight:300}
+.hero .lead{max-width:520px}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px}
+.hero-points{list-style:none;padding:24px 0 0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;border-top:1px solid var(--line)}
+.hero-points li{font-size:12px;line-height:1.5;color:var(--muted)}
+.hero-points b{display:block;font-family:var(--serif);font-weight:400;font-size:20px;color:var(--ink);margin-bottom:4px}
+
+.hero-art{position:relative}
+.frame{position:relative;aspect-ratio:1206/1151;border-radius:999px 999px var(--r) var(--r);overflow:hidden;background:var(--paper);isolation:isolate;box-shadow:0 40px 80px -40px rgba(19,43,30,.45)}
+.frame .paper{position:absolute;inset:0;background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/40px 40px,var(--paper)}
+.frame .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:circle(150% at 60% 66%)}
+.frame .plan{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.plan *{vector-effect:non-scaling-stroke;fill:none;stroke:var(--paper);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.plan .g-plan{opacity:.42;transition:opacity .6s var(--ease)}
+.plan .hatch{stroke-dasharray:2 6}
+.plan .fill-lawn{fill:rgba(251,249,243,.06)}
+.frame .sun{position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 38%,rgba(255,244,214,.38) 48%,rgba(255,250,235,.12) 54%,transparent 62%);mix-blend-mode:soft-light;transform:translateX(-70%);pointer-events:none}
+.pin{position:absolute;display:flex;align-items:center;gap:8px;transform:translate(-8px,-50%);font-size:12px;font-weight:600;color:var(--ink);pointer-events:none}
+.pin i{width:16px;height:16px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 4px rgba(251,249,243,.35);flex:none}
+.pin span{background:var(--paper);padding:4px 12px;border-radius:999px;white-space:nowrap;box-shadow:0 8px 20px -8px rgba(0,0,0,.35)}
+.pin.left{flex-direction:row-reverse;transform:translate(calc(-100% + 8px),-50%)}
+.plan-toggle{position:absolute;right:20px;bottom:20px;z-index:3;display:flex;padding:4px;border-radius:999px;background:rgba(19,43,30,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.plan-toggle button{border:0;background:none;color:var(--sage-soft);font-size:12px;font-weight:600;padding:8px 16px;border-radius:999px;transition:background .3s,color .3s}
+.plan-toggle button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+.frame.show-plan .photo{filter:saturate(.35) brightness(.72)}
+.frame.show-plan .g-plan{opacity:1}
+.frame .photo{transition:filter .6s var(--ease)}
+.float-card{position:absolute;z-index:4;background:var(--paper);border-radius:20px;padding:16px 20px;box-shadow:0 24px 48px -24px rgba(19,43,30,.45);display:flex;align-items:center;gap:16px}
+.float-card.fc1{left:-32px;bottom:64px;max-width:280px}
+.float-card.fc2{right:-20px;top:20%}
+.float-card .ico{width:48px;height:48px;border-radius:50%;background:var(--sage-soft);display:grid;place-items:center;flex:none;color:var(--ink)}
+.float-card b{display:block;font-family:var(--serif);font-weight:400;font-size:20px;line-height:1.2;color:var(--ink)}
+.float-card small{font-size:12px;color:var(--muted);line-height:1.4;display:block}
+
+/* hero animacija: nacrt se iscrta, pa se vrt "rascveta" kroz njega */
+.js .hero-art:not(.play) .photo{clip-path:circle(0% at 60% 66%)}
+.js .hero-art:not(.play) .draw{stroke-dasharray:1;stroke-dashoffset:1}
+.js .hero-art:not(.play) .pin,.js .hero-art:not(.play) .float-card,.js .hero-art:not(.play) .plan-toggle{opacity:0}
+.js .hero-art:not(.play) .plan *{stroke:var(--ink)}
+.js .hero-art:not(.play) .g-plan{opacity:1}
+.hero-art.play .draw{stroke-dasharray:1;animation:draw 1.4s var(--ease) both;animation-delay:calc(.15s + var(--d,0) * 1s)}
+.hero-art.play .plan *{animation:inkToLight .8s var(--ease) 1.9s both}
+.hero-art.play .plan .draw{animation:draw 1.4s var(--ease) calc(.15s + var(--d,0) * 1s) both,inkToLight .8s var(--ease) 1.9s both}
+.hero-art.play .g-plan{animation:planFade 1s var(--ease) 1.9s both}
+.hero-art.play .photo{animation:bloom 1.8s cubic-bezier(.65,0,.35,1) 1.7s both}
+.hero-art.play .pin{animation:pop .6s var(--ease) both;animation-delay:calc(3.3s + var(--i) * .15s)}
+.hero-art.play .float-card,.hero-art.play .plan-toggle{animation:rise .8s var(--ease) both;animation-delay:calc(3.1s + var(--i,0) * .2s)}
+.hero-art.play .sun{animation:sun 10s ease-in-out 4.2s infinite}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes inkToLight{from{stroke:var(--ink)}to{stroke:var(--paper)}}
+@keyframes planFade{from{opacity:1}to{opacity:.42}}
+@keyframes bloom{from{clip-path:circle(0% at 60% 66%)}to{clip-path:circle(150% at 60% 66%)}}
+@keyframes pop{from{opacity:0;transform:translate(-8px,-50%) scale(.8)}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes sun{0%,62%{transform:translateX(-70%)}100%{transform:translateX(70%)}}
+.hero-art.play .pin.left{animation-name:popL}
+@keyframes popL{from{opacity:0;transform:translate(calc(-100% + 8px),-50%) scale(.8)}to{opacity:1}}
+
+/* traka poverenja */
+.strip{border-block:1px solid var(--line);background:var(--paper)}
+.strip ul{list-style:none;margin:0 auto;padding:28px var(--gut);max-width:1280px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.strip li{display:flex;align-items:center;gap:16px;font-size:16px;line-height:1.4}
+.strip svg{flex:none;color:var(--moss)}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--dl,0s)}
+.js .rv.in{opacity:1;transform:none}
+
+/* problemi */
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pain{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:32px;display:grid;gap:16px;align-content:start;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.pain:hover{transform:translateY(-4px);box-shadow:0 24px 48px -32px rgba(19,43,30,.4)}
+.pain q{font-family:var(--serif);font-size:24px;line-height:1.3;quotes:"„" "“";color:var(--ink)}
+.pain p{color:var(--muted)}
+.pain .tag{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+
+/* usluge */
+.services{background:var(--paper)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.svc{display:grid;grid-template-rows:auto 1fr;border-radius:var(--r);overflow:hidden;background:var(--linen);border:1px solid var(--line)}
+.svc figure{margin:0;aspect-ratio:4/3;overflow:hidden}
+.svc figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.svc:hover figure img{transform:scale(1.05)}
+.svc .body{padding:32px;display:grid;gap:16px;align-content:start}
+.svc .num{font-family:var(--serif);font-style:italic;color:var(--moss);font-size:20px}
+.svc ul{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:12px}
+.svc li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.svc li::before{content:"";width:8px;height:8px;margin-top:8px;flex:none;border-radius:50% 0;background:var(--moss);transform:rotate(-45deg)}
+
+/* skica -> realizacija */
+.sketch .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);align-items:center}
+.sketch-copy{display:grid;gap:24px}
+.deliver{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
+.deliver li{display:grid;grid-template-columns:48px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.deliver b{display:block;font-weight:600}
+.deliver span{color:var(--muted)}
+.deliver .n{font-family:var(--serif);font-style:italic;color:var(--moss);font-size:24px;line-height:1}
+.compare{position:relative;aspect-ratio:934/1205;border-radius:var(--r);overflow:hidden;--pos:50%;user-select:none;touch-action:pan-y;background:var(--paper)}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compare .after{clip-path:inset(0 0 0 var(--pos))}
+.compare .handle{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;background:var(--paper);transform:translateX(-1px);pointer-events:none}
+.compare .handle::after{content:"";position:absolute;top:50%;left:50%;width:56px;height:56px;border-radius:50%;background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23132B1E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6 3 12l6 6M15 6l6 6-6 6'/%3E%3C/svg%3E") center no-repeat;transform:translate(-50%,-50%);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.compare .lbl{position:absolute;top:20px;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;background:var(--paper);color:var(--ink);pointer-events:none}
+.compare .lbl.l{left:20px}.compare .lbl.r{right:20px;background:var(--ink);color:var(--paper)}
+.cap{font-size:12px;color:var(--muted);margin-top:12px}
+
+/* radovi */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 20px;font-size:16px;transition:background .3s,color .3s,border-color .3s}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.gallery{columns:3;column-gap:20px}
+.gallery .item{break-inside:avoid;margin:0 0 20px;position:relative;border-radius:20px;overflow:hidden;display:block;width:100%;padding:0;border:0;background:var(--stone);text-align:left}
+.gallery .item img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform 1s var(--ease)}
+.gallery .item.sq img{aspect-ratio:1}
+.gallery .item:hover img{transform:scale(1.04)}
+.gallery .item figcaption{position:absolute;left:12px;right:12px;bottom:12px;padding:12px 16px;border-radius:12px;background:rgba(251,249,243,.92);font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;transform:translateY(8px);opacity:0;transition:.4s var(--ease)}
+.gallery .item:hover figcaption,.gallery .item:focus-visible figcaption{opacity:1;transform:none}
+.gallery .item figcaption small{font-size:12px;color:var(--muted);white-space:nowrap}
+.gallery .item.hide{display:none}
+.lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100vw;height:100vh}
+.lb::backdrop{background:rgba(12,24,17,.92)}
+.lb-in{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:64px 80px}
+.lb img{max-height:calc(100vh - 160px);width:auto;border-radius:12px}
+.lb p{color:var(--sage-soft);margin-top:16px;text-align:center}
+.lb button{position:absolute;width:56px;height:56px;border-radius:50%;border:1px solid rgba(251,249,243,.3);background:rgba(251,249,243,.08);color:var(--paper);display:grid;place-items:center}
+.lb button:hover{background:rgba(251,249,243,.2)}
+.lb .x{top:20px;right:20px}.lb .pv{left:20px;top:50%;transform:translateY(-50%)}.lb .nx{right:20px;top:50%;transform:translateY(-50%)}
+.lb figure{margin:0;display:grid;justify-items:center}
+
+/* proces */
+.process{background:var(--ink);color:var(--sage-soft)}
+.process h2,.process h3{color:var(--paper)}
+.process h2 em{color:var(--sage)}
+.process .eyebrow{color:var(--sage)}
+.process .lead{color:var(--sage)}
+.proc{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(40px,6vw,96px)}
+.proc-side{position:sticky;top:120px;align-self:start;display:grid;gap:24px}
+.proc-side figure{margin:16px 0 0;border-radius:var(--r);overflow:hidden;aspect-ratio:16/10}
+.proc-side figure img{width:100%;height:100%;object-fit:cover}
+.steps{position:relative;list-style:none;margin:0;padding:0 0 0 72px;display:grid;gap:56px;--p:0}
+.steps::before,.steps::after{content:"";position:absolute;left:23px;top:8px;bottom:8px;width:2px;border-radius:2px;background:rgba(169,184,154,.2)}
+.steps::after{background:linear-gradient(var(--sage),#8FC27A);transform-origin:top;transform:scaleY(var(--p))}
+.step{position:relative;display:grid;gap:12px}
+.step .leaf{position:absolute;left:-72px;top:0;width:48px;height:48px;border-radius:50%;background:var(--forest);border:1px solid rgba(169,184,154,.3);display:grid;place-items:center;color:var(--sage);transition:background .5s,color .5s}
+.step .leaf svg{transform:scale(.4) rotate(-40deg);opacity:.4;transition:transform .7s cubic-bezier(.34,1.56,.64,1),opacity .5s}
+.step.on .leaf{background:var(--sage-soft);color:var(--ink)}
+.step.on .leaf svg{transform:none;opacity:1}
+.step .k{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);font-weight:600}
+.step p{max-width:520px}
+.step .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.step .chips span{font-size:12px;padding:4px 12px;border:1px solid rgba(169,184,154,.35);border-radius:999px}
+
+/* oblikovano zelenilo */
+.forms .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,6vw,96px);align-items:center}
+.forms-photo{position:relative;border-radius:999px 999px var(--r) var(--r);overflow:hidden;aspect-ratio:921/1400}
+.forms-photo img{width:100%;height:100%;object-fit:cover}
+.forms-copy{display:grid;gap:24px}
+.form-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.form-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:8px;align-content:start}
+.form-card svg{color:var(--moss);margin-bottom:8px}
+.form-card svg .dr{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s var(--ease) .2s}
+.form-card.in svg .dr,html:not(.js) .form-card svg .dr{stroke-dashoffset:0}
+.form-card p{font-size:16px;color:var(--muted)}
+.form-card .care{font-size:12px;font-weight:600;color:var(--clay);letter-spacing:.04em}
+
+/* kalendar */
+.cal{background:var(--paper)}
+.months{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.m{position:relative;border:1px solid var(--line);border-radius:20px;padding:20px;display:grid;gap:8px;align-content:start;min-height:196px;background:var(--linen);transition:transform .4s var(--ease)}
+.m:hover{transform:translateY(-4px)}
+.m h3{font-size:20px}
+.m p{font-size:16px;line-height:1.45;color:var(--muted)}
+.m .s{display:flex;gap:4px;flex-wrap:wrap}
+.m .s span{font-size:12px;padding:0 8px;border-radius:999px;background:var(--sage-soft);color:var(--ink)}
+.m .s span.pl{background:#EBD8CE;color:#6E3321}
+.m.now{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.m.now h3{color:var(--paper);padding-right:56px}
+.m.now p{color:var(--sage-soft)}
+.m.now::after{content:"Sada";position:absolute;top:16px;right:16px;font-size:12px;font-weight:600;padding:0 8px;border-radius:999px;background:#8FC27A;color:var(--ink);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(143,194,122,.25)}}
+.cal-note{margin-top:32px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;padding:28px 32px;border-radius:var(--r);background:var(--sage-soft)}
+.cal-note p{font-family:var(--serif);font-size:24px;line-height:1.3;color:var(--ink);max-width:760px}
+
+/* cena */
+.price .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,5vw,80px);align-items:start}
+.factors{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);margin-top:40px}
+.factor{padding:28px 28px 28px 0;border-bottom:1px solid var(--line);display:grid;gap:8px}
+.factor:nth-child(even){padding:28px 0 28px 28px;border-left:1px solid var(--line)}
+.factor .n{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--clay)}
+.factor p{color:var(--muted)}
+.prep{background:var(--ink);color:var(--sage-soft);border-radius:var(--r);padding:40px;display:grid;gap:20px;position:sticky;top:112px}
+.prep h3{color:var(--paper);font-size:28px}
+.prep label{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;cursor:pointer;padding:12px 0;border-bottom:1px solid rgba(169,184,154,.2)}
+.prep input{appearance:none;width:24px;height:24px;border:1px solid var(--sage);border-radius:8px;margin:0;display:grid;place-items:center;transition:background .2s}
+.prep input:checked{background:#8FC27A;border-color:#8FC27A}
+.prep input:checked::after{content:"";width:6px;height:12px;border:solid var(--ink);border-width:0 2px 2px 0;transform:translateY(-2px) rotate(45deg)}
+.prep label b{display:block;color:var(--paper);font-weight:500}
+.prep label span{font-size:12px;line-height:1.5}
+.prep .meter{height:4px;border-radius:4px;background:rgba(169,184,154,.2);overflow:hidden}
+.prep .meter i{display:block;height:100%;width:0;background:#8FC27A;transition:width .5s var(--ease)}
+.prep .ok{font-size:12px;min-height:20px}
+
+/* planer upita */
+.plan-sec{background:var(--stone)}
+.plan-sec .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,5vw,80px);align-items:start}
+.contact-list{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px}
+.contact-list a{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:20px;background:var(--paper);text-decoration:none;border:1px solid var(--line);transition:transform .3s var(--ease),border-color .3s}
+.contact-list a:hover{transform:translateX(4px);border-color:var(--moss)}
+.contact-list .ci{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--sage-soft);color:var(--ink);flex:none}
+.contact-list b{display:block}
+.contact-list small{font-size:12px;color:var(--muted)}
+.wiz{background:var(--paper);border-radius:var(--r);padding:clamp(24px,4vw,48px);box-shadow:0 40px 80px -48px rgba(19,43,30,.5)}
+.wiz-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.wiz-bar{height:4px;background:var(--stone);border-radius:4px;margin-bottom:32px;overflow:hidden}
+.wiz-bar i{display:block;height:100%;width:20%;background:var(--moss);transition:width .5s var(--ease)}
+.wiz fieldset{border:0;padding:0;margin:0 0 32px;display:grid;gap:16px}
+.js .wiz fieldset{display:none;margin:0}
+.js .wiz fieldset.cur{display:grid;animation:rise .5s var(--ease)}
+.wiz legend{font-family:var(--serif);font-size:28px;line-height:1.2;color:var(--ink);margin-bottom:4px;padding:0}
+.wiz .hint{color:var(--muted);font-size:16px;margin-top:-8px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0}
+.opt span{display:grid;gap:4px;height:100%;padding:16px 20px;border:1px solid var(--line);border-radius:16px;background:var(--linen);cursor:pointer;transition:border-color .2s,background .2s}
+.opt span b{font-weight:600}
+.opt span small{font-size:12px;color:var(--muted)}
+.opt input:checked+span{border-color:var(--ink);background:var(--sage-soft);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt input:focus-visible+span{outline:2px solid var(--clay);outline-offset:2px}
+.fld{display:grid;gap:8px}
+.fld label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fld input,.fld textarea,.fld select{font:inherit;font-size:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--linen);color:var(--text);width:100%}
+.fld textarea{min-height:96px;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:2px solid var(--moss);outline-offset:0;border-color:transparent}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.wiz-nav{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:32px}
+.wiz-nav .back{border:0;background:none;font-weight:600;color:var(--muted);padding:12px 0}
+.wiz-nav .back[hidden]{display:block;visibility:hidden}
+.wiz .err{color:var(--clay);font-size:16px;min-height:24px;margin-top:8px}
+.summary{background:var(--linen);border-radius:16px;padding:20px;font-size:16px;white-space:pre-line;line-height:1.6;border:1px dashed var(--sage)}
+.send{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;border-radius:999px;font-weight:600;text-decoration:none;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-size:16px}
+.send a:hover,.send button:hover{background:var(--forest)}
+html:not(.js) .wiz-nav,html:not(.js) .wiz-top,html:not(.js) .wiz-bar,html:not(.js) .step-final{display:none}
+
+/* FAQ */
+.faq .wrap{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(40px,6vw,96px)}
+.faq-head{display:grid;gap:24px;align-content:start;position:sticky;top:120px;align-self:start}
+.qa{border-bottom:1px solid var(--line)}
+.qa:first-child{border-top:1px solid var(--line)}
+.qa summary{list-style:none;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:28px 0;cursor:pointer;font-family:var(--serif);font-size:24px;line-height:1.3;color:var(--ink)}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary i{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);position:relative;transition:transform .4s var(--ease),background .3s}
+.qa summary i::before,.qa summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+.qa summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.qa[open] summary i{transform:rotate(45deg);background:var(--sage-soft)}
+.qa .a{padding:0 64px 28px 0;color:var(--muted);display:grid;gap:12px}
+
+/* instagram */
+.ig{background:var(--ink);color:var(--sage-soft);overflow:hidden}
+.ig .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,96px);align-items:center}
+.ig h2{color:var(--paper)}
+.ig h2 em{color:var(--sage)}
+.ig .big{font-family:var(--serif);font-size:clamp(72px,10vw,128px);line-height:1;color:var(--paper);font-weight:300;letter-spacing:-.03em}
+.ig .big small{font-size:.32em;color:var(--sage);letter-spacing:0;margin-left:8px}
+.ig-copy{display:grid;gap:24px}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;transform:rotate(-3deg) translateX(4%)}
+.ig-grid a{aspect-ratio:1;border-radius:16px;overflow:hidden;display:block}
+.ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.ig-grid a:hover img{transform:scale(1.06)}
+.ig-grid a:nth-child(3n+2){transform:translateY(32px)}
+
+/* završni poziv + footer */
+.final{position:relative;color:var(--paper);overflow:hidden;background:var(--ink)}
+.final img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
+.final::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(19,43,30,.92) 0%,rgba(19,43,30,.55) 60%,rgba(19,43,30,.2));z-index:1}
+.final .wrap{position:relative;z-index:2;display:grid;gap:28px;max-width:1280px}
+.final h2{color:var(--paper);max-width:760px}
+.final h2 em{color:var(--sage)}
+.final p{max-width:560px;color:var(--sage-soft);font-size:20px}
+footer{background:#0D1F15;color:var(--sage);font-size:16px}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-top:64px;padding-bottom:40px}
+footer h4{margin:0 0 16px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-soft);font-weight:600}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--paper)}
+footer .brand{color:var(--paper);margin-bottom:16px}
+footer .legal{grid-column:1/-1;border-top:1px solid rgba(169,184,154,.15);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px}
+
+/* mobilna traka akcija */
+.mbar{display:none}
+
+@media (max-width:1100px){
+  .nav{display:none}
+  .burger{display:grid}
+  .hdr .btn{display:none}
+  .menu-open .nav{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--linen);border-bottom:1px solid var(--line);padding:8px var(--gut) 24px}
+  .menu-open .nav a{padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;color:var(--ink)}
+  .months{grid-template-columns:repeat(4,1fr)}
+  .pains{grid-template-columns:1fr 1fr}
+  .strip ul{grid-template-columns:1fr 1fr}
+  .float-card.fc1{left:-16px}
+  .float-card.fc2{right:-8px}
+}
+@media (max-width:900px){
+  .hero .wrap,.sketch .wrap,.proc,.forms .wrap,.price .wrap,.plan-sec .wrap,.faq .wrap,.ig .wrap,.sec-head.split{grid-template-columns:1fr}
+  .hero-copy h1{font-size:clamp(36px, 15.6cqi, 88px)}
+  .svc-grid{grid-template-columns:1fr}
+  .svc{grid-template-columns:2fr 3fr;grid-template-rows:none}
+  .svc figure{aspect-ratio:auto;height:100%}
+  .proc-side,.faq-head,.prep{position:static}
+  .gallery{columns:2}
+  .months{grid-template-columns:repeat(3,1fr)}
+  .forms-photo{max-width:480px;aspect-ratio:4/5}
+  .ig-grid{transform:none}
+  .ig-grid a:nth-child(3n+2){transform:none}
+  footer .wrap{grid-template-columns:1fr 1fr}
+  footer .wrap>div:first-child{grid-column:1/-1}
+}
+@media (max-width:640px){
+  body{padding-bottom:80px}
+  .topbar .links{display:none}
+  .topbar .wrap{justify-content:center;text-align:center}
+  .hdr .wrap{min-height:64px}
+  .brand img{width:40px;height:40px}
+  .hero-points{grid-template-columns:1fr;gap:12px}
+  .hero-points li{display:flex;gap:12px;align-items:baseline}
+  .hero-points b{font-size:16px;margin:0;font-family:var(--sans);font-weight:600}
+  .frame{border-radius:200px 200px 20px 20px}
+  .pin span{font-size:12px;padding:0 8px}
+  .pin.hide-sm{display:none}
+  .float-card.fc1{position:relative;left:auto;bottom:auto;margin:-40px 16px 0;max-width:none}
+  .float-card.fc2{top:auto;bottom:auto;right:12px;top:12px;padding:12px 16px}
+  .float-card.fc2 .ico{display:none}
+  .plan-toggle{right:12px;bottom:12px}
+  .strip ul{grid-template-columns:1fr;gap:16px}
+  .pains{grid-template-columns:1fr}
+  .pain{padding:24px}
+  .svc{grid-template-columns:1fr}
+  .svc figure{aspect-ratio:16/10}
+  .svc .body{padding:24px}
+  .gallery{columns:2;column-gap:12px}
+  .gallery .item{margin-bottom:12px;border-radius:16px}
+  .gallery .item figcaption{display:none}
+  .m{min-height:0}
+  .months{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--gut) * -1);padding:4px var(--gut) 16px;scroll-padding:0 var(--gut);scrollbar-width:none}
+  .months::-webkit-scrollbar{display:none}
+  .m{flex:0 0 72%;scroll-snap-align:start}
+  .js .months .m.rv{opacity:1;transform:none}
+  .factors{grid-template-columns:1fr}
+  .factor,.factor:nth-child(even){padding:24px 0;border-left:0}
+  .prep{padding:28px}
+  .opts,.two,.send{grid-template-columns:1fr}
+  .form-list{grid-template-columns:1fr}
+  .qa summary{font-size:20px}
+  .qa .a{padding-right:0}
+  .lb-in{padding:72px 12px}
+  .lb .pv,.lb .nx{top:auto;bottom:20px;transform:none}
+  footer .wrap{grid-template-columns:1fr}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:12px 12px calc(12px + env(safe-area-inset-bottom));background:rgba(251,249,243,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mbar a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;border:1px solid var(--line)}
+  .mbar a.pri{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .hero-art:not(.play) .photo,.hero-art .photo{clip-path:none}
+  .js .hero-art .draw{stroke-dashoffset:0}
+  .js .hero-art .pin,.js .hero-art .float-card,.js .hero-art .plan-toggle{opacity:1}
+  .js .hero-art .plan *{stroke:var(--paper)}
+  .js .hero-art .g-plan{opacity:.42}
+  .js .rv{opacity:1;transform:none}
+  .form-card svg .dr{stroke-dashoffset:0}
+}
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
 
-<header class="navbar">
-  <div class="wrap nav-inner">
-    <a href="#pocetna" class="logo">
-      <img class="logo-mark" src="assets/logo.png" width="235" height="237" alt="Znak Vrtni dizajner">
-      <span>Vrtni dizajner</span>
-    </a>
-    <nav class="nav-links">
-      <a href="#problem">Problem</a>
-      <a href="#resenje">Rešenje</a>
-      <a href="#dokazi">Galerija</a>
-      <a href="#recenzije">Recenzije</a>
-      <a href="#ponuda">Ponuda</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-    <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Uključi tamnu temu" title="Svetla / tamna tema">
-        <span class="knob">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#7a4c05" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="#7a4c05" stroke="none"/><path d="M12 1.6v2.4M12 20v2.4M3.9 3.9l1.7 1.7M18.4 18.4l1.7 1.7M1.6 12h2.4M20 12h2.4M3.9 20.1l1.7-1.7M18.4 5.6l1.7-1.7"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.4 3a9.6 9.6 0 1 0 3.6 15.2A11.4 11.4 0 0 1 17.4 3z" fill="#3d4a5c"/></svg>
-        </span>
-      </button>
-      <a href="#kontakt" class="btn">Zatraži ponudu</a>
-      <button class="hamburger" id="hamburgerBtn" aria-label="Otvori meni" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+<div class="topbar">
+  <div class="wrap">
+    <p class="season"><span class="dot" aria-hidden="true"></span><span id="seasonMsg">Konsultacija i obilazak prostora bez obaveze</span></p>
+    <div class="links">
+      <a href="tel:+381649773544">064 977 3544</a>
+      <a href="https://www.instagram.com/vrtni_dizajner/">Instagram @vrtni_dizajner</a>
     </div>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Vrtni dizajner – početak"><img src="assets/logo.png" alt="" width="44" height="44">Vrtni dizajner</a>
+    <nav class="nav" id="nav" aria-label="Glavna navigacija">
+      <a href="#usluge">Usluge</a>
+      <a href="#radovi">Radovi</a>
+      <a href="#proces">Kako radimo</a>
+      <a href="#kalendar">Vrtni kalendar</a>
+      <a href="#cena">Cena</a>
+      <a href="#pitanja">Pitanja</a>
+    </nav>
+    <a class="btn" href="#upit">Zakažite konsultaciju</a>
+    <button class="burger" id="burger" aria-label="Otvori meni" aria-expanded="false" aria-controls="nav"><span></span></button>
   </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-inner">
-    <a href="#problem" class="mnav">Problem</a>
-    <a href="#resenje" class="mnav">Rešenje</a>
-    <a href="#dokazi" class="mnav">Galerija</a>
-    <a href="#recenzije" class="mnav">Recenzije</a>
-    <a href="#ponuda" class="mnav">Ponuda</a>
-    <a href="#kontakt" class="mnav">Kontakt</a>
-    <a href="#kontakt" class="btn">Zatraži ponudu</a>
-  </div>
-</div>
+<main id="top">
 
-<section class="hero" id="pocetna">
-  <img class="hero-bg" src="assets/hero-imanje.jpg" width="1206" height="1451" fetchpriority="high" decoding="async"
-       alt="Pogled iz vazduha na uređeno imanje sa travnjakom, drvoredom i oblikovanim zelenilom">
-  <div class="hero-veil" aria-hidden="true"></div>
-
-  <div class="hero-content">
-    <div class="wrap">
-      <div class="hero-copy">
-        <span class="hero-eyebrow">Pejzažni dizajn i uređenje</span>
-        <h1 class="hero-title">Vrt iz snova, bez skupih grešaka</h1>
-        <p class="hero-sub">Projektujem i uređujem vrtove i zelene površine za kuće, vile, vikendice i poslovne objekte - od prve ideje, preko 3D vizualizacije, do zasađene poslednje biljke.</p>
-        <div class="hero-actions">
-          <a href="#kontakt" class="btn">Zatraži ponudu za svoj vrt</a>
-          <a href="#dokazi" class="btn btn-outline-light">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
-            Pogledaj radove
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-<!-- TRAKA U POKRETU -->
-<div class="ticker" aria-label="Vrtni dizajner u brojkama">
-  <div class="ticker-track">
-    <div class="ticker-set">
-      <div class="ticker-item"><span class="ticker-num">10+</span><span class="ticker-label">godina u<br>pejzažnom dizajnu</span></div>
-      <span class="ticker-dot" aria-hidden="true"></span>
-      <div class="ticker-item"><span class="ticker-num">150+</span><span class="ticker-label">uređenih vrtova<br>i terasa</span></div>
-      <span class="ticker-dot" aria-hidden="true"></span>
-      <div class="ticker-item"><span class="ticker-num">3D</span><span class="ticker-label">vizualizacija<br>pre prve sadnje</span></div>
-      <span class="ticker-dot" aria-hidden="true"></span>
-      <div class="ticker-item"><span class="ticker-num">4.9</span><span class="ticker-label">prosečna ocena<br>klijenata</span></div>
-      <span class="ticker-dot" aria-hidden="true"></span>
-    </div>
-    <div class="ticker-set" aria-hidden="true">
-      <div class="ticker-item"><span class="ticker-num">10+</span><span class="ticker-label">godina u<br>pejzažnom dizajnu</span></div>
-      <span class="ticker-dot"></span>
-      <div class="ticker-item"><span class="ticker-num">150+</span><span class="ticker-label">uređenih vrtova<br>i terasa</span></div>
-      <span class="ticker-dot"></span>
-      <div class="ticker-item"><span class="ticker-num">3D</span><span class="ticker-label">vizualizacija<br>pre prve sadnje</span></div>
-      <span class="ticker-dot"></span>
-      <div class="ticker-item"><span class="ticker-num">4.9</span><span class="ticker-label">prosečna ocena<br>klijenata</span></div>
-      <span class="ticker-dot"></span>
-    </div>
-  </div>
-</div>
-
-<section class="section alt" id="problem">
+<!-- HERO -->
+<section class="hero">
   <div class="wrap">
-    <div class="pr-head">
-      <h2 class="section-title">Dvorište koje gledaš svaki dan</h2>
-      <p class="section-intro">Sa jedne strane je dvorište kakvo je danas,<br>sa druge ono koje dobiješ kad postoji plan.</p>
-    </div>
-
-    <div class="pr-cards">
-      <div class="pr-card">
-        <div class="pr-card-head">
-          <h3>Bez plana</h3>
-          <span class="pr-pill">problem</span>
-        </div>
-        <div class="pr-panel">
-          <p class="pr-panel-intro">Ujutru pogledaš kroz prozor u parče zemlje koje ništa ne govori. Ovo se ponavlja svake sezone:</p>
-          <ul class="pr-list">
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-              <span>Trava raste neravnomerno, a ćošak zaraste u korov.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-              <span>Biljke birane napamet uvenu do proleća.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-              <span>Terasa gleda u prazan zid, bez senke i zelenila.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-              <span>Dvorište koje izbegavaš da pokažeš gostima.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-              <span>Svaki plan stane na pitanju odakle početi.</span>
-            </li>
-          </ul>
-          <p class="pr-note">prolaze meseci, pa godine, a dvorište ostaje isto</p>
-        </div>
-        <div class="pr-foot">
-          <p class="pr-price">Još jedna sezona<small>nasumična sadnja i pola biljaka uvene</small></p>
-          <a href="#ponuda" class="pr-btn pr-btn-ghost">Kako radim <span class="pr-btn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-        </div>
-      </div>
-
-      <div class="pr-card" id="resenje">
-        <div class="pr-card-head">
-          <h3>Sa planom</h3>
-          <span class="pr-pill">rešenje</span>
-        </div>
-        <div class="pr-panel">
-          <p class="pr-panel-intro">Radim s tobom od prve ideje do gotovog vrta, pa tačno znaš šta dobijaš:</p>
-          <ul class="pr-list">
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span>Analiza prostora, tla, sunca i tvojih potreba.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span>Dizajn skrojen za tvoju kuću, klimu i način života.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span>3D vizualizacija pre nego što se zasadi i jedna biljka.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span>Izbor biljaka koje odgovaraju baš tom mestu.</span>
-            </li>
-            <li>
-              <span class="pr-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span>Vođenje posla do gotovog, zasađenog vrta.</span>
-            </li>
-          </ul>
-          <p class="pr-note">tu prestaje nagađanje, počinje plan</p>
-        </div>
-        <div class="pr-foot">
-          <p class="pr-price">Vrt koji traje<small>prva konsultacija je bez obaveze</small></p>
-          <a href="#kontakt" class="pr-btn">Zakaži <span class="pr-btn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="kredibilitet">
-  <div class="wrap">
-    <div class="kred-grid">
-      <div class="kred-text">
-        <h2 class="kred-display"><span class="kred-accent">Zašto meni</span><span>poveriti vrt</span></h2>
-        <p><strong>Radim u oblasti pejzažne arhitekture i hortikulture</strong> i dizajnirala sam vrtove za privatne kuće, vile, vikendice i poslovne objekte različitih veličina i namena.</p>
-      </div>
-
-      <div class="kred-list">
-      <div class="kred-item">
-        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
-        <div>
-          <h3>Struka, a ne trend</h3>
-          <p><strong>Pejzažna arhitektura i hortikultura</strong> kao osnova svake odluke, od rasporeda staza do izbora vrste.</p>
-        </div>
-      </div>
-      <div class="kred-item is-active">
-        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
-        <div>
-          <h3>Iskustvo na svakoj vrsti prostora</h3>
-          <p><strong>Kuće, vile, vikendice i poslovni objekti</strong> različitih veličina i namena, svaki sa svojim uslovima.</p>
-        </div>
-      </div>
-      <div class="kred-item">
-        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
-        <div>
-          <h3>Biljke prema tvom prostoru</h3>
-          <p><strong>Tlo, klima i osvetljenje odlučuju</strong> koja biljka i koji materijal ulaze u projekat.</p>
-        </div>
-      </div>
-      <div class="kred-item">
-        <span class="kred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
-        <div>
-          <h3>Vrt koji izgleda dobro i za pet godina</h3>
-          <p><strong>Rešenja koja rastu kako treba</strong> ne samo prvog proleća posle sadnje.</p>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt" id="benefiti">
-  <div class="wrap">
-    <span class="eyebrow">Šta dobijaš</span>
-    <h2 class="section-title">Ne kupuješ biljke, dobijaš prostor za život</h2>
-    <p class="section-intro">Dizajn vrta nije samo lepši izgled dvorišta. To je promena u tome kako svaki dan koristiš i doživljavaš svoj prostor.</p>
-    <div class="benefit-grid">
-      <div class="benefit-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c6-1 12-4 15-15-9 1-14 6-15 15z"/><path d="M9 15c2-2 5-4 9-6"/></svg>
-        <h3>Vrt koji stvarno koristiš</h3>
-        <p>Prostor za ručak, kafu i opuštanje, ne samo prizor kroz prozor koji ostaje neiskorišćen.</p>
-      </div>
-      <div class="benefit-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-        <h3>Biljke koje uspevaju</h3>
-        <p>Izabrane za tvoje tlo, tvoje sunce i tvoju klimu, ne nasumično iz rasadnika.</p>
-      </div>
-      <div class="benefit-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        <h3>Manje vremena na održavanje</h3>
-        <p>Raspored je osmišljen da bude praktičan, tako da vrt ne postane još jedan posao.</p>
-      </div>
-      <div class="benefit-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        <h3>Jasna slika pre početka</h3>
-        <p>Kroz 3D vizualizaciju vidiš kako će vrt izgledati, bez nagađanja i iznenađenja.</p>
-      </div>
-      <div class="benefit-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
-        <h3>Veća vrednost nekretnine</h3>
-        <p>Uređen vrt podiže vrednost imanja, ne samo njegov izgled na prvi pogled.</p>
-      </div>
-      <div class="benefit-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8.5c0 4-8 10-8 10s-8-6-8-10a4 4 0 0 1 8-1.6A4 4 0 0 1 20 8.5z"/></svg>
-        <h3>Mir umesto podsetnika na posao</h3>
-        <p>Kad gledaš kroz prozor, vidiš dovršen prostor, ne obavezu koju stalno odlažeš.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section gallery" id="dokazi">
-  <div class="wrap">
-    <h2 class="section-title">Galerija</h2>
-    <p class="gal-intro">Vrtovi koje sam <a href="#ponuda">dizajnirala i sprovela</a>, od prve skice do zasađenog prostora.</p>
-
-    <div class="gal" data-gal>
-      <div class="gal-stage" data-gal-stage tabindex="0" role="group" aria-roledescription="galerija" aria-label="Fotografije uređenih vrtova">
-        <figure class="gal-item" data-gal-item>
-          <img src="assets/dokazi-dvoriste.jpg" width="802" height="1400" loading="lazy" decoding="async" alt="Prednje dvorište porodične kuće sa belim oblutkom, oblikovanim šimširom i magnolijom">
-          <figcaption class="gal-tag">Prednje dvorište porodične kuće</figcaption>
-        </figure>
-        <figure class="gal-item" data-gal-item>
-          <img src="assets/dokazi-terasa.jpg" width="942" height="1209" loading="lazy" decoding="async" alt="Lovor u terakota posudi uz terasu i travnjak">
-          <figcaption class="gal-tag">Bašta uz terasu</figcaption>
-        </figure>
-        <figure class="gal-item" data-gal-item>
-          <img src="assets/resenje-zasad.jpg" width="794" height="1400" loading="lazy" decoding="async" alt="Betonske žardinjere sa oblikovanim drvećem i kuglama šimšira na popločanom platou">
-          <figcaption class="gal-tag">Plato sa žardinjerama</figcaption>
-        </figure>
-        <figure class="gal-item" data-gal-item>
-          <img src="assets/dokazi-poslovni.jpg" width="816" height="1400" loading="lazy" decoding="async" alt="Ulazna zona poslovnog objekta sa žardinjerama, šimširom i lavandom">
-          <figcaption class="gal-tag">Ulazna zona poslovnog objekta</figcaption>
-        </figure>
-        <figure class="gal-item" data-gal-item>
-          <img src="assets/kredibilitet-spirale.jpg" width="921" height="1577" loading="lazy" decoding="async" alt="Dve tuje oblikovane u spiralu, zasađene uz zid ulazne zone">
-          <figcaption class="gal-tag">Ulaz sa oblikovanim tujama</figcaption>
-        </figure>
-        <figure class="gal-item" data-gal-item>
-          <img src="assets/resenje-forme.jpg" width="942" height="1213" loading="lazy" decoding="async" alt="Oblikovana četinarska forma sa kuglama šimšira i žardinjerama uz zid">
-          <figcaption class="gal-tag">Oblikovane forme uz zid</figcaption>
-        </figure>
-      </div>
-      <button type="button" class="gal-arrow gal-prev" data-gal-prev aria-label="Prethodna fotografija">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-      </button>
-      <button type="button" class="gal-arrow gal-next" data-gal-next aria-label="Sledeća fotografija">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-      </button>
-    </div>
-  </div>
-</section>
-
-<section class="section reviews" id="recenzije">
-  <div class="wrap">
-    <span class="eyebrow">Recenzije</span>
-    <h2 class="section-title">Šta kažu klijenti</h2>
-    <p class="section-intro">Ljudi koji su svoje dvorište, terasu ili ulaz u objekat prepustili meni, i danas ih koriste svaki dan.</p>
-    <div class="rev-mask">
-      <button type="button" class="rev-arrow rev-prev" aria-label="Prethodna recenzija">&lsaquo;</button>
-      <button type="button" class="rev-arrow rev-next" aria-label="Sledeća recenzija">&rsaquo;</button>
-      <div class="rev-track">
-        <div class="rev-card">
-          <div class="rev-stars" aria-label="Ocena 5 od 5">★★★★★</div>
-          <p>„Dvorište nam je godinama stajalo prazno. Dobili smo 3D prikaz pre početka i na kraju je izgledalo tačno tako. Sad tu ručamo svaki vikend."</p>
-          <div class="rev-name">Milica J. <span class="rev-city">· Beograd</span></div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars" aria-label="Ocena 5 od 5">★★★★★</div>
-          <p>„Sve biljke su birane prema našem tlu i suncu. Prošla je druga sezona i nijedna se nije osušila, a održavanje je zaista minimalno."</p>
-          <div class="rev-name">Nenad i Ana <span class="rev-city">· Novi Sad</span></div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars" aria-label="Ocena 5 od 5">★★★★★</div>
-          <p>„Uredila nam je ulaz u poslovni prostor. Klijenti prvo primete zelenilo, a mi nemamo obavezu oko njega. Sve po dogovoru i u roku."</p>
-          <div class="rev-name">Studio „Lipa" <span class="rev-city">· Kragujevac</span></div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars" aria-label="Ocena 5 od 5">★★★★★</div>
-          <p>„Terasa vikendice bila je gola betonska ploča. Danas je to najlepši deo kuće, sa senkom i zelenilom oko stola. Preporuka od srca."</p>
-          <div class="rev-name">Dragan M. <span class="rev-city">· Zlatibor</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="rev-hint">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l-5 6 5 6"/><path d="M15 6l5 6-5 6"/></svg>
-      <span>Pređi mišem preko recenzija (ili dodirni na telefonu) da zaustaviš kretanje i pročitaš ih strelicama.</span>
-    </div>
-  </div>
-</section>
-
-<section class="section alt" id="ponuda">
-  <div class="wrap">
-    <span class="eyebrow">Ponuda</span>
-    <h2 class="section-title">Kako izgleda saradnja</h2>
-    <p class="section-intro">Cena zavisi od veličine prostora, složenosti dizajna i obima radova, zato nakon prve konsultacije pravim ponudu prilagođenu tačno tvom projektu, ne paušalni paket koji ne odgovara tvom dvorištu.</p>
-    <div class="steps">
-      <div class="step-card">
-        <span class="step-num">01</span>
-        <h3>Konsultacije i obilazak</h3>
-        <p>Gledam prostor, tlo i osvetljenje, pričamo o tome kako želiš da koristiš svoje dvorište.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-num">02</span>
-        <h3>Koncept i vizualizacija</h3>
-        <p>Dobijaš predlog rasporeda, biljaka i materijala, sa 3D prikazom pre nego što radovi počnu.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-num">03</span>
-        <h3>Ponuda i plan</h3>
-        <p>Dobijaš tačnu cenu i redosled radova prilagođen tvom budžetu i vremenu.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-num">04</span>
-        <h3>Sprovođenje na terenu</h3>
-        <p>Vodim radove od pripreme zemljišta do sadnje poslednje biljke.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-num">05</span>
-        <h3>Uputstvo za negu</h3>
-        <p>Dobijaš jasan raspored zalivanja i održavanja, tako da vrt ostane onakav kakav je zamišljen.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="garancija">
-  <div class="wrap">
-    <h2 class="section-title">Vrt koji ima smisla i za pet godina</h2>
-    <div class="garancija-box">
-      <p>Svaki dizajn pravim prema tlu, klimi i osvetljenju tvog konkretnog prostora, ne po šablonu. Biljke koje predlažem imaju realne uslove da uspevaju, a raspored je osmišljen da održavanje ne postane novi posao.</p>
-      <p>Ako se u fazi konsultacija ispostavi da neki deo koncepta ne odgovara tvom prostoru ili navikama, prilagođavam ga pre nego što radovi krenu.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section alt" id="upozorenje">
-  <div class="wrap">
-    <div class="cta-box">
-      <span class="eyebrow">Ako ništa ne promeniš</span>
-      <h2>Šta ostaje isto za šest meseci</h2>
-      <p>Dvorište će izgledati skoro isto kao danas. Ista trava, ista praznina pored terase, ista neodlučnost svaki put kad pomisliš da nešto posadiš.</p>
-      <p>Cena čekanja nije novac, već sezone koje prolaze bez vrta u kom bi mogao da sediš uveče. Sadnja ima svoje termine, pa svaki propušten mesec pomera gotov vrt za celu sezonu.</p>
+    <div class="hero-copy">
+      <span class="eyebrow">Projektovanje · Uređenje · Održavanje</span>
+      <h1><span>Vrtovi koji pričaju</span><span><em>vašu priču.</em></span></h1>
+      <p class="lead">Projektujemo, uređujemo i održavamo vrtove za kuće, vile, vikendice i poslovne objekte — od prve skice i 3D vizualizacije do poslednje zasađene biljke.</p>
       <div class="cta-row">
-        <a href="#kontakt" class="btn">Zatraži ponudu za svoj vrt</a>
-        <span class="cta-note">Prva konsultacija je bez obaveze - dogovaramo obilazak i pričamo o prostoru.</span>
+        <a class="btn has-arrow" href="#upit">Zakažite konsultaciju <span class="ar" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+        <a class="tlink" href="tel:+381649773544">ili pozovite 064 977 3544</a>
+      </div>
+      <ul class="hero-points">
+        <li><b>3D prikaz</b>vidite vrt pre prve sadnje</li>
+        <li><b>Biljke po meri</b>birane za vaše tlo, sunce i klimu</li>
+        <li><b>Bez obaveze</b>prva konsultacija i obilazak</li>
+      </ul>
+    </div>
+
+    <div class="hero-art" id="heroArt">
+      <div class="frame" id="frame">
+        <div class="paper"></div>
+        <img class="photo" id="heroPhoto" src="assets/hero-imanje.jpg" width="1206" height="1151" alt="Uređeno imanje iz vazduha: travnjak, živa ograda od tuja, kugle šimšira i staze oko kuće" fetchpriority="high">
+        <svg class="plan" viewBox="0 0 1206 1151" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g class="g-plan">
+            <!-- travnjak -->
+            <path class="draw fill-lawn" pathLength="1" style="--d:0" d="M350 605 L680 558 L1075 850 L760 945 L565 885 Z"/>
+            <path class="draw hatch" pathLength="1" style="--d:.2" d="M420 640 L700 600 M470 700 L760 655 M520 765 L840 715 M560 830 L920 775 M650 880 L990 820"/>
+            <!-- zid, ograda, staza -->
+            <path class="draw" pathLength="1" style="--d:.1" d="M655 440 L1206 780"/>
+            <path class="draw" pathLength="1" style="--d:.25" d="M465 1045 L800 950 L1206 830"/>
+            <path class="draw" pathLength="1" style="--d:.3" d="M0 290 L470 1090"/>
+            <path class="draw" pathLength="1" style="--d:.35" d="M240 540 L350 605 M565 885 L760 945"/>
+            <!-- živa ograda: tuje (simbol četinara) -->
+            <g>
+              <circle class="draw" pathLength="1" style="--d:.4" cx="697" cy="510" r="20"/>
+              <circle class="draw" pathLength="1" style="--d:.45" cx="737" cy="537" r="20"/>
+              <circle class="draw" pathLength="1" style="--d:.5" cx="782" cy="575" r="21"/>
+              <circle class="draw" pathLength="1" style="--d:.55" cx="832" cy="606" r="22"/>
+              <circle class="draw" pathLength="1" style="--d:.6" cx="885" cy="645" r="23"/>
+              <circle class="draw" pathLength="1" style="--d:.65" cx="945" cy="686" r="24"/>
+              <circle class="draw" pathLength="1" style="--d:.7" cx="1015" cy="740" r="25"/>
+              <circle class="draw" pathLength="1" style="--d:.75" cx="1097" cy="800" r="26"/>
+              <path class="draw" pathLength="1" style="--d:.8" d="M697 496v28M683 510h28M737 523v28M723 537h28M782 561v28M768 575h28M832 591v30M817 606h30M885 629v32M869 645h32M945 669v34M928 686h34M1015 722v36M997 740h36M1097 781v38M1078 800h38"/>
+            </g>
+            <!-- kugle šimšira -->
+            <g>
+              <circle class="draw" pathLength="1" style="--d:.5" cx="352" cy="605" r="10"/>
+              <circle class="draw" pathLength="1" style="--d:.52" cx="378" cy="613" r="10"/>
+              <circle class="draw" pathLength="1" style="--d:.55" cx="408" cy="685" r="10"/>
+              <circle class="draw" pathLength="1" style="--d:.57" cx="424" cy="697" r="10"/>
+              <circle class="draw" pathLength="1" style="--d:.6" cx="470" cy="762" r="10"/>
+              <circle class="draw" pathLength="1" style="--d:.62" cx="488" cy="778" r="10"/>
+              <circle class="draw" pathLength="1" style="--d:.65" cx="578" cy="892" r="11"/>
+              <circle class="draw" pathLength="1" style="--d:.67" cx="610" cy="903" r="11"/>
+              <circle class="draw" pathLength="1" style="--d:.7" cx="643" cy="910" r="11"/>
+              <circle class="draw" pathLength="1" style="--d:.55" cx="605" cy="560" r="9"/>
+              <circle class="draw" pathLength="1" style="--d:.57" cx="625" cy="557" r="9"/>
+              <circle class="draw" pathLength="1" style="--d:.6" cx="645" cy="554" r="9"/>
+            </g>
+            <!-- soliteri i stablašice (dvostruki krug sa planova) -->
+            <g>
+              <circle class="draw" pathLength="1" style="--d:.6" cx="676" cy="630" r="30"/>
+              <circle class="draw" pathLength="1" style="--d:.7" cx="676" cy="630" r="6"/>
+              <circle class="draw" pathLength="1" style="--d:.65" cx="620" cy="840" r="24"/>
+              <circle class="draw" pathLength="1" style="--d:.75" cx="620" cy="840" r="5"/>
+              <circle class="draw" pathLength="1" style="--d:.7" cx="450" cy="695" r="16"/>
+              <circle class="draw" pathLength="1" style="--d:.75" cx="937" cy="862" r="20"/>
+              <circle class="draw" pathLength="1" style="--d:.8" cx="937" cy="862" r="5"/>
+              <path class="draw" pathLength="1" style="--d:.8" d="M770 856 q16 -8 26 8 q16 8 6 26 q4 18 -16 22 q-12 14 -28 2 q-18 -2 -16 -22 q-10 -16 6 -28 q10 -14 22 -8Z"/>
+              <path class="draw" pathLength="1" style="--d:.7" d="M440 570 q20 -24 48 -8 q24 12 12 36 q-8 20 -36 14 q-30 -8 -24 -42Z"/>
+            </g>
+          </g>
+        </svg>
+        <div class="sun" aria-hidden="true"></div>
+        <div aria-hidden="true">
+          <span class="pin" style="left:62%;top:70%;--i:0"><i></i><span>Travnjak</span></span>
+          <span class="pin left" style="left:78%;top:57%;--i:1"><i></i><span>Živa ograda od tuja</span></span>
+          <span class="pin left hide-sm" style="left:35%;top:60%;--i:2"><i></i><span>Kugle šimšira</span></span>
+          <span class="pin" style="left:64%;top:77.5%;--i:3"><i></i><span>Hortenzija</span></span>
+        </div>
+        <div class="plan-toggle" role="group" aria-label="Prikaz">
+          <button type="button" data-view="vrt" aria-pressed="true">Vrt</button>
+          <button type="button" data-view="nacrt" aria-pressed="false">Nacrt</button>
+        </div>
+      </div>
+      <div class="float-card fc1" style="--i:0">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3 3 7.5l9 4.5 9-4.5L12 3Z"/><path d="M3 7.5v9L12 21l9-4.5v-9M12 12v9"/></svg></span>
+        <span><b>Od nacrta do vrta</b><small>3D vizualizacija pokazuje raspored, biljke i materijale pre nego što radovi počnu.</small></span>
+      </div>
+      <div class="float-card fc2" style="--i:1">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></span>
+        <span><b>48K+</b><small>prati naše vrtove</small></span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section alt" id="kviz">
+<!-- TRAKA -->
+<div class="strip">
+  <ul>
+    <li><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 28V14M16 14c0-6 4-9 10-9 0 6-4 9-10 9ZM16 18c0-5-3-8-9-8 0 5 3 8 9 8Z"/></svg>Pejzažna arhitektura i hortikultura kao osnova svake odluke</li>
+    <li><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 26h24M7 26V13l9-7 9 7v13M13 26v-7h6v7"/></svg>Kuće, vile, vikendice i poslovni objekti</li>
+    <li><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M16 4 5 9.5l11 5.5 11-5.5L16 4Z"/><path d="M5 9.5v12L16 27l11-5.5v-12M16 15v12"/></svg>3D vizualizacija pre prve sadnje</li>
+    <li><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="11"/><path d="M16 9v7l5 3"/></svg>Održavanje posle sadnje, iz sezone u sezonu</li>
+  </ul>
+</div>
+
+<!-- PROBLEMI -->
+<section class="sec" id="zasto">
   <div class="wrap">
-    <div class="quiz-grid">
-      <div>
-        <span class="eyebrow">Procena za minut</span>
-        <h2 class="section-title">Odgovori na tri koraka, javljam se sa predlogom</h2>
-        <p>Nekoliko pitanja o dvorištu i o tome šta ti u njemu danas smeta. Na osnovu odgovora ti kažem kakav tip projekta je u pitanju i šta u njega ulazi, pa se dogovaramo za obilazak prostora.</p>
-        <p>Traje kraće od minuta i ne obavezuje te ni na šta. Ako ti predlog ne odgovara, tu se priča završava.</p>
-      </div>
-
-      <div class="quiz-card" id="quizCard">
-        <div class="quiz-progress" id="quizProgress">
-          <span id="quizStepLabel">Korak 1 od 3</span>
-          <div class="quiz-bar"><i id="quizBar"></i></div>
-        </div>
-
-        <div class="quiz-step" id="quizStep1">
-          <h3>Šta bi voleo da rešiš u dvorištu?</h3>
-          <p class="quiz-hint">Izaberi jednu ili više stavki.</p>
-          <div class="quiz-opts">
-            <button type="button" class="quiz-opt" data-zelja="prazno"><strong>Prazan prostor</strong><small>Sama trava, ništa zasađeno</small></button>
-            <button type="button" class="quiz-opt" data-zelja="zapusteno"><strong>Zapušteno dvorište</strong><small>Zaraslo i staro rastinje</small></button>
-            <button type="button" class="quiz-opt" data-zelja="sedenje"><strong>Mesto za sedenje</strong><small>Terasa, senka, roštilj</small></button>
-            <button type="button" class="quiz-opt" data-zelja="privatnost"><strong>Zaklon od pogleda</strong><small>Komšije i buka sa ulice</small></button>
-            <button type="button" class="quiz-opt" data-zelja="staze"><strong>Staze i osvetljenje</strong><small>Blato po kiši, mrak uveče</small></button>
-            <button type="button" class="quiz-opt" data-zelja="odrzavanje"><strong>Manje održavanja</strong><small>Nemam vremena za zalivanje</small></button>
-          </div>
-        </div>
-
-        <div class="quiz-step" id="quizStep2" hidden>
-          <h3>Nešto o prostoru</h3>
-          <p class="quiz-hint">Da znam o kolikom projektu pričamo.</p>
-          <div class="quiz-fields">
-            <div>
-              <label for="qPovrsina">Približna površina</label>
-              <input type="text" id="qPovrsina" inputmode="numeric" placeholder="npr. 300 m2">
-            </div>
-            <div>
-              <label for="qMesto">Mesto</label>
-              <input type="text" id="qMesto" placeholder="npr. Kragujevac">
-            </div>
-          </div>
-          <p class="quiz-sub">U kakvom je stanju prostor danas?</p>
-          <div class="quiz-opts">
-            <button type="button" class="quiz-opt" data-stanje="golo"><strong>Gola zemlja</strong><small>Novogradnja, još ništa nije rađeno</small></button>
-            <button type="button" class="quiz-opt" data-stanje="delimicno"><strong>Ponešto je zasađeno</strong><small>Ima trave i po koje sadnice</small></button>
-            <button type="button" class="quiz-opt" data-stanje="star"><strong>Star vrt</strong><small>Zasađen davno, treba mu obnova</small></button>
-          </div>
-        </div>
-
-        <div class="quiz-step" id="quizStep3" hidden>
-          <h3>Gde da te dobijem?</h3>
-          <p class="quiz-hint">Javljam se u toku dana i dogovaramo obilazak.</p>
-          <div class="quiz-fields">
-            <div>
-              <label for="qIme">Ime</label>
-              <input type="text" id="qIme" placeholder="Tvoje ime">
-            </div>
-            <div>
-              <label for="qTelefon">Telefon</label>
-              <input type="tel" id="qTelefon" placeholder="06x xxx xxxx">
-            </div>
-            <div class="full">
-              <label for="qNapomena">Napomena (opciono)</label>
-              <input type="text" id="qNapomena" placeholder="npr. dvorište je na nagibu, ceo dan je na suncu">
-            </div>
-          </div>
-        </div>
-
-        <div class="quiz-result" id="quizResult" hidden>
-          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12 L11 15 L16 9"></path></svg>
-          <h3 id="quizResultTitle">Hvala</h3>
-          <p id="quizResultText">Javljam se na broj koji si ostavio.</p>
-          <div class="quiz-box">
-            <span>Predlog za tvoj prostor</span>
-            <strong id="quizResultPkg">Idejni projekat vrta</strong>
-            <p class="quiz-space" id="quizResultSpace"></p>
-            <ul class="quiz-list" id="quizResultList"></ul>
-          </div>
-          <button type="button" class="btn btn-outline btn-wide" id="quizReset">Pošalji još jedan prostor</button>
-        </div>
-
-        <p class="quiz-err" id="quizErr">Izaberi bar jednu stavku da bismo nastavili.</p>
-
-        <div class="quiz-nav" id="quizNav">
-          <button type="button" class="btn btn-outline" id="quizBack" hidden>Nazad</button>
-          <button type="button" class="btn quiz-next" id="quizNext">Dalje</button>
-        </div>
-      </div>
+    <div class="sec-head rv">
+      <span class="eyebrow">Prepoznajete li svoje dvorište?</span>
+      <h2>Svaki dobar vrt počinje <em>jednom rečenicom</em> vlasnika.</h2>
+      <p class="lead">Ovo su stvari koje ljudi najčešće kažu na prvom razgovoru. Svaka od njih ima rešenje u projektu.</p>
+    </div>
+    <div class="pains">
+      <article class="pain rv"><span class="tag">Novogradnja</span><q>Kuća je gotova, a oko nje je gola zemlja. Ne znamo odakle da počnemo.</q><p>Počinjemo od plana: gde ide travnjak, gde staze, gde senka, pa tek onda biljke.</p></article>
+      <article class="pain rv" style="--dl:.08s"><span class="tag">Obnova</span><q>Vrt je star, zarastao i više ne liči ni na šta.</q><p>Procenjujemo šta vredi sačuvati, a šta zameniti, i pravimo novi raspored oko toga.</p></article>
+      <article class="pain rv" style="--dl:.16s"><span class="tag">Privatnost</span><q>Komšije i ulica vide sve što radimo u dvorištu.</q><p>Živa ograda i pravilno postavljeni soliteri daju zaklon koji izgleda kao deo vrta, a ne kao zid.</p></article>
+      <article class="pain rv"><span class="tag">Biljke</span><q>Kupili smo sadnice napamet i pola se osušilo do proleća.</q><p>Biljke biramo prema tlu, suncu i klimi baš vašeg prostora, ne prema tome šta je lepo u rasadniku.</p></article>
+      <article class="pain rv" style="--dl:.08s"><span class="tag">Poslovni prostor</span><q>Ulaz u objekat je prvo što klijenti vide, a izgleda neuređeno.</q><p>Uređen ulaz i plato govore o firmi pre nego što iko uđe na vrata.</p></article>
+      <article class="pain rv" style="--dl:.16s"><span class="tag">Vreme</span><q>Nemamo vremena da se bavimo vrtom svake nedelje.</q><p>Raspored i biljke planiramo tako da održavanje bude jednostavno, a ako želite, preuzimamo ga mi.</p></article>
     </div>
   </div>
 </section>
 
-<section class="section" id="kontakt">
+<!-- USLUGE -->
+<section class="sec services" id="usluge">
   <div class="wrap">
-    <span class="eyebrow">Sledeći korak</span>
-    <div class="contact-grid">
-      <div>
-        <h2 class="section-title">Spreman da vidiš kako bi tvoj vrt mogao da izgleda</h2>
-        <p>Popuni formu i ukratko opiši svoj prostor i šta ti smeta u njemu danas. Javljam se za dogovor konsultacija, a nakon obilaska prostora šaljem predlog koncepta i okvirnu ponudu prilagođenu tvom projektu.</p>
-      </div>
-      <form action="#" method="post">
-        <div>
-          <label for="ime">Ime i prezime</label>
-          <input type="text" id="ime" name="ime" placeholder="Tvoje ime" required>
+    <div class="sec-head split rv">
+      <div style="display:grid;gap:20px"><span class="eyebrow">Usluge</span><h2>Jedan tim, <em>od skice do sezone posle.</em></h2></div>
+      <p class="lead">Možete nam poveriti samo projekat, ceo posao do gotovog vrta ili i brigu o njemu posle. Sve tri usluge rade isti ljudi, pa se ideja ne gubi usput.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc rv">
+        <figure><img src="assets/hero-vrt.jpg" alt="Staza od kamenih ploča kroz travnjak sa mladim drvećem" loading="lazy" width="942" height="1142"></figure>
+        <div class="body">
+          <span class="num">01</span>
+          <h3>Projektovanje</h3>
+          <p>Idejno rešenje vrta skrojeno za vašu kuću, vaše navike i vaš prostor.</p>
+          <ul><li>Analiza prostora, tla i osunčanosti</li><li>Raspored zona: travnjak, staze, sedenje</li><li>Izbor biljaka i materijala</li><li>3D vizualizacija pre početka radova</li></ul>
         </div>
-        <div>
-          <label for="kontakt-info">Telefon ili email</label>
-          <input type="text" id="kontakt-info" name="kontakt-info" placeholder="Kako da te kontaktiram" required>
+      </article>
+      <article class="svc rv" style="--dl:.1s">
+        <figure><img src="assets/hero-busen.jpg" alt="Ruke postavljaju busen travnjaka na pripremljenu zemlju" loading="lazy" width="1400" height="785"></figure>
+        <div class="body">
+          <span class="num">02</span>
+          <h3>Uređenje</h3>
+          <p>Kompletna realizacija na terenu, tačno po projektu koji ste odobrili.</p>
+          <ul><li>Priprema zemljišta</li><li>Sadnja drveća, žbunja i ukrasnog bilja</li><li>Travnjak i oblikovane forme</li><li>Vođenje radova do gotovog vrta</li></ul>
         </div>
-        <div>
-          <label for="poruka">Opiši svoj prostor</label>
-          <textarea id="poruka" name="poruka" placeholder="Veličina dvorišta, lokacija, šta bi voleo da promeniš"></textarea>
+      </article>
+      <article class="svc rv" style="--dl:.2s">
+        <figure><img src="assets/dokazi-dvoriste.jpg" alt="Prednje dvorište sa kuglama šimšira u belom kamenu i stablom magnolije" loading="lazy" width="802" height="1400"></figure>
+        <div class="body">
+          <span class="num">03</span>
+          <h3>Održavanje</h3>
+          <p>Da vrt i treće godine izgleda kao prvog dana posle sadnje.</p>
+          <ul><li>Oblikovanje šimšira, tuja i topijara</li><li>Nega travnjaka</li><li>Orezivanje i prihrana u pravo vreme</li><li>Priprema vrta za zimu</li></ul>
         </div>
-        <button type="submit" class="btn">Zatraži ponudu za svoj vrt</button>
-      </form>
+      </article>
     </div>
   </div>
 </section>
+
+<!-- SKICA -> REALIZACIJA -->
+<section class="sec sketch" id="projekat">
+  <div class="wrap">
+    <div class="sketch-copy rv">
+      <span class="eyebrow">Pre prve lopate</span>
+      <h2>Vidite vrt <em>pre nego što postoji.</em></h2>
+      <p class="lead">Najskuplja greška u vrtu je ona koja se primeti tek kad biljke porastu. Zato svaki projekat prvo nacrtamo, pa ga pokažemo, pa tek onda sadimo.</p>
+      <ul class="deliver">
+        <li><span class="n">i.</span><div><b>Raspored prostora</b><span>Gde je sunce, gde senka, kuda se hoda i gde se sedi.</span></div></li>
+        <li><span class="n">ii.</span><div><b>Izbor biljaka i materijala</b><span>Svaka biljka sa razlogom zašto baš ona i baš tu.</span></div></li>
+        <li><span class="n">iii.</span><div><b>3D vizualizacija</b><span>Vidite gotov prostor i menjate ga dok je još na papiru.</span></div></li>
+      </ul>
+    </div>
+    <div class="rv" style="--dl:.1s">
+      <div class="compare" id="compare">
+        <img src="assets/resenje-forme-skica.jpg" alt="Skica olovkom: oblikovane forme u žardinjerama ispred kamenog zida" loading="lazy" width="934" height="1205">
+        <img class="after" src="assets/resenje-forme.jpg" alt="Realizovan prostor: oblikovane forme u žardinjerama ispred kamenog zida" loading="lazy" width="934" height="1205">
+        <span class="lbl l">Skica</span><span class="lbl r">Realizacija</span>
+        <span class="handle" aria-hidden="true"></span>
+        <input type="range" min="0" max="100" value="50" aria-label="Prevucite da uporedite skicu i realizaciju">
+      </div>
+      <p class="cap">Prevucite klizač. Skica je ilustracija nastala od fotografije realizovanog prostora.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RADOVI -->
+<section class="sec" id="radovi" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head split rv">
+      <div style="display:grid;gap:20px"><span class="eyebrow">Radovi</span><h2>Prostori koje smo <em>pretvorili u vrt.</em></h2></div>
+      <div style="display:grid;gap:24px">
+        <p class="lead">Izaberite tip prostora koji liči na vaš. Kliknite na fotografiju da je vidite u punoj veličini.</p>
+        <div class="filters" role="group" aria-label="Filter radova">
+          <button type="button" data-f="sve" aria-pressed="true">Sve</button>
+          <button type="button" data-f="kuca" aria-pressed="false">Kuće i vile</button>
+          <button type="button" data-f="posao" aria-pressed="false">Poslovni objekti</button>
+          <button type="button" data-f="forme" aria-pressed="false">Oblikovano bilje</button>
+        </div>
+      </div>
+    </div>
+    <div class="gallery" id="gallery">
+      <button type="button" class="item sq rv" data-c="kuca"><figure style="margin:0"><img src="assets/hero-imanje.jpg" alt="Imanje iz vazduha sa travnjakom i živom ogradom od tuja" loading="lazy" width="1206" height="1151"><figcaption>Imanje sa travnjakom i živom ogradom <small>Kuća</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="posao forme"><figure style="margin:0"><img src="assets/kredibilitet-spirale.jpg" alt="Spiralno oblikovane tuje uz zid od kamenih ploča" loading="lazy" width="921" height="1400"><figcaption>Spirale uz kameni zid <small>Topijari</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="kuca"><figure style="margin:0"><img src="assets/dokazi-terasa.jpg" alt="Stablašica u keramičkoj posudi uz terasu i travnjak" loading="lazy" width="942" height="1209"><figcaption>Bašta uz terasu <small>Kuća</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="posao"><figure style="margin:0"><img src="assets/dokazi-poslovni.jpg" alt="Ulaz u moderan poslovni objekat sa žardinjerama i stablima" loading="lazy" width="816" height="1400"><figcaption>Ulazna zona poslovnog objekta <small>Poslovni</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="kuca forme"><figure style="margin:0"><img src="assets/dokazi-dvoriste.jpg" alt="Kugle šimšira u belom kamenu ispred garaže" loading="lazy" width="802" height="1400"><figcaption>Prednje dvorište porodične kuće <small>Kuća</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="posao forme"><figure style="margin:0"><img src="assets/resenje-forme.jpg" alt="Oblikovane forme u obliku oblaka i kugli ispred kamenog zida" loading="lazy" width="934" height="1205"><figcaption>Oblikovane forme uz zid <small>Topijari</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="kuca"><figure style="margin:0"><img src="assets/hero-vrt.jpg" alt="Staza od kamenih ploča uz travnjak i red mladih stabala" loading="lazy" width="942" height="1142"><figcaption>Staza od kamenih ploča <small>Kuća</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="posao"><figure style="margin:0"><img src="assets/kredibilitet-zasad.jpg" alt="Stablo i lavanda ispred staklene fasade poslovne zgrade" loading="lazy" width="942" height="1162"><figcaption>Zelenilo uz staklenu fasadu <small>Poslovni</small></figcaption></figure></button>
+      <button type="button" class="item rv" data-c="posao forme"><figure style="margin:0"><img src="assets/resenje-zasad.jpg" alt="Plato sa velikim kamenim žardinjerama i oblikovanim žbunjem" loading="lazy" width="794" height="1400"><figcaption>Plato sa žardinjerama <small>Poslovni</small></figcaption></figure></button>
+    </div>
+  </div>
+</section>
+
+<dialog class="lb" id="lb" aria-label="Pregled fotografije">
+  <div class="lb-in">
+    <figure><img id="lbImg" src="" alt=""><p id="lbCap"></p></figure>
+    <button type="button" class="x" id="lbX" aria-label="Zatvori"><svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1.5"><path d="M4 4l12 12M16 4 4 16"/></svg></button>
+    <button type="button" class="pv" id="lbP" aria-label="Prethodna"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4 6 10l6 6"/></svg></button>
+    <button type="button" class="nx" id="lbN" aria-label="Sledeća"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m8 4 6 6-6 6"/></svg></button>
+  </div>
+</dialog>
+
+<!-- PROCES -->
+<section class="sec process on-dark" id="proces">
+  <div class="wrap proc">
+    <div class="proc-side rv">
+      <span class="eyebrow">Kako radimo</span>
+      <h2>Pet koraka, <em>bez iznenađenja.</em></h2>
+      <p class="lead">U svakom trenutku znate šta se radi, koliko košta i šta sledi.</p>
+      <figure><img src="assets/hero-busen.jpg" alt="Postavljanje busena" loading="lazy" width="1400" height="785"></figure>
+    </div>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="leaf" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20C4 10 10 4 20 4c0 10-6 16-16 16Z"/></svg></span><span class="k">Korak 01</span><h3>Konsultacija i obilazak</h3><p>Dolazimo na teren, gledamo prostor, tlo i osvetljenje i razgovaramo o tome kako želite da koristite dvorište.</p><div class="chips"><span>bez obaveze</span><span>na licu mesta</span></div></li>
+      <li class="step"><span class="leaf" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20C4 10 10 4 20 4c0 10-6 16-16 16Z"/></svg></span><span class="k">Korak 02</span><h3>Koncept i 3D vizualizacija</h3><p>Dobijate predlog rasporeda, biljaka i materijala, sa 3D prikazom. Menjamo ga dok ne bude tačno ono što želite.</p><div class="chips"><span>raspored</span><span>biljke</span><span>3D prikaz</span></div></li>
+      <li class="step"><span class="leaf" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20C4 10 10 4 20 4c0 10-6 16-16 16Z"/></svg></span><span class="k">Korak 03</span><h3>Ponuda i plan radova</h3><p>Tačna cena i redosled radova, usklađeni sa vašim budžetom i sa sezonom sadnje.</p><div class="chips"><span>tačna cena</span><span>redosled</span></div></li>
+      <li class="step"><span class="leaf" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20C4 10 10 4 20 4c0 10-6 16-16 16Z"/></svg></span><span class="k">Korak 04</span><h3>Realizacija na terenu</h3><p>Vodimo radove od pripreme zemljišta do sadnje poslednje biljke, po projektu koji ste odobrili.</p><div class="chips"><span>priprema tla</span><span>sadnja</span><span>travnjak</span></div></li>
+      <li class="step"><span class="leaf" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20C4 10 10 4 20 4c0 10-6 16-16 16Z"/></svg></span><span class="k">Korak 05</span><h3>Nega i održavanje</h3><p>Dobijate jasno uputstvo za zalivanje i negu, a ako želite, održavanje preuzimamo mi.</p><div class="chips"><span>uputstvo za negu</span><span>sezonsko održavanje</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- OBLIKOVANO ZELENILO -->
+<section class="sec forms" id="forme">
+  <div class="wrap">
+    <div class="forms-photo rv"><img src="assets/kredibilitet-spirale.jpg" alt="Dve spiralno oblikovane tuje uz zid od kamena" loading="lazy" width="921" height="1400"></div>
+    <div class="forms-copy">
+      <div class="rv" style="display:grid;gap:20px">
+        <span class="eyebrow">Oblikovano zelenilo</span>
+        <h2>Forme koje daju vrtu <em>arhitekturu.</em></h2>
+        <p class="lead">Na našim projektima ćete često videti oblikovane biljke. One daju strukturu i zimi, kad ostatak vrta miruje, ali traže redovno i stručno orezivanje.</p>
+      </div>
+      <div class="form-list">
+        <div class="form-card rv"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path class="dr" pathLength="1" d="M24 44V40M18 40h12M24 40c-6-1-8-4-4-7s10-3 8-7-9-3-8-7 7-4 6-7-5-5-2-8"/></svg><h3>Spirala</h3><p>Vertikalni akcenat uz ulaz ili zid, idealna u paru.</p><span class="care">Oblikovanje 2× godišnje</span></div>
+        <div class="form-card rv" style="--dl:.08s"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path class="dr" pathLength="1" d="M24 44V8M24 30 14 26M24 20l10-4M24 12c-4 0-6-2-4-4s8-2 8 1-2 3-4 3ZM14 26c-5 0-7-2-5-4s9-2 9 1-2 3-4 3ZM34 16c-5 0-7-2-5-4s9-2 9 1-2 3-4 3Z"/></svg><h3>Forma oblaka</h3><p>Slojevita forma po uzoru na japanske vrtove, glavna tačka pogleda.</p><span class="care">Strpljivo oblikovanje godinama</span></div>
+        <div class="form-card rv"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path class="dr" pathLength="1" d="M24 38a14 14 0 1 1 0-28 14 14 0 0 1 0 28ZM10 42h28"/></svg><h3>Kugla</h3><p>Ritam uz staze i ivice, povezuje vrt u celinu.</p><span class="care">Oblikovanje 2× godišnje</span></div>
+        <div class="form-card rv" style="--dl:.08s"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path class="dr" pathLength="1" d="M24 26a10 10 0 1 1 0-20 10 10 0 0 1 0 20ZM24 26v12M16 38h16l-2 6H18l-2-6Z"/></svg><h3>Stablašica</h3><p>Krošnja na stablu, u posudi ili u travnjaku, za elegantan ulaz.</p><span class="care">Orezivanje krošnje sezonski</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VRTNI KALENDAR -->
+<section class="sec cal" id="kalendar">
+  <div class="wrap">
+    <div class="sec-head split rv">
+      <div style="display:grid;gap:20px"><span class="eyebrow">Vrtni kalendar</span><h2>Pravo vreme je <em>deo projekta.</em></h2></div>
+      <p class="lead">Biljke ne čekaju naš raspored. Ovo je okvirni godišnji ritam za naše podneblje, a istaknut je mesec u kom ste sada.</p>
+    </div>
+    <div class="months" id="months">
+      <article class="m rv"><h3>Januar</h3><div class="s"><span class="pl">projekat</span></div><p>Vrt miruje, a to je najbolje vreme za projekat i 3D prikaz, da sadnja krene čim se tlo otvori.</p></article>
+      <article class="m rv"><h3>Februar</h3><div class="s"><span class="pl">projekat</span><span>orezivanje</span></div><p>Orezivanje listopadnog drveća i ruža pre kretanja vegetacije.</p></article>
+      <article class="m rv"><h3>Mart</h3><div class="s"><span>sadnja</span><span>tlo</span></div><p>Priprema tla i prva prolećna sadnja drveća i žbunja.</p></article>
+      <article class="m rv"><h3>April</h3><div class="s"><span>sadnja</span><span>travnjak</span></div><p>Sadnja ukrasnog bilja i cveća, zasnivanje travnjaka i busen.</p></article>
+      <article class="m rv"><h3>Maj</h3><div class="s"><span>oblikovanje</span></div><p>Prvo oblikovanje šimšira, tuja i topijara posle prolećnog rasta.</p></article>
+      <article class="m rv"><h3>Jun</h3><div class="s"><span>nega</span></div><p>Redovno košenje, zalivanje i prihrana travnjaka.</p></article>
+      <article class="m rv"><h3>Jul</h3><div class="s"><span>nega</span></div><p>Zalivanje u rane jutarnje sate i zaštita travnjaka od suše.</p></article>
+      <article class="m rv"><h3>Avgust</h3><div class="s"><span>oblikovanje</span><span class="pl">projekat</span></div><p>Drugo oblikovanje formi i planiranje jesenje sadnje.</p></article>
+      <article class="m rv"><h3>Septembar</h3><div class="s"><span>travnjak</span><span>sadnja</span></div><p>Obnova i zasnivanje travnjaka, sadnja četinara i žive ograde.</p></article>
+      <article class="m rv"><h3>Oktobar</h3><div class="s"><span>sadnja</span></div><p>Jedan od najboljih meseci za sadnju drveća i žbunja: tlo je toplo, a biljka ima celu zimu da se ukoreni.</p></article>
+      <article class="m rv"><h3>Novembar</h3><div class="s"><span>sadnja</span><span>zaštita</span></div><p>Sadnja listopadnog drveća i priprema osetljivih biljaka za zimu.</p></article>
+      <article class="m rv"><h3>Decembar</h3><div class="s"><span>zaštita</span><span class="pl">projekat</span></div><p>Zimska zaštita i plan za narednu sezonu.</p></article>
+    </div>
+    <div class="cal-note rv">
+      <p id="calNote">Projekat se radi u bilo koje doba godine. Ako ga završimo na vreme, sadnja kreće tačno kad je za nju pravi trenutak.</p>
+      <a class="btn has-arrow" href="#upit">Zakažite obilazak <span class="ar" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CENA -->
+<section class="sec price" id="cena">
+  <div class="wrap">
+    <div>
+      <div class="rv" style="display:grid;gap:20px">
+        <span class="eyebrow">Cena</span>
+        <h2>Nema paketa, <em>jer nema dva ista dvorišta.</em></h2>
+        <p class="lead">Ponudu pravimo posle konsultacije, prema vašem prostoru. Evo od čega ona zavisi, da znate šta da očekujete.</p>
+      </div>
+      <div class="factors">
+        <div class="factor rv"><span class="n">01</span><h3>Veličina prostora</h3><p>Terasa, dvorište kuće ili imanje, svaki kvadrat se planira.</p></div>
+        <div class="factor rv"><span class="n">02</span><h3>Stanje terena</h3><p>Gola zemlja posle gradnje, zapušten vrt ili prostor koji se samo dopunjuje.</p></div>
+        <div class="factor rv"><span class="n">03</span><h3>Obim usluge</h3><p>Samo projekat, projekat sa realizacijom ili i održavanje posle.</p></div>
+        <div class="factor rv"><span class="n">04</span><h3>Biljke i materijali</h3><p>Vrste i veličina sadnica, posude, kamen i ostali materijali.</p></div>
+      </div>
+    </div>
+    <aside class="prep rv on-dark" aria-labelledby="prepH">
+      <span class="eyebrow">Pre prvog razgovora</span>
+      <h3 id="prepH">Šta da pripremite</h3>
+      <p>Ne morate imati ništa od ovoga, ali svaka stavka ubrzava ponudu.</p>
+      <div id="prepList">
+        <label><input type="checkbox"><span><b>Fotografije dvorišta</b><span>Sa više strana, po danu, i pogled iz kuće.</span></span></label>
+        <label><input type="checkbox"><span><b>Plan parcele ili skica</b><span>Situacija iz projekta kuće ili mere od oka.</span></span></label>
+        <label><input type="checkbox"><span><b>Kako koristite prostor</b><span>Deca, ljubimci, roštilj, bazen, parking.</span></span></label>
+        <label><input type="checkbox"><span><b>Šta vam se sviđa</b><span>Fotografije vrtova koje ste sačuvali, i sa našeg Instagrama.</span></span></label>
+        <label><input type="checkbox"><span><b>Okvirni budžet i rok</b><span>Da predlog odmah bude realan.</span></span></label>
+      </div>
+      <div class="meter" aria-hidden="true"><i id="prepMeter"></i></div>
+      <p class="ok" id="prepOk" aria-live="polite"></p>
+    </aside>
+  </div>
+</section>
+
+<!-- PLANER UPITA -->
+<section class="sec plan-sec" id="upit">
+  <div class="wrap">
+    <div class="rv" style="display:grid;gap:24px">
+      <span class="eyebrow">Upit za vaš vrt</span>
+      <h2>Opišite prostor <em>za jedan minut.</em></h2>
+      <p class="lead">Odgovorite na nekoliko pitanja i pošaljite nam gotovu poruku na WhatsApp ili SMS. Tako na prvi razgovor dolazimo spremni.</p>
+      <ul class="contact-list">
+        <li><a href="tel:+381649773544"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span><span><b>064 977 3544</b><small>Pozovite direktno</small></span></a></li>
+        <li><a href="https://wa.me/381649773544"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20Z"/></svg></span><span><b>WhatsApp</b><small>Pošaljite i fotografije dvorišta</small></span></a></li>
+        <li><a href="viber://chat?number=%2B381649773544"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c5 0 8 2 8 7s-3 7-8 7l-4 3v-3.5C5 15.5 4 13 4 10c0-5 3-7 8-7Z"/></svg></span><span><b>Viber</b><small>Na isti broj</small></span></a></li>
+        <li><a href="https://www.instagram.com/vrtni_dizajner/"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span><span><b>@vrtni_dizajner</b><small>Poruka na Instagramu</small></span></a></li>
+      </ul>
+    </div>
+
+    <form class="wiz rv" id="wiz" novalidate style="--dl:.1s">
+      <div class="wiz-top"><span id="wizStep">Korak 1 od 5</span><span>Traje manje od minuta</span></div>
+      <div class="wiz-bar" aria-hidden="true"><i id="wizBar"></i></div>
+
+      <fieldset class="cur" data-step="1">
+        <legend>Šta vam je potrebno?</legend>
+        <p class="hint">Izaberite jednu opciju.</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="usluga" value="Projekat vrta sa 3D vizualizacijom"><span><b>Projekat</b><small>Idejno rešenje i 3D prikaz</small></span></label>
+          <label class="opt"><input type="radio" name="usluga" value="Projekat i kompletno uređenje"><span><b>Projekat + uređenje</b><small>Sve do gotovog vrta</small></span></label>
+          <label class="opt"><input type="radio" name="usluga" value="Održavanje postojećeg vrta"><span><b>Održavanje</b><small>Nega postojećeg vrta</small></span></label>
+          <label class="opt"><input type="radio" name="usluga" value="Nisam siguran/na, treba mi savet"><span><b>Nisam siguran/na</b><small>Treba mi savet</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset data-step="2">
+        <legend>Kakav je prostor?</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="prostor" value="Dvorište kuće"><span><b>Kuća</b><small>Dvorište porodične kuće</small></span></label>
+          <label class="opt"><input type="radio" name="prostor" value="Vila / veće imanje"><span><b>Vila ili imanje</b><small>Veći posed</small></span></label>
+          <label class="opt"><input type="radio" name="prostor" value="Vikendica"><span><b>Vikendica</b><small>Prostor za odmor</small></span></label>
+          <label class="opt"><input type="radio" name="prostor" value="Poslovni objekat"><span><b>Poslovni objekat</b><small>Ulaz, plato, parking</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset data-step="3">
+        <legend>U kakvom je stanju danas?</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="stanje" value="Gola zemlja / novogradnja"><span><b>Gola zemlja</b><small>Novogradnja, ništa nije rađeno</small></span></label>
+          <label class="opt"><input type="radio" name="stanje" value="Delimično uređeno"><span><b>Delimično uređeno</b><small>Ima trave i po koja sadnica</small></span></label>
+          <label class="opt"><input type="radio" name="stanje" value="Star vrt za obnovu"><span><b>Star vrt</b><small>Treba mu obnova</small></span></label>
+          <label class="opt"><input type="radio" name="stanje" value="Uređen, treba održavanje"><span><b>Uređen</b><small>Treba ga održavati</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset data-step="4">
+        <legend>Veličina, mesto i rok</legend>
+        <div class="two">
+          <div class="fld"><label for="povrsina">Približna površina</label>
+            <select id="povrsina" name="povrsina"><option value="">Izaberite</option><option>do 200 m²</option><option>200–500 m²</option><option>500–1.000 m²</option><option>preko 1.000 m²</option><option>ne znam tačno</option></select></div>
+          <div class="fld"><label for="mesto">Mesto</label><input id="mesto" name="mesto" autocomplete="address-level2" placeholder="npr. Novi Sad"></div>
+        </div>
+        <div class="fld"><label for="rok">Kada biste želeli da počnemo?</label>
+          <select id="rok" name="rok"><option value="">Izaberite</option><option>što pre</option><option>ove sezone</option><option>sledećeg proleća</option><option>samo se raspitujem</option></select></div>
+      </fieldset>
+
+      <fieldset data-step="5">
+        <legend>Kome da se javimo?</legend>
+        <div class="two">
+          <div class="fld"><label for="ime">Ime</label><input id="ime" name="ime" autocomplete="name" required></div>
+          <div class="fld"><label for="tel">Telefon</label><input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required></div>
+        </div>
+        <div class="fld"><label for="napomena">Napomena (opciono)</label><textarea id="napomena" name="napomena" placeholder="Šta vam danas najviše smeta u dvorištu?"></textarea></div>
+      </fieldset>
+
+      <fieldset class="step-final" data-step="6">
+        <legend>Vaša poruka je spremna</legend>
+        <p class="hint">Pošaljite je jednim dodirom. Fotografije dvorišta možete dodati u isti razgovor.</p>
+        <div class="summary" id="summary"></div>
+        <div class="send">
+          <a id="sendWa" href="#">WhatsApp</a>
+          <a id="sendSms" href="#">SMS</a>
+          <button type="button" id="copyMsg">Kopiraj za Viber</button>
+          <a href="tel:+381649773544">Pozovi</a>
+        </div>
+        <p class="hint" id="copyOk" aria-live="polite"></p>
+      </fieldset>
+
+      <p class="err" id="wizErr" aria-live="polite"></p>
+      <div class="wiz-nav">
+        <button type="button" class="back" id="wizBack" hidden>← Nazad</button>
+        <button type="button" class="btn has-arrow" id="wizNext">Dalje <span class="ar" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec faq" id="pitanja">
+  <div class="wrap">
+    <div class="faq-head rv">
+      <span class="eyebrow">Česta pitanja</span>
+      <h2>Pre nego što <em>pozovete.</em></h2>
+      <p class="lead">Ako ovde ne nađete odgovor, pitajte nas direktno.</p>
+      <div><a class="tlink" href="tel:+381649773544">064 977 3544</a></div>
+    </div>
+    <div>
+      <details class="qa rv"><summary>Koliko košta dizajn i uređenje vrta?<i aria-hidden="true"></i></summary><div class="a"><p>Cena zavisi od veličine prostora, stanja terena, obima radova i izbora biljaka i materijala. Zato ne radimo paušalne pakete: posle konsultacije i obilaska dobijate ponudu napravljenu baš za vaš prostor.</p></div></details>
+      <details class="qa rv"><summary>Da li me prva konsultacija na nešto obavezuje?<i aria-hidden="true"></i></summary><div class="a"><p>Ne. Prva konsultacija je bez obaveze. Razgovaramo o prostoru i vašim željama, a vi posle odlučujete da li nastavljamo.</p></div></details>
+      <details class="qa rv"><summary>Mogu li da naručim samo projekat?<i aria-hidden="true"></i></summary><div class="a"><p>Projektovanje je zasebna usluga. Na konsultaciji dogovaramo da li radimo samo projekat, projekat sa realizacijom ili i održavanje posle.</p></div></details>
+      <details class="qa rv"><summary>Šta je 3D vizualizacija i zašto mi treba?<i aria-hidden="true"></i></summary><div class="a"><p>To je prikaz budućeg vrta pre nego što se išta posadi. Vidite raspored, biljke i materijale i možete da tražite izmene dok je sve još na papiru, što je mnogo jeftinije nego menjati vrt posle sadnje.</p></div></details>
+      <details class="qa rv"><summary>Kada je najbolje vreme za početak?<i aria-hidden="true"></i></summary><div class="a"><p>Projekat se može raditi u bilo koje doba godine. Za sadnju su najbolji proleće i jesen, pa je dobro da projekat bude gotov pre te sezone. Pogledajte <a href="#kalendar">vrtni kalendar</a>.</p></div></details>
+      <details class="qa rv"><summary>Radite li i poslovne objekte?<i aria-hidden="true"></i></summary><div class="a"><p>Da. Uređujemo ulazne zone, platoe i zelene površine oko poslovnih objekata, pored privatnih kuća, vila i vikendica.</p></div></details>
+      <details class="qa rv"><summary>Da li održavate vrt posle uređenja?<i aria-hidden="true"></i></summary><div class="a"><p>Da, održavanje je jedna od naših usluga: oblikovanje formi, nega travnjaka, orezivanje, prihrana i priprema za zimu. Uz svaki vrt dobijate i uputstvo za negu, ako želite da ga održavate sami.</p></div></details>
+      <details class="qa rv"><summary>Hoće li biljke preživeti prvu zimu?<i aria-hidden="true"></i></summary><div class="a"><p>Biljke biramo prema tlu, klimi i osvetljenju vašeg konkretnog prostora, upravo da bi imale realne uslove da uspevaju i posle prve sezone.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="sec ig on-dark" id="instagram">
+  <div class="wrap">
+    <div class="ig-copy rv">
+      <span class="eyebrow">Instagram</span>
+      <p class="big">48K<small>+ pratilaca</small></p>
+      <h2>Vrtovi koji <em>pričaju priče.</em></h2>
+      <p class="lead">Na profilu @vrtni_dizajner objavljujemo nove projekte, pre i posle, i savete za negu vrta.</p>
+      <div><a class="btn has-arrow" href="https://www.instagram.com/vrtni_dizajner/">Pogledajte profil <span class="ar" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a></div>
+    </div>
+    <div class="ig-grid rv" style="--dl:.1s" aria-hidden="true">
+      <a href="https://www.instagram.com/vrtni_dizajner/" tabindex="-1"><img src="assets/resenje-zasad.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/vrtni_dizajner/" tabindex="-1"><img src="assets/dokazi-terasa.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/vrtni_dizajner/" tabindex="-1"><img src="assets/kredibilitet-zasad.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/vrtni_dizajner/" tabindex="-1"><img src="assets/dokazi-poslovni.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/vrtni_dizajner/" tabindex="-1"><img src="assets/hero-vrt.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/vrtni_dizajner/" tabindex="-1"><img src="assets/dokazi-dvoriste.jpg" alt="" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ZAVRŠNI POZIV -->
+<section class="sec final on-dark">
+  <img class="bg" src="assets/hero-busen.jpg" alt="" loading="lazy">
+  <div class="wrap rv">
+    <span class="eyebrow" style="color:var(--sage)">Sledeći korak</span>
+    <h2>Svaka sezona bez plana je <em>sezona bez vrta.</em></h2>
+    <p id="finalMsg">Zakažite konsultaciju sada, pa da vaš vrt bude spreman za sledeću sezonu sadnje.</p>
+    <div class="cta-row">
+      <a class="btn has-arrow" href="#upit">Zakažite konsultaciju <span class="ar" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+      <a class="tlink" href="tel:+381649773544" style="color:var(--paper)">064 977 3544</a>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <footer>
   <div class="wrap">
-    <p class="ps-note">P.S. Cena zavisi od tvog prostora, zato je prva konsultacija početna tačka, ne obaveza. Zatraži ponudu i saznaj tačno kako bi tvoj vrt mogao da izgleda.</p>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-logo">
-          <img class="logo-mark" src="assets/logo.png" width="235" height="237" loading="lazy" alt="Znak Vrtni dizajner">
-          <span>Vrtni dizajner</span>
-        </div>
-        <p>Dizajn i uređenje vrtova i zelenih površina, od skice do zasađenog prostora.</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-links">
-          <a href="#problem">Problem</a>
-          <a href="#resenje">Rešenje</a>
-          <a href="#dokazi">Galerija</a>
-          <a href="#recenzije">Recenzije</a>
-          <a href="#ponuda">Ponuda</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <div class="footer-links">
-          <a href="#kontakt">Kontakt</a>
-          <a href="#" aria-label="Instagram profil Vrtni dizajner">Instagram</a>
-        </div>
-      </div>
+    <div>
+      <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="44" height="44">Vrtni dizajner</a>
+      <p style="max-width:360px">Projektovanje, uređenje i održavanje vrtova i zelenih površina, od skice do zasađenog prostora.</p>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 Vrtni dizajner. Sva prava zadržana.</span>
-      <span>Dizajn i uređenje vrtova i zelenih površina.</span>
+    <div>
+      <h4>Sajt</h4>
+      <ul><li><a href="#usluge">Usluge</a></li><li><a href="#radovi">Radovi</a></li><li><a href="#proces">Kako radimo</a></li><li><a href="#kalendar">Vrtni kalendar</a></li><li><a href="#pitanja">Pitanja</a></li></ul>
     </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul><li><a href="tel:+381649773544">064 977 3544</a></li><li><a href="https://wa.me/381649773544">WhatsApp</a></li><li><a href="viber://chat?number=%2B381649773544">Viber</a></li><li><a href="https://www.instagram.com/vrtni_dizajner/">Instagram</a></li></ul>
+    </div>
+    <div class="legal"><span>© 2026 Vrtni dizajner. Sva prava zadržana.</span><span>Dizajniramo vrtove koji pričaju priče.</span></div>
   </div>
 </footer>
 
+<nav class="mbar" aria-label="Brze akcije">
+  <a href="tel:+381649773544">Pozovi</a>
+  <a href="https://wa.me/381649773544">WhatsApp</a>
+  <a class="pri" href="#upit">Upit za vrt</a>
+</nav>
+
 <script>
-  const themeToggle = document.getElementById('themeToggle');
-  const rootEl = document.documentElement;
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function isDark(){
-    return rootEl.getAttribute('data-theme') === 'dark';
+  /* sezonske poruke po mesecu */
+  const mo = new Date().getMonth();
+  const season = [
+    ['Zima je vreme za projekat: sadnja kreće čim se tlo otvori', 'Uradite projekat sada, pa da sadnja krene prvih toplih dana.'],
+    ['Februar: poslednji mirni mesec za projekat pre prolećne sadnje', 'Uradite projekat sada, pa da sadnja krene u martu.'],
+    ['Počinje prolećna sezona sadnje', 'Prolećna sadnja je počela: zakažite obilazak dok su termini još otvoreni.'],
+    ['April: pravo vreme za sadnju i novi travnjak', 'Zakažite obilazak i iskoristite prolećnu sezonu sadnje.'],
+    ['Maj: sezona oblikovanja šimšira i tuja', 'Treba vam održavanje ili novi vrt za leto? Zakažite obilazak.'],
+    ['Leto je vreme za projekat jesenje sadnje', 'Uradite projekat tokom leta, pa da sadnja krene na jesen.'],
+    ['Leto je vreme za projekat jesenje sadnje', 'Uradite projekat tokom leta, pa da sadnja krene na jesen.'],
+    ['Avgust: planiramo jesenju sadnju', 'Jesen je jedna od najboljih sezona za sadnju. Zakažite obilazak na vreme.'],
+    ['Jesenja sezona sadnje je počela', 'Jesen je jedna od najboljih sezona za sadnju: zakažite obilazak dok je tlo još toplo.'],
+    ['Oktobar: jedan od najboljih meseci za sadnju drveća', 'Oktobar je idealan za sadnju drveća i žbunja. Zakažite obilazak na vreme.'],
+    ['Novembar: sadnja listopadnog drveća i priprema za zimu', 'Zakažite obilazak sada, pa da projekat bude spreman za proleće.'],
+    ['Zima je vreme za projekat: sadnja kreće u proleće', 'Uradite projekat tokom zime, pa da vrt bude spreman za proleće.']
+  ][mo];
+  $('#seasonMsg').textContent = season[0];
+  $('#finalMsg').textContent = season[1];
+  const months = $$('#months .m');
+  months[mo]?.classList.add('now');
+  months[mo]?.setAttribute('aria-current', 'date');
+  const mw = $('#months');
+  if (months[mo] && mw.scrollWidth > mw.clientWidth) mw.scrollLeft = months[mo].offsetLeft - mw.offsetLeft - parseFloat(getComputedStyle(mw).paddingLeft);
+
+  /* header */
+  const hdr = $('#hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  const burger = $('#burger');
+  burger.addEventListener('click', () => {
+    const open = document.body.classList.toggle('menu-open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  $$('#nav a').forEach(a => a.addEventListener('click', () => { document.body.classList.remove('menu-open'); burger.setAttribute('aria-expanded', false); }));
+
+  /* hero: pokreni animaciju kad se fotografija učita */
+  const art = $('#heroArt'), photo = $('#heroPhoto');
+  const play = () => requestAnimationFrame(() => art.classList.add('play'));
+  if (reduce) art.classList.add('play');
+  else if (photo.complete) play();
+  else { photo.addEventListener('load', play, { once: true }); photo.addEventListener('error', play, { once: true }); setTimeout(play, 2500); }
+  const frame = $('#frame');
+  $$('.plan-toggle button').forEach(b => b.addEventListener('click', () => {
+    const plan = b.dataset.view === 'nacrt';
+    frame.classList.toggle('show-plan', plan);
+    $$('.plan-toggle button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  }));
+
+  /* reveal */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+  $$('.rv').forEach(el => io.observe(el));
+
+  /* klizač skica -> realizacija */
+  const cmp = $('#compare'), rng = $('#compare input');
+  const setPos = v => cmp.style.setProperty('--pos', v + '%');
+  rng.addEventListener('input', () => setPos(rng.value));
+  if (!reduce) {
+    const hint = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return; hint.disconnect();
+      let t0 = null;
+      const step = t => { t0 ??= t; const k = Math.min((t - t0) / 1800, 1); const v = 50 + Math.sin(k * Math.PI * 2) * 22 * (1 - k); setPos(v); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }, { threshold: .6 });
+    hint.observe(cmp);
   }
 
-  const themeColorMeta = document.getElementById('themeColorMeta');
+  /* radovi: filter + lightbox */
+  const items = $$('#gallery .item');
+  $$('.filters button').forEach(b => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    $$('.filters button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    items.forEach(it => {
+      const show = f === 'sve' || it.dataset.c.split(' ').includes(f);
+      it.classList.toggle('hide', !show);
+      if (show) { it.classList.remove('in'); requestAnimationFrame(() => requestAnimationFrame(() => it.classList.add('in'))); }
+    });
+  }));
+  const lb = $('#lb'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
+  let cur = 0;
+  const visible = () => items.filter(i => !i.classList.contains('hide'));
+  const show = i => {
+    const v = visible(); cur = (i + v.length) % v.length;
+    const img = $('img', v[cur]);
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    lbCap.textContent = $('figcaption', v[cur]).firstChild.textContent.trim();
+  };
+  items.forEach(it => it.addEventListener('click', () => { show(visible().indexOf(it)); lb.showModal(); }));
+  $('#lbX').onclick = () => lb.close();
+  $('#lbP').onclick = () => show(cur - 1);
+  $('#lbN').onclick = () => show(cur + 1);
+  lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('lb-in')) lb.close(); });
+  lb.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });
 
-  function syncToggle(){
-    const dark = isDark();
-    themeToggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
-    themeToggle.setAttribute('aria-label', dark ? 'Uključi svetlu temu' : 'Uključi tamnu temu');
-    if(themeColorMeta){
-      themeColorMeta.setAttribute('content', dark ? '#1E2A23' : '#394b40');
+  /* proces: stabljika raste sa skrolom, listovi se otvaraju */
+  const steps = $('#steps'), stepEls = $$('.step', steps);
+  const grow = () => {
+    const r = steps.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.min(Math.max((vh * .6 - r.top) / r.height, 0), 1);
+    steps.style.setProperty('--p', p.toFixed(3));
+    stepEls.forEach(s => { const sr = s.getBoundingClientRect(); s.classList.toggle('on', sr.top < vh * .6); });
+  };
+  addEventListener('scroll', grow, { passive: true }); addEventListener('resize', grow); grow();
+
+  /* čeklista pre razgovora */
+  const boxes = $$('#prepList input'), meter = $('#prepMeter'), ok = $('#prepOk');
+  const upd = () => {
+    const n = boxes.filter(b => b.checked).length;
+    meter.style.width = (n / boxes.length * 100) + '%';
+    ok.textContent = n === boxes.length ? 'Spremni ste. Pošaljite nam upit ispod.' : n ? `${n} od ${boxes.length} spremno` : '';
+  };
+  boxes.forEach(b => b.addEventListener('change', upd));
+
+  /* planer upita */
+  const wiz = $('#wiz'), sets = $$('fieldset', wiz), back = $('#wizBack'), next = $('#wizNext'), err = $('#wizErr');
+  const total = 5; let s = 0;
+  const val = n => { const el = wiz.elements[n]; return (el && (el.value ?? '')).toString().trim(); };
+  const radio = n => { const c = wiz.querySelector(`input[name="${n}"]:checked`); return c ? c.value : ''; };
+  /* svaka provera vraća tekst greške ili prazan string */
+  const need = [() => radio('usluga') ? '' : 'Izaberite šta vam je potrebno.', () => radio('prostor') ? '' : 'Izaberite tip prostora.', () => radio('stanje') ? '' : 'Izaberite stanje prostora.', () => '',
+    () => (val('ime') && val('tel').replace(/\D/g, '').length >= 6) ? '' : 'Upišite ime i broj telefona.'];
+  const message = () => [
+    'Zdravo, zanima me uređenje vrta.',
+    `Usluga: ${radio('usluga')}`,
+    `Prostor: ${radio('prostor')}`,
+    `Stanje: ${radio('stanje')}`,
+    val('povrsina') && `Površina: ${val('povrsina')}`,
+    val('mesto') && `Mesto: ${val('mesto')}`,
+    val('rok') && `Početak: ${val('rok')}`,
+    val('napomena') && `Napomena: ${val('napomena')}`,
+    `Ime: ${val('ime')}, tel: ${val('tel')}`
+  ].filter(Boolean).join('\n');
+  const go = i => {
+    s = i;
+    sets.forEach((f, k) => f.classList.toggle('cur', k === s));
+    const done = s >= total;
+    $('#wizStep').textContent = done ? 'Gotovo' : `Korak ${s + 1} od ${total}`;
+    $('#wizBar').style.width = ((Math.min(s + 1, total)) / total * 100) + '%';
+    back.hidden = s === 0;
+    next.hidden = done;
+    next.firstChild.textContent = s === total - 1 ? 'Pripremi poruku ' : 'Dalje ';
+    err.textContent = '';
+    if (done) {
+      const m = message();
+      $('#summary').textContent = m;
+      $('#sendWa').href = 'https://wa.me/381649773544?text=' + encodeURIComponent(m);
+      $('#sendSms').href = 'sms:+381649773544?&body=' + encodeURIComponent(m);
     }
-  }
-
-  syncToggle();
-
-  themeToggle.addEventListener('click', function(){
-    const dark = isDark();
-    if(dark){
-      rootEl.removeAttribute('data-theme');
-    }else{
-      rootEl.setAttribute('data-theme','dark');
-    }
-    try{
-      localStorage.setItem('vd-theme', dark ? 'light' : 'dark');
-    }catch(e){}
-    syncToggle();
+  };
+  next.addEventListener('click', () => {
+    const r = need[s]();
+    if (r) { err.textContent = r; return; }
+    go(s + 1);
+    wiz.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
   });
-
-  /* GALERIJA - vrteska sa isturenom slikom u sredini */
-  (function(){
-    const gal = document.querySelector('[data-gal]');
-    const stage = gal && gal.querySelector('[data-gal-stage]');
-    if(!gal || !stage){ return; }
-
-    const items = Array.from(stage.querySelectorAll('[data-gal-item]'));
-    const N = items.length;
-    if(!N){ return; }
-
-    let active = 0;
-
-    function layout(){
-      const compact = window.matchMedia('(max-width:768px)').matches;
-      const step = compact ? 62 : 54;          /* pomak susedne slike, u % širine */
-      const shrink = compact ? 0.16 : 0.13;    /* koliko se sused umanji */
-
-      items.forEach(function(el, i){
-        let off = i - active;
-        if(off > N / 2){ off -= N; }
-        if(off < -N / 2){ off += N; }
-        const abs = Math.abs(off);
-        const near = abs <= 2;
-
-        el.style.transform = 'translateX(calc(-50% + ' + (off * step) + '%)) scale(' + (1 - abs * shrink) + ')';
-        el.style.opacity = near ? (abs === 0 ? 1 : (abs === 1 ? 0.45 : 0.14)) : 0;
-        el.style.filter = abs === 0 ? 'none' : 'brightness(0.45)';
-        el.style.zIndex = String(10 - abs);
-        el.style.pointerEvents = near ? 'auto' : 'none';
-        el.classList.toggle('is-active', abs === 0);
-        el.setAttribute('aria-hidden', abs === 0 ? 'false' : 'true');
-      });
-    }
-
-    function go(dir){
-      active = (active + dir + N) % N;
-      layout();
-    }
-
-    gal.querySelector('[data-gal-prev]').addEventListener('click', function(){ go(-1); });
-    gal.querySelector('[data-gal-next]').addEventListener('click', function(){ go(1); });
-
-    /* Klik na bocnu sliku je dovodi u sredinu. */
-    items.forEach(function(el, i){
-      el.addEventListener('click', function(){
-        if(i === active){ return; }
-        active = i;
-        layout();
-      });
-    });
-
-    stage.addEventListener('keydown', function(e){
-      if(e.key === 'ArrowLeft'){ go(-1); }
-      else if(e.key === 'ArrowRight'){ go(1); }
-      else { return; }
-      e.preventDefault();
-    });
-
-    /* Prevlacenje prstom, uz uslov da je pokret vodoravan. */
-    let startX = 0, startY = 0, tracking = false;
-
-    stage.addEventListener('pointerdown', function(e){
-      tracking = true;
-      startX = e.clientX;
-      startY = e.clientY;
-    });
-
-    stage.addEventListener('pointerup', function(e){
-      if(!tracking){ return; }
-      tracking = false;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
-        go(dx < 0 ? 1 : -1);
-      }
-    });
-
-    stage.addEventListener('pointercancel', function(){ tracking = false; });
-
-    window.addEventListener('resize', layout);
-    layout();
-  })();
-
-  /* RECENZIJE - traka koja polako klizi, sa fokusom na pojedinačnu karticu */
-  (function(){
-    const mask = document.querySelector('.rev-mask');
-    const track = mask && mask.querySelector('.rev-track');
-    if(!mask || !track){ return; }
-
-    const uniques = Array.from(track.querySelectorAll('.rev-card'));
-    const N = uniques.length;
-    if(!N){ return; }
-
-    /* Umnoži set kartica, da spoj trake nikad ne ostavi prazninu u vidnom polju. */
-    const SETS = 4;
-    for(let s = 1; s < SETS; s++){
-      uniques.forEach(function(card){
-        const clone = card.cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        track.appendChild(clone);
-      });
-    }
-
-    const cards = Array.from(track.querySelectorAll('.rev-card'));
-    const prevBtn = mask.querySelector('.rev-prev');
-    const nextBtn = mask.querySelector('.rev-next');
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    /* Jedan "korak" je širina kartice sa razmakom, jedan "krug" je pun set recenzija. */
-    function step(){
-      return (cards[1].offsetLeft - cards[0].offsetLeft) || (cards[0].offsetWidth + 20);
-    }
-
-    function period(){
-      return step() * N;
-    }
-
-    function base(){
-      return mask.clientWidth / 2 - (cards[0].offsetLeft + cards[0].offsetWidth / 2);
-    }
-
-    function centerFor(i){
-      return base() - i * step();
-    }
-
-    function readPos(){
-      const t = getComputedStyle(track).transform;
-      return (!t || t === 'none') ? pos : new DOMMatrixReadOnly(t).m41;
-    }
-
-    let focused = false, index = 1, last = 0, idleTimer = null, raf = null;
-    let pos = centerFor(index);
-
-    function setTransform(x, animate){
-      track.style.transition = animate ? 'transform 0.55s cubic-bezier(.2,.7,.2,1)' : 'none';
-      track.style.transform = 'translateX(' + x + 'px)';
-    }
-
-    function paint(on){
-      [prevBtn, nextBtn].forEach(function(arrow){
-        arrow.style.opacity = on ? '1' : '0';
-        arrow.style.pointerEvents = on ? 'auto' : 'none';
-        arrow.style.transform = 'translateY(-50%) scale(' + (on ? 1 : 0.85) + ')';
-      });
-      cards.forEach(function(card, k){
-        const active = on && k === index;
-        card.style.transform = active ? 'scale(1.06)' : '';
-        card.style.opacity = on ? (active ? '1' : '0.45') : '';
-        card.style.zIndex = active ? '3' : '';
-        card.style.borderColor = active ? 'var(--tertiary)' : '';
-        card.style.boxShadow = active ? '0 24px 48px rgba(0,0,0,0.32)' : '';
-      });
-    }
-
-    /* Vrati indeks u srednji set, bez vidljivog skoka. */
-    function normalize(){
-      const per = period();
-      while(index > N){ index -= N; pos += per; }
-      while(index < 1){ index += N; pos -= per; }
-    }
-
-    function resetIdle(){
-      if(reduced){ return; }
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(exitFocus, 5000);
-    }
-
-    function enterFocus(target){
-      if(!focused){
-        pos = readPos();
-        index = Math.round((base() - pos) / step());
-      }
-      if(target && target.closest){
-        const card = target.closest('.rev-card');
-        if(card){ index = cards.indexOf(card); }
-      }
-      normalize();
-      focused = true;
-      setTransform(pos, false);
-      void track.offsetWidth;
-      pos = centerFor(index);
-      setTransform(pos, true);
-      paint(true);
-      resetIdle();
-    }
-
-    function exitFocus(){
-      if(!focused || reduced){ return; }
-      focused = false;
-      pos = readPos();
-      paint(false);
-    }
-
-    function go(dir){
-      if(!focused){ enterFocus(); return; }
-      const per = period();
-      if(dir > 0 && index >= N){
-        index -= N; pos += per; setTransform(pos, false); void track.offsetWidth;
-      }else if(dir < 0 && index <= 1){
-        index += N; pos -= per; setTransform(pos, false); void track.offsetWidth;
-      }
-      index += dir;
-      pos = centerFor(index);
-      setTransform(pos, true);
-      paint(true);
-      resetIdle();
-    }
-
-    /* Klizanje radi samo dok posetilac nije ušao mišem ili dodirom. */
-    function tick(ts){
-      const dt = last ? Math.min((ts - last) / 1000, 0.05) : 0;
-      last = ts;
-      if(!focused){
-        const per = period();
-        pos -= (per / 40) * dt;
-        if(per > 0){
-          while(pos <= base() - per){ pos += per; }
-          while(pos > base()){ pos -= per; }
-        }
-        setTransform(pos, false);
-      }
-      raf = requestAnimationFrame(tick);
-    }
-
-    if(reduced){
-      /* Bez animacije: kartica stoji u sredini, strelice su stalno vidljive. */
-      focused = true;
-      setTransform(pos, false);
-      paint(true);
-    }else{
-      setTransform(pos, false);
-      raf = requestAnimationFrame(tick);
-    }
-
-    mask.addEventListener('mouseenter', function(){ enterFocus(); });
-    mask.addEventListener('mousemove', function(){ if(focused){ resetIdle(); } });
-    mask.addEventListener('mouseleave', function(){ exitFocus(); });
-    mask.addEventListener('touchstart', function(e){ enterFocus(e.target); }, {passive:true});
-    mask.addEventListener('touchmove', function(){ if(focused){ resetIdle(); } }, {passive:true});
-    document.addEventListener('touchstart', function(e){
-      if(focused && !mask.contains(e.target)){ exitFocus(); }
-    }, {passive:true});
-
-    prevBtn.addEventListener('click', function(e){ e.stopPropagation(); go(-1); });
-    nextBtn.addEventListener('click', function(e){ e.stopPropagation(); go(1); });
-
-    window.addEventListener('resize', function(){
-      if(focused){
-        pos = centerFor(index);
-        setTransform(pos, false);
-      }
-    });
-  })();
-
-  /* ZAGLAVLJE - providno preko heroja, matirano staklo čim se krene sa vrha */
-  const navbar = document.querySelector('.navbar');
-
-  function syncNavbar(){
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  }
-
-  syncNavbar();
-  window.addEventListener('scroll', syncNavbar, {passive:true});
-
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  hamburgerBtn.addEventListener('click', function(){
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburgerBtn.classList.toggle('active');
-    hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    /* Otvoren meni traži podlogu i kad je zaglavlje još providno. */
-    navbar.classList.toggle('menu-open', isOpen);
+  back.addEventListener('click', () => go(Math.max(s - 1, 0)));
+  $$('input[type=radio]', wiz).forEach(r => r.addEventListener('change', () => {
+    err.textContent = '';
+    setTimeout(() => { if (s < 3 && !need[s]()) go(s + 1); }, 280);
+  }));
+  $('#copyMsg').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(message()); $('#copyOk').textContent = 'Poruka je kopirana. Otvaramo Viber, samo je nalepite.'; }
+    catch { $('#copyOk').textContent = 'Označite tekst iznad i kopirajte ga ručno.'; }
+    setTimeout(() => { location.href = 'viber://chat?number=%2B381649773544'; }, 600);
   });
-
-  document.querySelectorAll('.mobile-menu a').forEach(function(link){
-    link.addEventListener('click', function(){
-      mobileMenu.classList.remove('open');
-      hamburgerBtn.classList.remove('active');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
-      navbar.classList.remove('menu-open');
-    });
-  });
-
-  /* KVIZ - procena za minut */
-  (function(){
-    const card = document.getElementById('quizCard');
-    if(!card){ return; }
-
-    const steps = [null, document.getElementById('quizStep1'), document.getElementById('quizStep2'), document.getElementById('quizStep3')];
-    const bar = document.getElementById('quizBar');
-    const stepLabel = document.getElementById('quizStepLabel');
-    const backBtn = document.getElementById('quizBack');
-    const nextBtn = document.getElementById('quizNext');
-    const err = document.getElementById('quizErr');
-    const nav = document.getElementById('quizNav');
-    const progress = document.getElementById('quizProgress');
-    const result = document.getElementById('quizResult');
-
-    const fieldIds = ['qPovrsina', 'qMesto', 'qIme', 'qTelefon', 'qNapomena'];
-
-    let state = {zelje: [], stanje: null};
-    let step = 1;
-
-    function val(id){
-      return document.getElementById(id).value.trim();
-    }
-
-    /* Prvi korak je višestruki izbor, drugi je jedan od tri stanja. */
-    document.querySelectorAll('[data-zelja]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        const key = btn.getAttribute('data-zelja');
-        const i = state.zelje.indexOf(key);
-        if(i > -1){
-          state.zelje.splice(i, 1);
-          btn.classList.remove('is-on');
-        }else{
-          state.zelje.push(key);
-          btn.classList.add('is-on');
-        }
-        err.classList.remove('is-on');
-      });
-    });
-
-    document.querySelectorAll('[data-stanje]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('[data-stanje]').forEach(function(b){ b.classList.remove('is-on'); });
-        btn.classList.add('is-on');
-        state.stanje = btn.getAttribute('data-stanje');
-        err.classList.remove('is-on');
-      });
-    });
-
-    function show(n){
-      step = n;
-      for(let i = 1; i <= 3; i++){ steps[i].hidden = (i !== n); }
-      stepLabel.textContent = 'Korak ' + n + ' od 3';
-      bar.style.width = Math.round(n / 3 * 100) + '%';
-      backBtn.hidden = (n === 1);
-      nextBtn.textContent = (n === 3) ? 'Pošalji zahtev' : 'Dalje';
-      err.classList.remove('is-on');
-    }
-
-    function fail(msg){
-      err.textContent = msg;
-      err.classList.add('is-on');
-    }
-
-    function predlog(){
-      const has = function(k){ return state.zelje.indexOf(k) > -1; };
-      if(has('zapusteno') || state.stanje === 'star'){
-        return {
-          naziv: 'Obnova postojećeg vrta',
-          stavke: [
-            'Procena šta ostaje, a šta ide napolje',
-            'Prekrajanje i orezivanje zatečenog rastinja',
-            'Nova sadnja na mestima koja ostanu prazna',
-            'Plan održavanja da prostor ponovo ne zaraste'
-          ]
-        };
-      }
-      if(has('prazno') || has('privatnost') || state.stanje === 'golo'){
-        return {
-          naziv: 'Kompletan projekat vrta',
-          stavke: [
-            'Idejno rešenje i 3D vizualizacija prostora',
-            'Raspored po zonama, od zaklona do travnjaka',
-            'Izbor biljaka prema osunčanosti i zemljištu',
-            'Realizacija sa ekipom, od pripreme zemlje do sadnje'
-          ]
-        };
-      }
-      if(has('sedenje') || has('staze')){
-        return {
-          naziv: 'Uređenje prostora za boravak',
-          stavke: [
-            'Raspored terase, staza i mesta za sedenje',
-            'Materijali koji se ne kližu i ne blate posle kiše',
-            'Osvetljenje staza i krošnji za veče',
-            'Sadnja koja pravi senku i zaklon oko sedenja'
-          ]
-        };
-      }
-      return {
-        naziv: 'Vrt koji traži malo održavanja',
-        stavke: [
-          'Biljke koje podnose tvoju zemlju i osunčanost',
-          'Malčiranje i podloge koje drže korov',
-          'Sistem za zalivanje sa tajmerom',
-          'Raspored koji smanjuje košenje i orezivanje'
-        ]
-      };
-    }
-
-    nextBtn.addEventListener('click', function(){
-      if(step === 1){
-        if(state.zelje.length === 0){ fail('Izaberi bar jednu stavku da bismo nastavili.'); return; }
-        show(2);
-        return;
-      }
-
-      if(step === 2){
-        if(!val('qPovrsina')){ fail('Upiši približnu površinu prostora.'); return; }
-        if(!state.stanje){ fail('Izaberi u kakvom je stanju prostor danas.'); return; }
-        show(3);
-        return;
-      }
-
-      const ime = val('qIme');
-      const telefon = val('qTelefon');
-      if(!ime){ fail('Upiši ime da znam kako da ti se obratim.'); return; }
-      if(telefon.replace(/\D/g, '').length < 8){ fail('Upiši telefon na koji mogu da te dobijem.'); return; }
-
-      const rec = predlog();
-      const mesto = val('qMesto');
-      document.getElementById('quizResultTitle').textContent = 'Hvala, ' + ime + '.';
-      document.getElementById('quizResultText').textContent = 'Javljam se na ' + telefon + ' u toku dana, da se dogovorimo za obilazak.';
-      document.getElementById('quizResultPkg').textContent = rec.naziv;
-      document.getElementById('quizResultSpace').textContent = val('qPovrsina') + (mesto ? ', ' + mesto : '');
-
-      const list = document.getElementById('quizResultList');
-      list.innerHTML = '';
-      rec.stavke.forEach(function(t){
-        const li = document.createElement('li');
-        li.textContent = t;
-        list.appendChild(li);
-      });
-
-      steps[1].hidden = true;
-      steps[2].hidden = true;
-      steps[3].hidden = true;
-      nav.hidden = true;
-      progress.hidden = true;
-      err.classList.remove('is-on');
-      result.hidden = false;
-      card.scrollIntoView({behavior:'smooth', block:'center'});
-    });
-
-    backBtn.addEventListener('click', function(){
-      if(step > 1){ show(step - 1); }
-    });
-
-    document.getElementById('quizReset').addEventListener('click', function(){
-      state = {zelje: [], stanje: null};
-      document.querySelectorAll('.quiz-opt').forEach(function(b){ b.classList.remove('is-on'); });
-      fieldIds.forEach(function(id){ document.getElementById(id).value = ''; });
-      result.hidden = true;
-      nav.hidden = false;
-      progress.hidden = false;
-      show(1);
-    });
-
-    show(1);
-  })();
-
+  wiz.addEventListener('submit', e => e.preventDefault());
+  go(0);
+})();
 </script>
-
 </body>
 </html>
