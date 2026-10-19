@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vrtni dizajner — projektovanje, uređenje i održavanje vrtova</title>
+<title>Vrtni dizajner · projektovanje, uređenje i održavanje vrtova</title>
 <meta name="description" content="Dizajniramo vrtove koji pričaju priče. Projekat i 3D vizualizacija, sadnja i busen, sezonsko održavanje. Pozovite 064 977 3544.">
-<meta property="og:title" content="Vrtni dizajner — vrtovi koji pričaju priče">
+<meta property="og:title" content="Vrtni dizajner · vrtovi koji pričaju priče">
 <meta property="og:description" content="Projektovanje, uređenje i održavanje privatnih i poslovnih vrtova.">
 <meta property="og:image" content="assets/hero-vrt.jpg">
 <link rel="icon" href="assets/logo.png">
@@ -58,8 +58,8 @@ li,figcaption,.ans{text-wrap:pretty}
 .on-dark .eyebrow{color:var(--leaf)}
 .lead{font-size:20px;line-height:1.55;color:var(--muted);max-width:40ch}
 .on-dark .lead{color:var(--cream-muted)}
-.sec-head{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;margin-bottom:64px}
-.sec-head .lead{justify-self:end}
+.sec-head{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:64px}
+.sec-head .lead{margin-top:24px;margin-left:auto;margin-right:auto}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 
 /* Dugmad: primary / secondary / tertiary */
@@ -114,36 +114,14 @@ header.nav .wrap{display:flex;align-items:center;justify-content:space-between;h
 
 .stage{position:relative;padding-bottom:40px}
 .frame{position:relative;aspect-ratio:4/5;border-radius:999px 999px 24px 24px;overflow:hidden;background:#3a2b1f;box-shadow:0 40px 80px rgba(0,0,0,.35);isolation:isolate}
-.frame>img{width:100%;height:100%;object-fit:cover;animation:settle 5s cubic-bezier(.2,.7,.2,1) both}
-@keyframes settle{from{transform:scale(1.08)}to{transform:scale(1)}}
-.turf{position:absolute;inset:0;display:grid;grid-template-rows:repeat(3,1fr);animation:turfoff .01s linear 3.8s forwards;z-index:2}
-@keyframes turfoff{to{visibility:hidden}}
-.strip{position:relative;--p:0;animation:unroll 1.5s cubic-bezier(.6,.05,.3,1) calc(.5s + var(--i)*.42s) forwards}
-.strip.rev{transform:scaleX(-1)}
-@keyframes unroll{to{--p:1}}
-.soil{position:absolute;top:0;bottom:0;right:0;left:calc(var(--p)*100%);
-  background:
-    repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 9px,rgba(255,230,200,.04) 9px 11px,transparent 11px 20px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .42 0 0 0 0 .3 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.6 -.5'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23m)'/%3E%3C/svg%3E"),
-    linear-gradient(#3e2c1e,#33241a)}
-.strip+.strip .soil{box-shadow:inset 0 1px 0 rgba(0,0,0,.35)}
-.roll{position:absolute;top:-1px;bottom:-1px;left:calc(var(--p)*100%);width:calc(60px - 40px*var(--p));transform:translateX(-50%);
-  opacity:calc(1 - max(0,(var(--p) - .9)*10));
-  background:
-    linear-gradient(90deg,rgba(0,0,0,.5),rgba(255,255,230,.22) 36%,rgba(0,0,0,.04) 54%,rgba(0,0,0,.55)),
-    repeating-linear-gradient(0deg,#3c6a2e 0 3px,#5a9442 3px 5px,#2f5826 5px 8px,#4b8238 8px 10px);
-  border-right:3px solid #4a3524;border-radius:4px;box-shadow:16px 0 24px rgba(0,0,0,.4)}
-.seams{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(transparent calc(33.33% - 1px),rgba(0,0,0,.18) 0 calc(33.33% + 1px),transparent 0 calc(66.66% - 1px),rgba(0,0,0,.18) 0 calc(66.66% + 1px),transparent 0);animation:fadeout 1.6s ease 3.6s forwards}
-@keyframes fadeout{to{opacity:0}}
+.frame>img{width:100%;height:100%;object-fit:cover}
 .frame::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(105deg,transparent 38%,rgba(255,246,214,.38) 50%,transparent 62%);transform:translateX(-120%);animation:sheen 10s ease-in-out 4.4s infinite}
 @keyframes sheen{0%{transform:translateX(-120%)}14%,100%{transform:translateX(120%)}}
-.tag{position:absolute;z-index:4;display:flex;align-items:center;gap:8px;padding-top:8px;padding-bottom:8px;padding-left:12px;padding-right:16px;border-radius:999px;background:rgba(248,245,238,.94);color:var(--ink);font-size:12px;line-height:1.2;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translateY(8px) scale(.96);animation:tagin .6s cubic-bezier(.2,.8,.2,1) forwards}
+.tag{position:absolute;z-index:4;display:flex;align-items:center;gap:8px;padding-top:8px;padding-bottom:8px;padding-left:12px;padding-right:16px;border-radius:999px;background:rgba(248,245,238,.94);color:var(--ink);font-size:12px;line-height:1.2;box-shadow:0 8px 24px rgba(0,0,0,.2);}
 .tag i{font-family:var(--serif);font-size:16px}
 .tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--moss);box-shadow:0 0 0 4px rgba(71,102,63,.25)}
-.tag.t1{top:20%;right:8%;animation-delay:3.7s}
-.tag.t2{bottom:16%;left:8%;animation-delay:4s}
-@keyframes tagin{to{opacity:1;transform:none}}
+.tag.t1{top:20%;right:8%}
+.tag.t2{bottom:16%;left:8%}
 .badge{position:absolute;z-index:5;left:-32px;bottom:0;width:136px;height:136px;border-radius:50%;background:var(--forest);display:grid;place-items:center;box-shadow:0 16px 40px rgba(0,0,0,.35)}
 .badge svg{position:absolute;inset:0;animation:spin 28s linear infinite}
 .badge img{width:64px;height:64px}
@@ -336,7 +314,7 @@ details .ans{padding-bottom:28px;color:var(--muted);max-width:60ch}
 .ig-grid figure{margin:0;aspect-ratio:1;border-radius:16px;overflow:hidden;position:relative}
 .ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
 .ig-grid figure:hover img{transform:scale(1.08)}
-.ig-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:48px}
+.ig-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:32px;margin-bottom:48px}
 .handle{display:flex;align-items:center;gap:16px}
 .handle .av{width:64px;height:64px;border-radius:50%;background:var(--forest);display:grid;place-items:center;box-shadow:0 0 0 3px var(--travertine),0 0 0 5px var(--moss)}
 .handle .av img{width:48px;height:48px}
@@ -352,6 +330,7 @@ details .ans{padding-bottom:28px;color:var(--muted);max-width:60ch}
 .final h2{font-size:clamp(32px,7.2vw,112px);font-size:clamp(32px,11.6cqi,112px);margin-bottom:32px}
 .final .lead{margin-left:auto;margin-right:auto;margin-bottom:48px;max-width:48ch}
 .final .cta-row{justify-content:center}
+.final .btn.ghost{border-color:rgba(248,245,238,.64)}
 
 footer{background:var(--forest-deep);color:var(--cream-muted);padding-top:80px;padding-bottom:40px;border-top:1px solid var(--line-dark)}
 .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;padding-bottom:64px}
@@ -382,8 +361,6 @@ footer{background:var(--forest-deep);color:var(--cream-muted);padding-top:80px;p
   .burger{display:grid}
   .hero .wrap{grid-template-columns:1fr;gap:64px}
   .stage{max-width:520px;margin-left:auto;margin-right:auto;width:100%}
-  .sec-head{grid-template-columns:1fr;gap:24px}
-  .sec-head .lead{justify-self:start}
   .studio .wrap,.sketch .wrap,.process .wrap,.faq .wrap,.planner .wrap{grid-template-columns:1fr}
   .process .side,.faq .side{position:static}
   .svc-grid{grid-template-columns:1fr 1fr}
@@ -428,7 +405,7 @@ footer{background:var(--forest-deep);color:var(--cream-muted);padding-top:80px;p
   .spaces{grid-template-columns:1fr}
   .form{padding-left:20px;padding-right:20px;padding-top:28px;padding-bottom:28px}
   summary{font-size:24px}
-  .ig-head{flex-direction:column;align-items:flex-start}
+  .ig-head{gap:24px}
   .ig-grid{grid-template-columns:repeat(2,1fr)}
   .ig-grid figure:nth-child(n+5){display:none}
   .foot{grid-template-columns:1fr}
@@ -438,9 +415,7 @@ footer{background:var(--forest-deep);color:var(--cream-muted);padding-top:80px;p
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  .turf,.seams{display:none}
   .frame::after{display:none}
-  .tag{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
 </style>
@@ -499,12 +474,6 @@ footer{background:var(--forest-deep);color:var(--cream-muted);padding-top:80px;p
     <div class="stage">
       <div class="frame">
         <img src="assets/hero-vrt.jpg" alt="Uređeno dvorište: staza od ploča kroz travnjak, mlada stabla i crveni japanski javor" width="942" height="1142" fetchpriority="high">
-        <div class="turf" aria-hidden="true">
-          <div class="strip" style="--i:0"><div class="soil"></div><div class="roll"></div></div>
-          <div class="strip rev" style="--i:1"><div class="soil"></div><div class="roll"></div></div>
-          <div class="strip" style="--i:2"><div class="soil"></div><div class="roll"></div></div>
-        </div>
-        <div class="seams" aria-hidden="true"></div>
         <div class="tag t1" aria-hidden="true"><i>Acer palmatum</i> japanski javor</div>
         <div class="tag t2" aria-hidden="true"><i>Travnjak</i> busen</div>
       </div>
@@ -518,8 +487,8 @@ footer{background:var(--forest-deep);color:var(--cream-muted);padding-top:80px;p
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>Buxus sempervirens</span><span>Acer palmatum</span><span>Lavandula angustifolia</span><span>Thuja occidentalis</span><span>Photinia × fraseri</span><span>Magnolia grandiflora</span><span>Niwaki</span><span>Festuca arundinacea</span>
-    <span>Buxus sempervirens</span><span>Acer palmatum</span><span>Lavandula angustifolia</span><span>Thuja occidentalis</span><span>Photinia × fraseri</span><span>Magnolia grandiflora</span><span>Niwaki</span><span>Festuca arundinacea</span>
+    <span>Projektovanje vrtova</span><span>3D vizualizacija</span><span>Sadnja drveća i žbunja</span><span>Postavljanje busena</span><span>Staze i žardinjere</span><span>Oblikovanje formi</span><span>Košenje i nega travnjaka</span><span>Priprema vrta za zimu</span>
+    <span>Projektovanje vrtova</span><span>3D vizualizacija</span><span>Sadnja drveća i žbunja</span><span>Postavljanje busena</span><span>Staze i žardinjere</span><span>Oblikovanje formi</span><span>Košenje i nega travnjaka</span><span>Priprema vrta za zimu</span>
   </div>
 </div>
 
@@ -793,7 +762,7 @@ footer{background:var(--forest-deep);color:var(--cream-muted);padding-top:80px;p
   </div>
 </section>
 
-<section class="sec final">
+<section class="sec final on-dark">
   <img src="assets/hero-imanje.jpg" alt="" loading="lazy">
   <div class="wrap rv">
     <div class="eyebrow">Sledeći korak</div>
